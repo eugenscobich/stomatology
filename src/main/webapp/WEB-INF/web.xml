@@ -10,7 +10,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-<!-- 
+
 	<listener>
 		<listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletRequestListener</listener-class>
 	</listener>
@@ -18,7 +18,7 @@
 	<listener>
 		<listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletContextListener</listener-class>
 	</listener>
- -->
+
 	<!-- Configure ContextLoaderListener to use JavaConfigWebApplicationContext 
 		instead of the default XmlWebApplicationContext -->
 	<context-param>
@@ -46,12 +46,12 @@
 
 
 	<filter>
-		<filter-name>OCPsoft Rewrite Filter 1</filter-name>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
 		<filter-class>org.ocpsoft.rewrite.servlet.RewriteFilter</filter-class>
 		<async-supported>true</async-supported>
 	</filter>
 	<filter-mapping>
-		<filter-name>OCPsoft Rewrite Filter 1</filter-name>
+		<filter-name>OCPsoft Rewrite Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
@@ -74,7 +74,7 @@
 	</context-param>
 
 	<welcome-file-list>
-		<welcome-file>views/secure/list.xhtml</welcome-file>
+		<welcome-file>pages/unsecure/index.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/resources/views/main-template.xhtml">
+
+        <ui:define name="content">
+        	<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+	        	<p:outputLabel for="userName" value="#{msg['username']}"/>
+	        	<p:inputText id="userName" required="true" value="#{loginBean.userName}" requiredMessage="#{msg['please-enter-username']}"/>
+	        	
+	        	<p:outputLabel for="password" value="#{msg['password']}"/>
+	        	<p:inputText id="password" required="true" value="#{loginBean.password}" requiredMessage="#{msg['please-enter-password']}"/>
+	        	
+	        	<p:commandButton id="dialog" value="#{msg['login']}" action="#{loginBean.login}" />
+	        </p:panelGrid>
+        </ui:define>
+    </ui:composition>
+</html>

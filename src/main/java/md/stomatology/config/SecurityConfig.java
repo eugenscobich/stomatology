@@ -59,12 +59,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/views/unsecure/**", "/javax.faces.resource/**").permitAll()
+				.antMatchers("", "/logout", "/pages/unsecure/**", "/javax.faces.resource/**").permitAll()
 				//.antMatchers("/views/secure/admin/**").hasRole("ADMIN")
-				.antMatchers("/views/secure/**").hasRole("USER").anyRequest().authenticated()
+				.antMatchers("/pages/secure/**").hasRole("USER").anyRequest().authenticated()
 				.and().formLogin()
-				.loginPage("/views/unsecure/login.xhtml")
-				.loginProcessingUrl("/login")
-				.failureUrl("/views/unsecure/login.xhtml?error").permitAll();
+				.loginPage("/login")
+				.loginProcessingUrl("/login-page-which-does-not-exist")
+				.failureUrl("/login?error").permitAll()
+				.and()
+				.logout().disable();
 	}
 }

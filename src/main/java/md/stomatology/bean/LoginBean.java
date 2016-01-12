@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@ManagedBean(name="loginMgmtBean")
+@ManagedBean(name="loginBean")
 @RequestScoped
 public class LoginBean {
   
@@ -27,9 +27,9 @@ public class LoginBean {
             SecurityContextHolder.getContext().setAuthentication(result);
         } catch (AuthenticationException e) {
             e.printStackTrace();
-            return "/views/unsecure/login.xhtml?faces-redirect=true";
+            return "/pages/unsecure/login.xhtml?faces-redirect=true";
         }
-        return "/views/secure/list2.xhtml?faces-redirect=true";
+        return "pretty:index";
     }
 
     public String cancel() {
@@ -38,7 +38,7 @@ public class LoginBean {
 
     public String logout(){
         SecurityContextHolder.clearContext();
-        return "/views/unsecure/login.xhtml?faces-redirect=true";
+        return "pretty:index";
     }
  
     public AuthenticationManager getAuthenticationManager() {
