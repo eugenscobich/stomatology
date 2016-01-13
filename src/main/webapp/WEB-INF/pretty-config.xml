@@ -7,11 +7,6 @@
 		<pattern value="/" />
 		<view-id value="/pages/unsecure/index.xhtml" />
 	</url-mapping>
-	
-	<url-mapping id="index2">
-		<pattern value="" />
-		<view-id value="/pages/unsecure/index.xhtml" />
-	</url-mapping>
 
 	<url-mapping id="login">
 		<pattern value="/login" />

@@ -24,7 +24,7 @@
 					<p:menuitem value="#{msg['list-of-customers']}" action="pretty:list" icon="ui-icon-close" />
 
 					<f:facet name="options">
-						<p:inputText style="margin-right:10px" placeholder="Search" />
+						<p:outputLabel value="#{loginBean.user.username}" rendered="#{not empty loginBean.user}"/>
 
 						<p:selectOneMenu value="#{language.localeCode}"  valueChangeListener="#{language.countryLocaleCodeChanged}" onchange="submit()" immediate="true">
 							<f:selectItems value="#{language.countriesInMap.entrySet()}" var="item" itemLabel="#{msg[item.key]}" itemValue="#{item.value}" />
@@ -40,6 +40,10 @@
 				</p:menubar>
 
 			</nav>
+			<div>
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			</div>
+			
 			<div class="jumbotron">
 				<ui:insert name="content">{content}</ui:insert>
 			</div>

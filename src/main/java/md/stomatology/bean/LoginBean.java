@@ -1,22 +1,35 @@
 package md.stomatology.bean;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@ManagedBean(name="loginBean")
-@RequestScoped
-public class LoginBean {
-  
-    private String userName = null; 
-    private String password = null;
+import md.stomatology.model.User;
+import md.stomatology.util.WebUtil;
 
+@ManagedBean
+@SessionScoped
+public class LoginBean implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private static Logger LOG = LoggerFactory.getLogger(LoginBean.class);
+	
+	private String userName = null; 
+    private String password = null;
+    private User user;
+    
     @ManagedProperty(value="#{authenticationManagerBean}")
     private AuthenticationManager authenticationManager = null;
 
@@ -24,11 +37,20 @@ public class LoginBean {
         try {
             Authentication request = new UsernamePasswordAuthenticationToken(this.getUserName(), this.getPassword());
             Authentication result = authenticationManager.authenticate(request);
+            user = (User) result.getPrincipal();
             SecurityContextHolder.getContext().setAuthentication(result);
+        } catch (BadCredentialsException e) {
+            LOG.error(e.getMessage(), e);
+            WebUtil.addErrorMessage("bad-credentials-exception");
+            password = null;
+            return "";
         } catch (AuthenticationException e) {
-            e.printStackTrace();
-            return "/pages/unsecure/login.xhtml?faces-redirect=true";
+            LOG.error(e.getMessage(), e);
+            WebUtil.addErrorMessage("authentication-exception");
+            password = null;
+            return "";
         }
+        password = null;
         return "pretty:index";
     }
 
@@ -36,7 +58,8 @@ public class LoginBean {
         return null;
     }
 
-    public String logout(){
+    public String logout() {
+    	user = null;
         SecurityContextHolder.clearContext();
         return "pretty:index";
     }
@@ -64,5 +87,13 @@ public class LoginBean {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
  
 }
