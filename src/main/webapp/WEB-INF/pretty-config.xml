@@ -15,7 +15,7 @@
 
 	<url-mapping id="list">
 		<pattern value="/list" />
-		<view-id value="/pages/secure/list2.xhtml" />
+		<view-id value="/pages/secure/list.xhtml" />
 	</url-mapping>
 
 	<url-mapping id="error">

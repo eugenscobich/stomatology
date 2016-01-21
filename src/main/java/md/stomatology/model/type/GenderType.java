@@ -1,5 +1,5 @@
 package md.stomatology.model.type;
 
-public enum Gender {
+public enum GenderType {
 	MALE, FEMALE
 }

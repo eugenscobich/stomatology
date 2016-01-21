@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-import md.stomatology.model.type.Gender;
+import md.stomatology.model.type.GenderType;
 
 @Entity
 @Table(name = "customer")
@@ -39,9 +39,9 @@ public class Customer {
 	
 	@Column(name = "gender")
 	@Enumerated(EnumType.STRING)
-	private Gender gender;
+	private GenderType gender;
 	
-	@Column(name = "surname", length = 256)
+	@Column(name = "address", length = 256)
 	private String address;
 	
 	@Column(name = "phone", length = 50)
@@ -97,11 +97,11 @@ public class Customer {
 		this.birthYear = birthYear;
 	}
 
-	public Gender getGender() {
+	public GenderType getGender() {
 		return gender;
 	}
 
-	public void setGender(Gender gender) {
+	public void setGender(GenderType gender) {
 		this.gender = gender;
 	}
 
