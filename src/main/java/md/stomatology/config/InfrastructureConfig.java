@@ -33,10 +33,10 @@ public class InfrastructureConfig {
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
-		driverManagerDataSource.setUrl("jdbc:postgresql://home-server:5432/stomatology");
-		driverManagerDataSource.setUsername("postgres");
-		driverManagerDataSource.setPassword("postgres");
+		driverManagerDataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+		driverManagerDataSource.setUrl(env.getProperty("jdbc.url"));
+		driverManagerDataSource.setUsername(env.getProperty("jdbc.username"));
+		driverManagerDataSource.setPassword(env.getProperty("jdbc.password"));
 		return driverManagerDataSource;
 	}
 
@@ -44,7 +44,7 @@ public class InfrastructureConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setDatabase(Database.POSTGRESQL);
+		vendorAdapter.setDatabase(Database.MYSQL);
 		vendorAdapter.setGenerateDdl(true);
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
