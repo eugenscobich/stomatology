@@ -27,7 +27,7 @@ public class CustomerManagedBean implements Serializable {
 
     List<Customer> customerList;
 
-    private int id;
+    private Long id;
     private String name;
     private String surname;
  
@@ -39,21 +39,21 @@ public class CustomerManagedBean implements Serializable {
             customer.setSurname(getSurname());
             getCustomerService().addCustomer(customer);
             reset();
-            return "/views/secure/list.xhtml?faces-redirect=true";
+            return "/pages/secure/list.xhtml?faces-redirect=true";
         } catch (DataAccessException e) {
             e.printStackTrace();
         }
-        return "/views/unsecure/error.xhtml?faces-redirect=true";
+        return "/pages/unsecure/error.xhtml?faces-redirect=true";
     }
 
     public String updateCustomer(Customer customer) {
         try {
             getCustomerService().updateCustomer(customer);
-            return "/views/secure/list.xhtml?faces-redirect=true";       
+            return "/pages/secure/list.xhtml?faces-redirect=true";       
         } catch (DataAccessException e) {
             e.printStackTrace();       
         }    
-        return "/views/unsecure/error.xhtml?faces-redirect=true";
+        return "/pages/unsecure/error.xhtml?faces-redirect=true";
     } 
  
     public String deleteCustomer(Customer customer) {
@@ -61,11 +61,11 @@ public class CustomerManagedBean implements Serializable {
             getCustomerService().deleteCustomer(customer);
             customerList = null;
             getCustomerList();
-            return "/views/secure/list.xhtml?faces-redirect=true";       
+            return "/pages/secure/list.xhtml?faces-redirect=true";       
         } catch (DataAccessException e) {
             e.printStackTrace();       
         }    
-        return "/views/unsecure/error.xhtml?faces-redirect=true";
+        return "/pages/unsecure/error.xhtml?faces-redirect=true";
     }
 
     public void onEdit(RowEditEvent event) {
@@ -80,7 +80,7 @@ public class CustomerManagedBean implements Serializable {
     }   
  
     public void reset() {
-        this.setId(0);
+        this.setId(0l);
         this.setName("");
         this.setSurname("");
     }
@@ -105,11 +105,11 @@ public class CustomerManagedBean implements Serializable {
         this.customerList = customerList;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

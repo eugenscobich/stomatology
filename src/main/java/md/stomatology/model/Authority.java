@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import md.stomatology.model.type.AuthorityType;
+
 @Entity
 @Table(name = "authorities")
 public class Authority implements GrantedAuthority {

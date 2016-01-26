@@ -1,20 +1,32 @@
-<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
-	
+
+	<url-mapping id="index">
+		<pattern value="/" />
+		<view-id value="/pages/unsecure/index.xhtml" />
+	</url-mapping>
+
 	<url-mapping id="login">
 		<pattern value="/login" />
-		<view-id value="/views/unsecure/login.xhtml" />
+		<view-id value="/pages/unsecure/login.xhtml" />
 	</url-mapping>
-	
+
 	<url-mapping id="list">
 		<pattern value="/list" />
-		<view-id value="/views/secure/list2.xhtml" />
+		<view-id value="/pages/secure/list.xhtml" />
 	</url-mapping>
-	
+
 	<url-mapping id="error">
 		<pattern value="/error" />
-		<view-id value="/views/unsecure/error.xhtml" />
+		<view-id value="/pages/unsecure/error.xhtml" />
 	</url-mapping>
+
+	<url-mapping id="logout">
+		<pattern value="/logout" />
+		<view-id value="/pages/unsecure/index.xhtml" />
+		<action>#{loginBean.logout}</action>
+	</url-mapping>
+
 </pretty-config>

@@ -1,8 +1,8 @@
-package md.stomatology.model;
+package md.stomatology.model.type;
 
 public enum AuthorityType {
 
-	ROLE_USER, ROLE_ADMIN;
+	ROLE_ADMIN, ROLE_DIRECTOR, ROLE_ACCOUNTANT, ROLE_EMPLOYEE;
 
 	private AuthorityType() {
 	}
