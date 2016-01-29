@@ -13,9 +13,9 @@
 		<view-id value="/pages/unsecure/login.xhtml" />
 	</url-mapping>
 
-	<url-mapping id="list">
-		<pattern value="/list" />
-		<view-id value="/pages/secure/list.xhtml" />
+	<url-mapping id="customer-list">
+		<pattern value="/customer-list" />
+		<view-id value="/pages/secure/customer-list.xhtml" />
 	</url-mapping>
 
 	<url-mapping id="error">

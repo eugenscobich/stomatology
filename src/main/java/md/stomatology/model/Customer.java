@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,15 +53,13 @@ public class Customer {
 	private String notes;
 	
 	@ManyToMany
-	@JoinTable(
-		      name="custome_to_allergies",
+	@JoinTable(name="custome_to_allergies",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="allergy_id", referencedColumnName="id")})
 	private List<Allergies> allergies;
 
 	@ManyToMany
-	@JoinTable(
-		      name="custome_to_past_illnesses",
+	@JoinTable(name="custome_to_past_illnesses",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="past_illnesses_id", referencedColumnName="id")})
 	private List<PastIllnesses> pastIllnesses;
