@@ -53,14 +53,14 @@ public class Customer {
 	
 	@ManyToMany
 	@JoinTable(
-		      name="custome_to_allergies",
+		      name="customer_to_allergies",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="allergy_id", referencedColumnName="id")})
 	private List<Allergies> allergies;
 
 	@ManyToMany
 	@JoinTable(
-		      name="custome_to_past_illnesses",
+		      name="customer_to_past_illnesses",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="past_illnesses_id", referencedColumnName="id")})
 	private List<PastIllnesses> pastIllnesses;
