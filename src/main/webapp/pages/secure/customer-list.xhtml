@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="/resources/views/main-template.xhtml">
+	<ui:param name="pageTitle" value="#{msg['stomatology']}- #{msg['customer-list']}" />
+	<ui:define name="content">
+
+		<p:dataTable id="customers" var="customer" value="#{customerBean.customers}" 
+					 rows="15" paginator="true">
+			
+			<f:facet name="header">#{msg['customers']}"</f:facet>
+			
+			<p:column headerText="#{msg['gender']}">
+				<h:outputText value="#{msg['GenderType.' + customer.gender]}" />
+			</p:column>
+			<p:column headerText="#{msg['name']}">
+				<h:outputText value="#{customer.name}" />
+			</p:column>
+			<p:column headerText="#{msg['surname']}">
+				<h:outputText value="#{customer.surname}" />
+			</p:column>
+			<p:column headerText="#{msg['birth-year']}">
+				<h:outputText value="#{customer.birthYear}" />
+			</p:column>
+			<p:column headerText="#{msg['phone']}">
+				<h:outputText value="#{customer.phone}" />
+			</p:column>
+			
+			<p:column headerText="#{msg['actions']}">
+				<p:commandButton icon="fa-edit" value="#{msg['edit']}" action="#{customerBean.edit(customer)}" update=":form"/>
+				<sec:authorize access="hasAnyRole('ROLE_DIRECTOR')">
+					<p:commandButton icon="fa-remove" value="#{msg['remove']}" action="#{customerBean.remove(customer)}" update=":form"/>
+				</sec:authorize>
+			</p:column>
+			
+			<f:facet name="footer">
+    	        <p:commandButton update=":form" icon="fa-plus" value="#{msg['new-customer']}" action="#{customerBean.new()}" />
+	        </f:facet>
+			
+		</p:dataTable>
+		
+
+	</ui:define>
+</ui:composition>
+</html>
+

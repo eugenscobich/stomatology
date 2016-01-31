@@ -26,8 +26,8 @@
 					<f:facet name="options">
 						<p:outputLabel value="#{loginBean.user.username}" rendered="#{not empty loginBean.user}"/>
 
-						<p:selectOneMenu value="#{language.localeCode}"  valueChangeListener="#{language.countryLocaleCodeChanged}" onchange="submit()" immediate="true">
-							<f:selectItems value="#{language.countriesInMap.entrySet()}" var="item" itemLabel="#{msg[item.key]}" itemValue="#{item.value}" />
+						<p:selectOneMenu value="#{languageBean.localeCode}"  valueChangeListener="#{languageBean.countryLocaleCodeChanged}" onchange="submit()" immediate="true">
+							<f:selectItems value="#{languageBean.countriesInMap.entrySet()}" var="item" itemLabel="#{msg[item.key]}" itemValue="#{item.value}" />
 						</p:selectOneMenu>
 						<sec:authorize access="!hasAnyRole('ROLE_USER')">
 							<p:commandButton value="#{msg['login']}" icon="ui-icon-extlink" action="pretty:login" />

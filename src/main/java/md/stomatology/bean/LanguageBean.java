@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-@ManagedBean(name = "language")
+@ManagedBean
 @SessionScoped
 public class LanguageBean implements Serializable {
 

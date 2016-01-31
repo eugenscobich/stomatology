@@ -16,20 +16,18 @@ import org.springframework.dao.DataAccessException;
 import md.stomatology.model.Customer;
 import md.stomatology.service.CustomerService;
 
-@ManagedBean(name="customerMB")
+@ManagedBean
 @RequestScoped
-public class CustomerManagedBean implements Serializable {
+public class CustomerBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ManagedProperty(value="#{CustomerService}")
     CustomerService customerService;
 
-    List<Customer> customerList;
+    private List<Customer> customers;
 
-    private Long id;
-    private String name;
-    private String surname;
+    private Customer newCustomer;
  
     public String addCustomer() {
         try {
@@ -85,14 +83,6 @@ public class CustomerManagedBean implements Serializable {
         this.setSurname("");
     }
 
-    public List<Customer> getCustomerList() {
-        if(customerList == null){
-            customerList = new ArrayList<Customer>();
-            customerList.addAll(getCustomerService().getCustomers());
-        }
-        return customerList;
-    }
-
     public CustomerService getCustomerService() {
         return customerService;
     }
@@ -101,9 +91,6 @@ public class CustomerManagedBean implements Serializable {
         this.customerService = customerService;
     }
 
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
 
     public Long getId() {
         return id;
@@ -128,6 +115,14 @@ public class CustomerManagedBean implements Serializable {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
 
 }
 
