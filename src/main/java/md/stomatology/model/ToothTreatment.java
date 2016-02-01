@@ -35,6 +35,46 @@ public class ToothTreatment {
 	private String distressedSurfaces;
 
 	@Column(name = "gum_pockets_depth")
-	private String gumPocketsDepth; 
+	private String gumPocketsDepth;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getToothIndex() {
+		return toothIndex;
+	}
+
+	public void setToothIndex(String toothIndex) {
+		this.toothIndex = toothIndex;
+	}
+
+	public List<Disease> getDiseases() {
+		return diseases;
+	}
+
+	public void setDiseases(List<Disease> diseases) {
+		this.diseases = diseases;
+	}
+
+	public String getDistressedSurfaces() {
+		return distressedSurfaces;
+	}
+
+	public void setDistressedSurfaces(String distressedSurfaces) {
+		this.distressedSurfaces = distressedSurfaces;
+	}
+
+	public String getGumPocketsDepth() {
+		return gumPocketsDepth;
+	}
+
+	public void setGumPocketsDepth(String gumPocketsDepth) {
+		this.gumPocketsDepth = gumPocketsDepth;
+	} 
 	
 }

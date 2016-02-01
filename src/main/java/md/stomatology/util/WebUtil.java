@@ -24,7 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import md.stomatology.model.User;
 
 /**
  * The Class WebUtil.
@@ -469,4 +472,8 @@ public class WebUtil implements Serializable {
 		}
 	}
 
+	public static User getCurrentUser() {
+		return (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	}
+	
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ import org.hibernate.annotations.Type;
 import md.stomatology.model.type.GenderType;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
 
 	@Id
@@ -53,17 +54,21 @@ public class Customer {
 	
 	@ManyToMany
 	@JoinTable(
-		      name="customer_to_allergies",
+		      name="customers_to_allergies",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="allergy_id", referencedColumnName="id")})
 	private List<Allergies> allergies;
 
 	@ManyToMany
 	@JoinTable(
-		      name="customer_to_past_illnesses",
+		      name="customers_to_past_illnesses",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="past_illnesses_id", referencedColumnName="id")})
 	private List<PastIllnesses> pastIllnesses;
+	
+	@ManyToOne
+	@JoinColumn(name = "dentist_id")
+	private User dentist;
 	
 	public Long getId() {
 		return id;
@@ -154,4 +159,12 @@ public class Customer {
         strBuff.append(", birthYear : ").append(getBirthYear());
         return strBuff.toString();
     }
+
+	public User getDentist() {
+		return dentist;
+	}
+
+	public void setDentist(User dentist) {
+		this.dentist = dentist;
+	}
 }

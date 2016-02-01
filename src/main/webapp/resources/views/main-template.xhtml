@@ -21,7 +21,7 @@
 		<div class="container">
 			<nav role="navigation" class="navbar navbar-default">
 				<p:menubar>
-					<p:menuitem value="#{msg['list-of-customers']}" action="pretty:list" icon="ui-icon-close" />
+					<p:menuitem value="#{msg['customer-list']}" action="pretty:customer-list" icon="ui-icon-close" />
 
 					<f:facet name="options">
 						<p:outputLabel value="#{loginBean.user.username}" rendered="#{not empty loginBean.user}"/>
@@ -29,10 +29,10 @@
 						<p:selectOneMenu value="#{languageBean.localeCode}"  valueChangeListener="#{languageBean.countryLocaleCodeChanged}" onchange="submit()" immediate="true">
 							<f:selectItems value="#{languageBean.countriesInMap.entrySet()}" var="item" itemLabel="#{msg[item.key]}" itemValue="#{item.value}" />
 						</p:selectOneMenu>
-						<sec:authorize access="!hasAnyRole('ROLE_USER')">
+						<sec:authorize access="!isAuthenticated()">
 							<p:commandButton value="#{msg['login']}" icon="ui-icon-extlink" action="pretty:login" />
 						</sec:authorize>
-						<sec:authorize access="hasAnyRole('ROLE_USER')" >
+						<sec:authorize access="isAuthenticated()" >
 							<p:commandButton value="#{msg['logout']}" icon="ui-icon-extlink" action="pretty:logout" />
 						</sec:authorize>
 						

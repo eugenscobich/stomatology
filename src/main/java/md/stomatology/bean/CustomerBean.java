@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.RowEditEvent;
@@ -17,7 +19,7 @@ import md.stomatology.model.Customer;
 import md.stomatology.service.CustomerService;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class CustomerBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,6 +31,20 @@ public class CustomerBean implements Serializable {
 
     private Customer newCustomer;
  
+    @PostConstruct
+    public void init() {
+    	customers = customerService.getCustomers();
+    }
+    
+    public void removeCustomer(Customer customer) {
+    	
+    }
+    
+    private void newCustomer() {
+    	
+    }
+    
+    /*
     public String addCustomer() {
         try {
             Customer customer = new Customer();
@@ -76,13 +92,7 @@ public class CustomerBean implements Serializable {
         FacesMessage msg = new FacesMessage("Item Cancelled");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }   
- 
-    public void reset() {
-        this.setId(0l);
-        this.setName("");
-        this.setSurname("");
-    }
-
+ */
     public CustomerService getCustomerService() {
         return customerService;
     }
@@ -91,32 +101,7 @@ public class CustomerBean implements Serializable {
         this.customerService = customerService;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-	public List<Customer> getCustomers() {
+    public List<Customer> getCustomers() {
 		return customers;
 	}
 

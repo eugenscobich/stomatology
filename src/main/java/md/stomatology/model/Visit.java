@@ -25,9 +25,9 @@ public class Visit {
 	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "when")
+	@Column(name = "visit_date")
 	@Temporal(TemporalType.DATE)
-	private Date when;
+	private Date visitDate;
 	
 	@Column(name = "additional_info")
 	private String additionalInfo;
@@ -41,5 +41,53 @@ public class Visit {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "visit_id")
 	private List<File> files;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getVisitDate() {
+		return visitDate;
+	}
+
+	public void setVisitDate(Date visitDate) {
+		this.visitDate = visitDate;
+	}
+
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	public Float getPaid() {
+		return paid;
+	}
+
+	public void setPaid(Float paid) {
+		this.paid = paid;
+	}
+
+	public List<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
 	
 }

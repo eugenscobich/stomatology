@@ -29,4 +29,9 @@
 		<action>#{loginBean.logout}</action>
 	</url-mapping>
 
+	<url-mapping id="edit-customer">
+		<pattern value="/edit-customer/#{customerId : editCustomerBean.customerId}" />
+		<view-id value="/pages/secure/edit-customer.xhtml" />
+	</url-mapping>
+
 </pretty-config>

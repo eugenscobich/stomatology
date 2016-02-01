@@ -13,10 +13,10 @@
 		<p:dataTable id="customers" var="customer" value="#{customerBean.customers}" 
 					 rows="15" paginator="true">
 			
-			<f:facet name="header">#{msg['customers']}"</f:facet>
+			<f:facet name="header">#{msg['customer-list']}</f:facet>
 			
 			<p:column headerText="#{msg['gender']}">
-				<h:outputText value="#{msg['GenderType.' + customer.gender]}" />
+				<h:outputText value="#{msg['GenderType.'.concat(customer.gender)]}" />
 			</p:column>
 			<p:column headerText="#{msg['name']}">
 				<h:outputText value="#{customer.name}" />
@@ -32,14 +32,17 @@
 			</p:column>
 			
 			<p:column headerText="#{msg['actions']}">
-				<p:commandButton icon="fa-edit" value="#{msg['edit']}" action="#{customerBean.edit(customer)}" update=":form"/>
+				<p:commandButton action="pretty:edit-customer" value="#{msg['edit']}" icon="fa fa-edit">
+					<f:param name="customerId" value="#{customer.id}" />
+				</p:commandButton>
+				
 				<sec:authorize access="hasAnyRole('ROLE_DIRECTOR')">
-					<p:commandButton icon="fa-remove" value="#{msg['remove']}" action="#{customerBean.remove(customer)}" update=":form"/>
+					<p:commandButton icon="fa fa-remove" value="#{msg['remove']}" action="#{customerBean.removeCustomer(customer)}" update="@form"/>
 				</sec:authorize>
 			</p:column>
 			
 			<f:facet name="footer">
-    	        <p:commandButton update=":form" icon="fa-plus" value="#{msg['new-customer']}" action="#{customerBean.new()}" />
+    	        <p:commandButton update="@form" icon="fa fa-plus" value="#{msg['new-customer']}" action="#{customerBean.newCustomer()}" />
 	        </f:facet>
 			
 		</p:dataTable>
