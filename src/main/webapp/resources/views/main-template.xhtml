@@ -20,15 +20,26 @@
 	<h:form>
 		<div class="container">
 			<nav role="navigation" class="navbar navbar-default">
-				<p:menubar>
-					<p:menuitem value="#{msg['customer-list']}" action="pretty:customer-list" icon="ui-icon-close" />
-
-					<f:facet name="options">
+				<p:menubar styleClass="nav">
+					<p:menuitem action="pretty:customer-list"><p:graphicImage value="#{resource['img:logo22.png']}" width="191" height="67"/></p:menuitem>
+					
+					<p:menuitem>
 						<p:outputLabel value="#{loginBean.user.username}" rendered="#{not empty loginBean.user}"/>
 
-						<p:selectOneMenu value="#{languageBean.localeCode}"  valueChangeListener="#{languageBean.countryLocaleCodeChanged}" immediate="true">
+						<p:selectOneMenu value="#{languageBean.localeCode}"  valueChangeListener="#{languageBean.countryLocaleCodeChanged}" onchange="submit()" immediate="true">
 							<f:selectItems value="#{languageBean.countriesInMap.entrySet()}" var="item" itemLabel="#{msg[item.key]}" itemValue="#{item.value}" />
 						</p:selectOneMenu>
+					
+						<p:button onclick="" value="En" styleClass="m-btn">
+						    <f:param name="langId" value="10" />
+						</p:button>
+						<p:button onclick="" value="Ro" styleClass="m-btn">
+						    <f:param name="langId" value="10" />
+						</p:button>
+						<p:button onclick="" value="Ru" styleClass="m-btn">
+						    <f:param name="langId" value="10" />
+						</p:button>
+						
 						<sec:authorize access="!isAuthenticated()">
 							<p:commandButton value="#{msg['login']}" icon="ui-icon-extlink" action="pretty:login" />
 						</sec:authorize>
@@ -36,7 +47,7 @@
 							<p:commandButton value="#{msg['logout']}" icon="ui-icon-extlink" action="pretty:logout" />
 						</sec:authorize>
 						
-					</f:facet>
+					</p:menuitem>
 				</p:menubar>
 
 			</nav>
