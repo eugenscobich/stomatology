@@ -1,0 +1,52 @@
+.logo {
+	background-image: url("#{resource['img:small1.jpg']}");
+	background-color: #DA0B5D;
+}
+.navbar {
+	height:7em;
+}
+.ui-menu.ui-menubar {
+	height:7em;
+	background-color: #f2f2f2;/*#eee*/
+	background-image: none;
+	border-width:0px;
+	border-radius:0px;
+}
+.ui-menu list .ui-menuitem:first-child a{
+	height:6em;
+	width:6em;
+}
+.navbar-default {
+	border-color: transparent;
+}
+.navbar {
+    border-radius: 0px;
+    border-width: 0px;
+}
+.nav ul li:last-child {
+	float: right;
+}
+.m-btn .ui-button.ui-state-default{
+	background-color: #2AB7A9 !important;
+	border: medium none;
+	border-radius: 2px;
+	color:#fff;
+	font-fafmily:"Roboto",sans-serif;
+	height: 36px;
+	line-height: 36px;
+	letter-spacing: 0.5px;
+	padding: 0px 2rem;
+	text-align: center;
+	text-indent: 0px;
+	text-transform: uppercase;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.ui-state-default,
+ .ui-widget-content .ui-state-default,
+  .ui-widget-header .ui-state-default {
+	background-image: none; 
+}
+.ui-menuitem-active {
+	background-color:transparent !important;
+}
