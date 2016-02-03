@@ -5,33 +5,27 @@
 
 	<url-mapping id="index">
 		<pattern value="/" />
-		<view-id value="/pages/unsecure/index.xhtml" />
+		<view-id value="/WEB-INF/views/pages/unsecure/index.xhtml" />
 	</url-mapping>
 
 	<url-mapping id="login">
 		<pattern value="/login" />
-		<view-id value="/pages/unsecure/login.xhtml" />
-	</url-mapping>
-
-	<url-mapping id="customer-list">
-		<pattern value="/customer-list" />
-		<view-id value="/pages/secure/customer-list.xhtml" />
+		<view-id value="/WEB-INF/views/pages/unsecure/login.xhtml" />
 	</url-mapping>
 
 	<url-mapping id="error">
 		<pattern value="/error" />
-		<view-id value="/pages/unsecure/error.xhtml" />
+		<view-id value="/WEB-INF/views/pages/unsecure/error.xhtml" />
 	</url-mapping>
-
+	
+	<url-mapping id="access-denied">
+		<pattern value="/access-denied" />
+		<view-id value="/WEB-INF/views/pages/unsecure/access-denied.xhtml" />
+	</url-mapping>
+	
 	<url-mapping id="logout">
 		<pattern value="/logout" />
-		<view-id value="/pages/unsecure/index.xhtml" />
+		<view-id value="/WEB-INF/views/pages/unsecure/index.xhtml" />
 		<action>#{loginBean.logout}</action>
 	</url-mapping>
-
-	<url-mapping id="edit-customer">
-		<pattern value="/edit-customer/#{customerId : editCustomerBean.customerId}" />
-		<view-id value="/pages/secure/edit-customer.xhtml" />
-	</url-mapping>
-
 </pretty-config>

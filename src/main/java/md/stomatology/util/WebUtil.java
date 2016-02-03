@@ -292,8 +292,15 @@ public class WebUtil implements Serializable {
 	 * @param detailsParams
 	 *            Details parameters
 	 */
-	public static void addMessage(String clientId, Severity severity, String messageCode, String detailsMessageCode,
-			String... detailsParams) {
+	public static void addMessage(String clientId, Severity severity, String messageCode, String detailsMessageCode, String... detailsParams) {
+		String fullClientId = null;
+		if (StringUtils.isNotBlank(clientId)) {
+			fullClientId = getComponentWithId(FacesContext.getCurrentInstance().getViewRoot(), clientId).getClientId();
+		}
+		FacesContext.getCurrentInstance().addMessage(fullClientId, getMessage(severity, messageCode, detailsMessageCode, detailsParams));
+	}
+	
+	public static FacesMessage getMessage(Severity severity, String messageCode, String detailsMessageCode, String... detailsParams) {
 		String message = getMessageValue(messageCode);
 		String details = "";
 		if (StringUtils.isNotBlank(detailsMessageCode)) {
@@ -303,12 +310,9 @@ public class WebUtil implements Serializable {
 				details = messageFormat.format(detailsParams);
 			}
 		}
-		String fullClientId = null;
-		if (StringUtils.isNotBlank(clientId)) {
-			fullClientId = getComponentWithId(FacesContext.getCurrentInstance().getViewRoot(), clientId).getClientId();
-		}
-		FacesContext.getCurrentInstance().addMessage(fullClientId, new FacesMessage(severity, message, details));
+		return new FacesMessage(severity, message, details);
 	}
+	
 
 	/**
 	 * Adds the message with params.

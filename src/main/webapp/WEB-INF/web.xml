@@ -26,6 +26,11 @@
 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 	</context-param>
 
+	<context-param>
+		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
+		<param-value>md.stomatology.bean,com.ocpsoft</param-value>
+	</context-param>
+
 	<!-- Configuration locations must consist of one or more comma- or space-delimited 
 		fully-qualified @Configuration classes -->
 	<context-param>
@@ -81,10 +86,6 @@
 		<!-- <param-value>Production</param-value> -->
 	</context-param>
 
-	<welcome-file-list>
-		<welcome-file>pages/unsecure/index.xhtml</welcome-file>
-	</welcome-file-list>
-
 	<!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -113,5 +114,10 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+
+	<mime-mapping>
+		<extension>woff2</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
 
 </web-app>

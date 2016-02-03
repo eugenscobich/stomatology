@@ -1,11 +1,17 @@
 package md.stomatology.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,12 +20,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.savedrequest.SavedRequest;
 
 import md.stomatology.model.User;
 import md.stomatology.util.WebUtil;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class LoginBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,12 +35,22 @@ public class LoginBean implements Serializable {
 	
 	private String userName = null; 
     private String password = null;
+    private String redirectUrl;
     private User user;
     
     @ManagedProperty(value="#{authenticationManagerBean}")
     private AuthenticationManager authenticationManager = null;
+    
+    @PostConstruct
+    public void init() {
+    	 HttpServletRequest httpServletRequest = WebUtil.getHttpServletRequest();
+    	 SavedRequest savedRequest = (SavedRequest)httpServletRequest.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+    	 if (savedRequest != null) {
+    		 redirectUrl = savedRequest.getRedirectUrl();
+    	 }
+    }
 
-    public String login() {
+    public String login() throws IOException {
         try {
             Authentication request = new UsernamePasswordAuthenticationToken(this.getUserName(), this.getPassword());
             Authentication result = authenticationManager.authenticate(request);
@@ -51,6 +68,11 @@ public class LoginBean implements Serializable {
             return "";
         }
         password = null;
+        if (StringUtils.isNotBlank(redirectUrl)) {
+	     	FacesContext.getCurrentInstance().getExternalContext().redirect(redirectUrl);
+	    	return "";
+	    }
+        
         return "pretty:index";
     }
 
@@ -95,5 +117,5 @@ public class LoginBean implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
- 
+
 }

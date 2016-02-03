@@ -15,11 +15,14 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.dao.DataAccessException;
 
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+
 import md.stomatology.model.Customer;
 import md.stomatology.service.CustomerService;
 
 @ManagedBean
 @ViewScoped
+@URLMapping(id = "customer-list", pattern = "/customer-list/", viewId = "/WEB-INF/views/pages/secure/customer-list.xhtml")
 public class CustomerBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

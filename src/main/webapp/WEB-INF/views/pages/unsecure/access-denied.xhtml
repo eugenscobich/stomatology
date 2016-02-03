@@ -5,11 +5,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/resources/views/main-template.xhtml">
-		<ui:param name="pageTitle" value="#{msg['stomatology']}- #{msg['home-page']}" />
+    <ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
+		<ui:param name="pageTitle" value="#{msg['stomatology']}- #{msg['error']}" />
         <ui:define name="content">
-        	Hi this is content!
+        	Access denied
         </ui:define>
     </ui:composition>
 </html>
-

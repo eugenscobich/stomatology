@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 
-<ui:composition template="/resources/views/main-template.xhtml">
+<ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
 	<ui:param name="pageTitle" value="#{msg['stomatology']}- #{msg['customer-list']}" />
 	<ui:define name="content">
 
@@ -33,7 +33,7 @@
 			
 			<p:column headerText="#{msg['actions']}">
 				<p:commandButton action="pretty:edit-customer" value="#{msg['edit']}" icon="fa fa-edit">
-					<f:param name="customerId" value="#{customer.id}" />
+					<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="#{customer.id}"/>
 				</p:commandButton>
 				
 				<sec:authorize access="hasAnyRole('ROLE_DIRECTOR')">
