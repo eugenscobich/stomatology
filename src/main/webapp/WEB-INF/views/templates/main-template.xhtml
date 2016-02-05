@@ -64,10 +64,10 @@
 						</p:outputPanel>
 					</p:outputPanel>
 					</nav>			
-				<div>
-					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-				</div>				
+				
 				<div class="jumbotron">
+					<h2>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</h2>
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 					<ui:insert name="content">{content}</ui:insert>
 				</div>
 			</div>
