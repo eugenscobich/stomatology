@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html >
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:sec="http://www.springframework.org/security/tags">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui" xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
 <h:head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,45 +22,54 @@
 </h:head>
 <h:body>
 	<h:form>
-		<div class="container">
-			<nav role="navigation" class="navbar navbar-default">
-				<p:menubar styleClass="nav">
-					<p:menuitem action="pretty:customer-list"><p:graphicImage value="#{resource['img:logo22.png']}" width="191" height="67"/></p:menuitem>
-					
-					<p:menuitem>
-						<p:outputLabel value="#{loginBean.user.username}" rendered="#{not empty loginBean.user}"/>
-
-						<p:selectOneMenu value="#{languageBean.localeCode}"  valueChangeListener="#{languageBean.countryLocaleCodeChanged}" onchange="submit()" immediate="true">
-							<f:selectItems value="#{languageBean.countriesInMap.entrySet()}" var="item" itemLabel="#{msg[item.key]}" itemValue="#{item.value}" />
-						</p:selectOneMenu>
-					
-						<p:button onclick="" value="En" styleClass="m-btn">
-						    <f:param name="langId" value="10" />
-						</p:button>
-						<p:button onclick="" value="Ro" styleClass="m-btn">
-						    <f:param name="langId" value="10" />
-						</p:button>
-						<p:button onclick="" value="Ru" styleClass="m-btn">
-						    <f:param name="langId" value="10" />
-						</p:button>
-						
-						<sec:authorize access="!isAuthenticated()">
-							<p:commandButton value="#{msg['login']}" icon="ui-icon-extlink" action="pretty:login" />
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()" >
-							<p:commandButton value="#{msg['logout']}" icon="ui-icon-extlink" action="pretty:logout" />
-						</sec:authorize>
-						
-					</p:menuitem>
-				</p:menubar>
-
-			</nav>
-			<div>
-				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-			</div>
-			
-			<div class="jumbotron">
-				<ui:insert name="content">{content}</ui:insert>
+		<div class="wrapper">
+			<div class="container">
+				<nav role="navigation" class="navbar navbar-default">
+					<p:outputPanel layout="block" styleClass="container-fluid">
+						<p:outputPanel layout="block" styleClass="navbar-header"></p:outputPanel>
+						<p:outputPanel layout="block" styleClass="navbar-collapse collapse">
+						<ul class="nav navbar-nav" style="padding-top: 15px;">
+							<li class="logoTitle">								
+									<p:graphicImage value="#{resource['img:logo22.png']}" width="71" height="61"/>							
+								<h2>MialisDent</h2>
+							</li>
+						</ul>						
+						<ul class="nav navbar-nav navbar-right">
+							<li class="logoTitle">
+								<p:commandLink>
+									<p:graphicImage value="#{resource['img:gb.svg']}" width="20" height="10"/>
+								</p:commandLink>
+								<p:commandLink>
+									<p:graphicImage value="#{resource['img:md.svg']}" width="20" height="10"/>
+								</p:commandLink>
+								<p:commandLink>
+									<p:graphicImage value="#{resource['img:ru.svg']}" width="20" height="10"/>
+								</p:commandLink>								
+									<sec:authorize access="!isAuthenticated()">
+										<p:commandLink value="#{msg['login']}" action="pretty:login" style="padding:41px 34px 37px 34px;"/>
+									</sec:authorize>
+									<sec:authorize access="isAuthenticated()" >
+										<p:commandLink value="#{msg['logout']}" action="pretty:logout" style="padding:40px 34px 38px 34px;" />
+									</sec:authorize>								
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="logoTitle">						
+								<p:commandButton icon="fa fa-user" title="Adauga pacient"/>
+								<p:commandButton icon="fa fa-table" title="Lista pacienti"/>
+								<p:commandButton icon="fa fa-users"  title="Medici"/>
+								<p:commandButton icon="fa fa-medkit" title="Materiale"/>					
+							</li>
+						</ul>
+						</p:outputPanel>
+					</p:outputPanel>
+					</nav>			
+				<div>
+					<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+				</div>				
+				<div class="jumbotron">
+					<ui:insert name="content">{content}</ui:insert>
+				</div>
 			</div>
 		</div>
 	</h:form>
