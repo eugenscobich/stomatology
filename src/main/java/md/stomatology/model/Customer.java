@@ -57,14 +57,14 @@ public class Customer {
 		      name="customers_to_allergies",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="allergy_id", referencedColumnName="id")})
-	private List<Allergies> allergies;
+	private List<Allergy> allergies;
 
 	@ManyToMany
 	@JoinTable(
 		      name="customers_to_past_illnesses",
 		      joinColumns={@JoinColumn(name="customer_id", referencedColumnName="id")},
-		      inverseJoinColumns={@JoinColumn(name="past_illnesses_id", referencedColumnName="id")})
-	private List<PastIllnesses> pastIllnesses;
+		      inverseJoinColumns={@JoinColumn(name="past_illnesse_id", referencedColumnName="id")})
+	private List<PastIllnesse> pastIllnesses;
 	
 	@ManyToOne
 	@JoinColumn(name = "dentist_id")
@@ -134,19 +134,19 @@ public class Customer {
 		this.notes = notes;
 	}
 
-	public List<Allergies> getAllergies() {
+	public List<Allergy> getAllergies() {
 		return allergies;
 	}
 
-	public void setAllergies(List<Allergies> allergies) {
+	public void setAllergies(List<Allergy> allergies) {
 		this.allergies = allergies;
 	}
 
-	public List<PastIllnesses> getPastIllnesses() {
+	public List<PastIllnesse> getPastIllnesses() {
 		return pastIllnesses;
 	}
 
-	public void setPastIllnesses(List<PastIllnesses> pastIllnesses) {
+	public void setPastIllnesses(List<PastIllnesse> pastIllnesses) {
 		this.pastIllnesses = pastIllnesses;
 	}
 

@@ -29,7 +29,6 @@ import md.stomatology.service.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-// @ImportResource("classpath:applicationContext-security.xml")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
@@ -39,13 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder registry) throws Exception {
-		/*
-		 * registry .inMemoryAuthentication() .withUser("siva") // #1
-		 * .password("siva") .roles("USER") .and() .withUser("admin") // #2
-		 * .password("admin") .roles("ADMIN","USER");
-		 */
-
-		//registry.jdbcAuthentication().dataSource(dataSource);
 		 registry.userDetailsService(customUserDetailsService);
 	}
 

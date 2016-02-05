@@ -8,10 +8,19 @@
 
 <ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
 	
-	<ui:param name="pageTitle" value="#{msg['stomatology']} - #{customer.id == null ? msg['new-custmer'] : msg['edit-customer']}" />
+	<ui:param name="pageTitle" value="#{editCustomerBean.customer.id == null ? msg['new-customer'] : msg['edit-customer']}" />
 	<ui:define name="content">
-
+	
 		<h:panelGroup layout="block" styleClass="form-horizontal">
+			<div class="form-group">
+				<p:outputLabel value="#{msg['gender']}" for="gender" styleClass="col-sm-2 control-label" />
+				<div class="col-sm-10">
+					<p:inputSwitch id="gender" value="#{editCustomerBean.customer.gender}" styleClass="form-control" 
+						onLabel="#{msg['GenderType.MALE']}" 
+						offLabel="#{msg['GenderType.FEMALE']}"
+						converter="#{genderConverter}"/>
+				</div>
+			</div>
 			<div class="form-group">
 				<p:outputLabel value="#{msg['name']}" for="name" styleClass="col-sm-2 control-label" />
 				<div class="col-sm-10">
@@ -28,6 +37,66 @@
 				<p:outputLabel value="#{msg['birth-year']}" for="birthYear" styleClass="col-sm-2 control-label"/>
 				<div class="col-sm-10">
 					<p:inputText id="birthYear" value="#{editCustomerBean.customer.birthYear}" placeholder="#{msg['please-insert-birth-year']}" styleClass="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<p:outputLabel value="#{msg['phone']}" for="phone" styleClass="col-sm-2 control-label"/>
+				<div class="col-sm-10">
+					<p:inputText id="phone" value="#{editCustomerBean.customer.phone}" placeholder="#{msg['please-insert-phone']}" styleClass="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<p:outputLabel value="#{msg['allergies']}" for="allergies" styleClass="col-sm-2 control-label"/>
+				<div class="col-sm-10">
+					<p:autoComplete id="allergies" multiple="true" 
+							value="#{editCustomerBean.customer.allergies}" 
+							dropdown="true"  
+							var="allergy"
+							itemLabel="#{allergy.name}" 
+							itemValue="#{allergy}"
+							converter="#{allergyConverter}" 
+							forceSelection="true"
+							completeMethod="#{editCustomerBean.completeAllergy}"
+							placeholder="#{msg['search-or-select-one']}">
+							
+							<p:ajax event="itemSelect" listener="#{editCustomerBean.handleSelectAllergy}" />
+							<p:ajax event="itemUnselect" listener="#{editCustomerBean.handleUnselectAllergy}" />
+							
+			        </p:autoComplete>
+					
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<p:outputLabel value="#{msg['past-illnesses']}" for="pastIllnesses" styleClass="col-sm-2 control-label"/>
+				<div class="col-sm-10">
+					<p:autoComplete id="pastIllnesses" multiple="true" 
+							value="#{editCustomerBean.customer.pastIllnesses}" 
+							dropdown="true"  
+							var="pastIllnesse"
+							itemLabel="#{pastIllnesse.name}" 
+							itemValue="#{pastIllnesse}"
+							converter="#{pastIllnesseConverter}" 
+							forceSelection="true"
+							completeMethod="#{editCustomerBean.completePastIllnesse}"
+							placeholder="#{msg['search-or-select-one']}">
+							
+							<p:ajax event="itemSelect" listener="#{editCustomerBean.handleSelectPastIllnesse}" />
+							<p:ajax event="itemUnselect" listener="#{editCustomerBean.handleUnselectPastIllnesse}" />
+							
+			        </p:autoComplete>
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<p:outputLabel value="#{msg['notes']}" for="notes" styleClass="col-sm-2 control-label"/>
+				<div class="col-sm-10">
+					<p:inputTextarea id="notes" rows="6" cols="33" value="#{editCustomerBean.customer.notes}" placeholder="#{msg['please-insert-notes']}" styleClass="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<p:commandButton styleClass="btn btn-default" action="#{editCustomerBean.save}" value="#{msg['save']}"/>
 				</div>
 			</div>
 		</h:panelGroup>

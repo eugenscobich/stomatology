@@ -1,4 +1,4 @@
-package md.stomatology.bean;
+package md.stomatology.web.bean;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;

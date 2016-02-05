@@ -7,18 +7,18 @@
 	xmlns:sec="http://www.springframework.org/security/tags">
 
 <ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
-	<ui:param name="pageTitle" value="#{msg['stomatology']}- #{msg['customer-list']}" />
+	<ui:param name="pageTitle" value="#{msg['customer-list']}" />
 	<ui:define name="content">
 
 		<p:dataTable id="customers" var="customer" value="#{customerBean.customers}" 
-					 rows="15" paginator="true">
+					 rows="15" paginator="true" paginatorPosition="bottom" lazy="true">
 			
-			<f:facet name="header">#{msg['customer-list']}</f:facet>
 			
-			<p:column headerText="#{msg['gender']}">
+			
+			<p:column headerText="#{msg['gender']}" >
 				<h:outputText value="#{msg['GenderType.'.concat(customer.gender)]}" />
 			</p:column>
-			<p:column headerText="#{msg['name']}">
+			<p:column headerText="#{msg['name']}" sortBy="#{customer.name}">
 				<h:outputText value="#{customer.name}" />
 			</p:column>
 			<p:column headerText="#{msg['surname']}">
@@ -32,17 +32,19 @@
 			</p:column>
 			
 			<p:column headerText="#{msg['actions']}">
-				<p:commandButton action="pretty:edit-customer" value="#{msg['edit']}" icon="fa fa-edit">
+				<p:commandButton action="pretty:edit-customer" title="#{msg['edit']}" icon="fa fa-edit" immediate="true" ajax="false">
 					<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="#{customer.id}"/>
 				</p:commandButton>
 				
 				<sec:authorize access="hasAnyRole('ROLE_DIRECTOR')">
-					<p:commandButton icon="fa fa-remove" value="#{msg['remove']}" action="#{customerBean.removeCustomer(customer)}" update="@form"/>
+					<p:commandButton icon="fa fa-remove" title="#{msg['remove']}" action="#{customerBean.removeCustomer(customer)}" update="@form:customers"/>
 				</sec:authorize>
 			</p:column>
 			
 			<f:facet name="footer">
-    	        <p:commandButton update="@form" icon="fa fa-plus" value="#{msg['new-customer']}" action="#{customerBean.newCustomer()}" />
+    	        <p:commandButton icon="fa fa-plus" value="#{msg['new-customer']}" action="pretty:edit-customer">
+    	        	<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="0" ajax="false" immediate="true"/>
+    	        </p:commandButton>
 	        </f:facet>
 			
 		</p:dataTable>

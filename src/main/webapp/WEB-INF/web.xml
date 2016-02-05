@@ -3,44 +3,44 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-	<display-name>SpringSecurity</display-name>
+	<display-name>Stomatology</display-name>
 
 
 	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
-	<listener>
-		<listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletRequestListener</listener-class>
-	</listener>
-
-	<listener>
-		<listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletContextListener</listener-class>
-	</listener>
-
-	<!-- Configure ContextLoaderListener to use JavaConfigWebApplicationContext 
-		instead of the default XmlWebApplicationContext -->
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
 	</context-param>
-
-	<context-param>
-		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
-		<param-value>md.stomatology.bean,com.ocpsoft</param-value>
-	</context-param>
-
-	<!-- Configuration locations must consist of one or more comma- or space-delimited 
-		fully-qualified @Configuration classes -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>md.stomatology.config.ApplicationConfig</param-value>
 	</context-param>
 
+
+
+	<listener>
+		<listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletRequestListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.ocpsoft.rewrite.servlet.impl.RewriteServletContextListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>com.ocpsoft.pretty.BASE_PACKAGES</param-name>
+		<param-value>md.stomatology.web.bean,com.ocpsoft</param-value>
+	</context-param>
+
+
+
 	<context-param>
 		<param-name>primefaces.FONT_AWESOME</param-name>
 		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>bootstrap</param-value>
 	</context-param>
 
 	<filter>
@@ -70,10 +70,7 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>bootstrap</param-value>
-	</context-param>
+	
 
 	<context-param>
 		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>

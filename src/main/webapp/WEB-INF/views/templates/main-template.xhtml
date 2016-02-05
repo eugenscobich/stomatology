@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</title>
+	<title>#{msg['stomatology']} - #{empty pageTitle ? '' : pageTitle}</title>
 	<link rel="icon" href="#{resource['img:favicon.ico']}" type="image/ico" />
 	<link rel="stylesheet" href="#{resource['bootstrap:css/bootstrap.css']}" type="text/css" />
 	<link rel="stylesheet" href="#{resource['bootstrap:css/bootstrap-theme.css']}" type="text/css" />
@@ -52,11 +52,13 @@
 				</p:menubar>
 
 			</nav>
-			<div>
-				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-			</div>
+			
 			
 			<div class="jumbotron">
+				<h2>#{empty pageTitle ? '' : pageTitle}</h2>
+			
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			
 				<ui:insert name="content">{content}</ui:insert>
 			</div>
 		</div>

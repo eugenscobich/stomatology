@@ -54,6 +54,7 @@ public class InfrastructureConfig {
 
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		jpaProperties.put("hibernate.show_sql", true);
 		factory.setJpaProperties(jpaProperties);
 
 		return factory;

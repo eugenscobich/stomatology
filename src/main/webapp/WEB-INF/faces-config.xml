@@ -7,18 +7,27 @@
 
 
 	<application>
-		<message-bundle>resources.application</message-bundle>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
-
-
 		<locale-config>
 			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
 		</locale-config>
+		
 		<resource-bundle>
 			<base-name>messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
 
-
 	</application>
+	
+	<converter>
+		<converter-id>enumConverter</converter-id>
+		<converter-class>javax.faces.convert.EnumConverter</converter-class>
+	</converter>
+
+	<lifecycle>
+		<phase-listener>md.stomatology.util.LogPhaseListener</phase-listener>
+		<phase-listener>com.ocpsoft.pretty.faces.event.MultiPageMessagesSupport</phase-listener>
+	</lifecycle>
+
 </faces-config>
