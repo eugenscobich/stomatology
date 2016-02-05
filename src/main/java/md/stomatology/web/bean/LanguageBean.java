@@ -22,9 +22,9 @@ public class LanguageBean implements Serializable {
 
 	static {
 		countries = new LinkedHashMap<String, Locale>();
-		countries.put("locale.en_GB", Locale.ENGLISH); // label, value
-		countries.put("locale.ru_RU", new Locale("ru", "RU"));
-		countries.put("locale.ro_RO", new Locale("ro", "RO"));
+		countries.put("en_GB", Locale.ENGLISH); // label, value
+		countries.put("ru_RU", new Locale("ru", "RU"));
+		countries.put("ro_RO", new Locale("ro", "RO"));
 	}
 
 	public Map<String, Locale> getCountriesInMap() {
@@ -39,13 +39,13 @@ public class LanguageBean implements Serializable {
 		this.localeCode = localeCode;
 	}
 
-	public void countryLocaleCodeChanged(ValueChangeEvent e) {
-		String newLocaleValue = e.getNewValue().toString();
+	public String changeLocale(String locale) {
 		for (Map.Entry<String, Locale> entry : countries.entrySet()) {
-			if (entry.getValue().toString().equals(newLocaleValue)) {
+			if (entry.getKey().equals(locale)) {
 				FacesContext.getCurrentInstance().getViewRoot().setLocale(entry.getValue());
 			}
 		}
+		return "";
 	}
 
 }

@@ -5,13 +5,7 @@
 .navbar {
 	height:7em;
 }
-.ui-menu.ui-menubar {
-	height:7em;
-	background-color: #f8f8f8;/*#eee*/
-	background-image: none;
-	border-width:0px;
-	border-radius:0px;
-}
+
 .navbar-default {
 	border-color: transparent;
 	background-color: #f8f8f8;
@@ -24,17 +18,6 @@
 }
 .nav ul li:last-child {
 	float: right;
-}
-
-.ui-state-default,
- .ui-widget-content .ui-state-default,
- .ui-widget-header .ui-state-default {
-	background-color: #f8f8f8;
-	background-image: none;
-	background-image: none; 
-	padding:36px 35px 35px;
-	border: 0px;
-    box-shadow: none;
 }
 
 .ui-menuitem-active {

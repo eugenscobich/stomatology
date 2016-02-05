@@ -51,14 +51,18 @@ public class EditCustomerBean implements Serializable {
 		LOG.info("loadCustomer");
 		if (customerId != null) {
 			if (customerId != 0) {
-				customer = customerService.getCustomerById(customerId);
+				try {
+					customer = customerService.getCustomerById(customerId);
+				} catch (Exception e) {
+					WebUtil.addErrorMessage("could-not-load-customer-details", "error", e.getMessage());
+					return "pretty:customer-list";
+				}
 			} else {
 				User currentUser = WebUtil.getCurrentUser();
 				customer = customerService.createNewCustomer(currentUser);
 			}
 			return null;
 		}
-
 		WebUtil.addWarnMessage("could-not-load-customer-details", "");
 		return "pretty:customer-list";
 	}
