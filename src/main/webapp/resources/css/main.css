@@ -1,14 +1,6 @@
-.logo {
-	background-image: url("#{resource['img:small1.jpg']}");
-	background-color: #f8f8f8;
-}
-.navbar {
-	height:7em;
-}
-
 .navbar-default {
 	border-color: transparent;
-	background-color: #f8f8f8;
+	background-color: #fff;
 	background-image: none;
 	box-shadow: none;
 }
@@ -35,43 +27,52 @@
 .ui-button-text-only .ui-button-text {
 	padding:0px;
 }
-
 .logoTitle a,
 .logoTitle h2 {
 	display: inline-block !important;
 }
-
 .logoTitle h2 {
 	margin: 0px;
     vertical-align: middle;
     padding-top: 4px;
-    color: #c2185b;
+    color: #DF8798;
 }
 .ui-corner-all {
 	border-radius: 2px;
 }
-
-/*-----------------------------------@media---------------------------------------*/
-@media(min-width: 768px){
-	.navbar-nav > li > a {
-	    padding: 40px 3px 37px 3px;
-	}
-}
-/*-----------------------------------@media---------------------------------------*/
 .wrapper {
 	height:7em;
 	background-color: #f8f8f8;
-	
 }
  .navbar-default .navbar-nav > li > a {
-	color: #c2185b;
-    font-weight: bold;
+	color: #DF8798;
 }
 .navbar-default .navbar-nav > li > a:hover {
-	color: #c2185b;
+	color: #DF8798;
 	background-color: #eee;
 }
-
 .fa-user:before, .fa-users:before, .fa-table:before, .fa-medkit:before {
-	color:#c2185b;
+	color:#DF8798;
+	font-size: 24px;
+}
+.fa-sign-in:before {
+	font-size: 30px;
+}
+.pTop18 {
+	width:50px;
+}
+
+.navbar-brand {
+    padding-left: 25px;
+	height: auto;
+	font-size: 1.5em !important;
+	font-weight: bold;
+    color: #DF8798 !important;
+}
+.navbar-brand.ui-widget .ui-widget {
+    font-size: 1.5em;
+}
+.lang li a{
+	padding-right: 5px;
+    padding-left: 5px;
 }
