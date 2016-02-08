@@ -51,13 +51,13 @@
 	color: #DF8798;
 	background-color: #eee;
 }
-.fa-user:before, .fa-users:before, .fa-table:before, .fa-medkit:before {
+
+
+.navbar .fa {
 	color:#DF8798;
-	font-size: 24px;
+	font-size: 26px;
 }
-.fa-sign-in:before {
-	font-size: 30px;
-}
+
 .pTop18 {
 	width:50px;
 }
