@@ -1,7 +1,9 @@
 package md.stomatology.model;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
@@ -48,6 +52,14 @@ public class Customer {
 	@Column(name = "phone", length = 50)
 	private String phone;
 	
+	@Column(name = "create_date")
+	@Temporal(TemporalType.TIME)
+	private Date createDate;
+
+	@Column(name = "update_date")
+	@Temporal(TemporalType.TIME)
+	private Date updateDate;
+	
 	@Column(name = "notes" , length = 1000)
 	@Type(type="text")
 	private String notes;
@@ -69,6 +81,10 @@ public class Customer {
 	@ManyToOne
 	@JoinColumn(name = "dentist_id")
 	private User dentist;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "customer_id")
+	private List<Visit> visits;
 	
 	public Long getId() {
 		return id;
@@ -166,5 +182,29 @@ public class Customer {
 
 	public void setDentist(User dentist) {
 		this.dentist = dentist;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
+		this.visits = visits;
 	}
 }

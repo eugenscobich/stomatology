@@ -25,7 +25,7 @@ public class AllergyService {
 
     @Transactional(readOnly = true)
 	public List<Allergy> getAllergies(String query, List<Allergy> allergies) {
-    	List<Long> allergyIds =  allergies != null ? allergies.stream().map(Allergy::getId).collect(Collectors.toList()) : Arrays.asList(0l);
+    	List<Long> allergyIds =  allergies != null && allergies.size() > 0 ? allergies.stream().map(Allergy::getId).collect(Collectors.toList()) : Arrays.asList(0l);
     	
 		if(StringUtils.isNotBlank(query)) {
 			return allergyRepository.findByNameIgnoreCaseContainingAndIdNotIn(query, allergyIds);

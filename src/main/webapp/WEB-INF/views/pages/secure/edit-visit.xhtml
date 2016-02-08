@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
+	
+	<ui:param name="pageTitle" value="#{editVisitBean.visit.id == null ? msg['new-visit'] : msg['edit-visit']}" />
+	<ui:define name="content">
+	
+		<h:panelGroup layout="block" styleClass="form-horizontal">
+		
+			<div class="form-group">
+				<p:outputLabel value="#{msg['patient']}" styleClass="col-sm-2 control-label" />
+				<div class="col-sm-10">
+					<h:outputText value="#{editVisitBean.visit.customer.surname} #{editVisitBean.visit.customer.name}" />
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<p:outputLabel value="#{msg['visit-date']}" for="visitDate" styleClass="col-sm-2 control-label" />
+				<div class="col-sm-10">
+					<p:calendar id="datetime" value="#{editVisitBean.visit.visitDate}" pattern="dd.MM.yyyy HH:mm" />
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<p:outputLabel value="#{msg['additional-info']}" for="additionalInfo" styleClass="col-sm-2 control-label"/>
+				<div class="col-sm-10">
+					<p:inputTextarea id="additional-info" rows="6" cols="33" value="#{editVisitBean.visit.additionalInfo}" placeholder="#{msg['please-insert-additional-info']}" styleClass="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<p:commandButton styleClass="btn btn-default" action="#{editVisitBean.save}" value="#{msg['save']}"/>
+				</div>
+			</div>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
+</html>
+

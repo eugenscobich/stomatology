@@ -10,24 +10,25 @@
 	<ui:param name="pageTitle" value="#{msg['customer-list']}" />
 	<ui:define name="content">
 
-		<p:dataTable id="customers" var="customer" value="#{customerBean.customers}" 
-					 rows="15" paginator="true" paginatorPosition="bottom" lazy="true">
+		<p:dataTable id="customers" var="customer" value="#{customerListBean.customers}" 
+					 rows="15" paginator="true" paginatorPosition="bottom" lazy="true" rowIndexVar="rowIndex">
 			
-			
-			
+			<p:column headerText="#{msg['row-number-header']}" styleClass="">#{rowIndex + 1}</p:column>
 			<p:column headerText="#{msg['gender']}" >
-				<h:outputText value="#{msg['GenderType.'.concat(customer.gender)]}" />
+				<p:commandLink action="pretty:view-customer" value="#{msg['GenderType.'.concat(customer.gender)]}" immediate="true">
+					<f:setPropertyActionListener target="#{viewCustomerBean.customerId}" value="#{customer.id}"/>
+				</p:commandLink>
 			</p:column>
-			<p:column headerText="#{msg['name']}" sortBy="#{customer.name}">
-				<h:outputText value="#{customer.name}" />
-			</p:column>
-			<p:column headerText="#{msg['surname']}">
+			<p:column headerText="#{msg['surname']}" sortBy="#{customer.surname}" filterBy="#{customer.surname}" filterStyleClass="todo">
 				<h:outputText value="#{customer.surname}" />
 			</p:column>
-			<p:column headerText="#{msg['birth-year']}">
+			<p:column headerText="#{msg['name']}" sortBy="#{customer.name}" filterBy="#{customer.name}" filterStyleClass="todo">
+				<h:outputText value="#{customer.name}" />
+			</p:column>
+			<p:column headerText="#{msg['birth-year']}" sortBy="#{customer.birthYear}" filterBy="#{customer.birthYear}" filterStyleClass="todo">
 				<h:outputText value="#{customer.birthYear}" />
 			</p:column>
-			<p:column headerText="#{msg['phone']}">
+			<p:column headerText="#{msg['phone']}" sortBy="#{customer.phone}" filterBy="#{customer.phone}" filterStyleClass="todo">
 				<h:outputText value="#{customer.phone}" />
 			</p:column>
 			
@@ -37,13 +38,13 @@
 				</p:commandButton>
 				
 				<sec:authorize access="hasAnyRole('ROLE_DIRECTOR')">
-					<p:commandButton icon="fa fa-remove" title="#{msg['remove']}" action="#{customerBean.removeCustomer(customer)}" update="@form:customers"/>
+					<p:commandButton icon="fa fa-remove" title="#{msg['remove']}" action="#{customerListBean.removeCustomer(customer)}" update="@form:customers"/>
 				</sec:authorize>
 			</p:column>
 			
 			<f:facet name="footer">
-    	        <p:commandButton icon="fa fa-plus" value="#{msg['new-customer']}" action="pretty:edit-customer">
-    	        	<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="0" ajax="false" immediate="true"/>
+    	        <p:commandButton icon="fa fa-plus" value="#{msg['new-customer']}" action="pretty:edit-customer" immediate="true" ajax="false">
+    	        	<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="0"/>
     	        </p:commandButton>
 	        </f:facet>
 			

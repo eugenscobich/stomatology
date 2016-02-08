@@ -25,7 +25,7 @@ public class PastIllnesseService {
 
     @Transactional(readOnly = true)
 	public List<PastIllnesse> getPastIllnesses(String query, List<PastIllnesse> pastIllnesses) {
-    	List<Long> pastIllnesseIds = pastIllnesses != null ? pastIllnesses.stream().map(PastIllnesse::getId).collect(Collectors.toList()) : Arrays.asList(0l);
+    	List<Long> pastIllnesseIds = pastIllnesses != null && pastIllnesses.size() > 0 ? pastIllnesses.stream().map(PastIllnesse::getId).collect(Collectors.toList()) : Arrays.asList(0l);
 
     	if(StringUtils.isNotBlank(query)) {
 			return pastIllnesseRepository.findByNameIgnoreCaseContainingAndIdNotIn(query, pastIllnesseIds);

@@ -11,34 +11,43 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "visit")
+@Table(name = "visits")
 public class Visit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "visit_date")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIME)
 	private Date visitDate;
+
+	@Column(name = "update_date")
+	@Temporal(TemporalType.TIME)
+	private Date updateDate;
 	
 	@Column(name = "additional_info")
 	private String additionalInfo;
-	
+
 	@Column(name = "price")
 	private Float price;
-	
+
 	@Column(name = "paid")
 	private Float paid;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne
+	@JoinColumn(name= "customer_id")
+	private Customer customer;
+
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "visit_id")
 	private List<File> files;
 
@@ -88,6 +97,22 @@ public class Visit {
 
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }

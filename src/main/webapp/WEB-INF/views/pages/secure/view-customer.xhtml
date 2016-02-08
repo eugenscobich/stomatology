@@ -11,17 +11,91 @@
 	<ui:param name="pageTitle" value="#{msg['view-customer']}" />
 	<ui:define name="content">
 
-		<h:panelGrid columns="2">
-			<p:outputLabel value="#{msg['name']}" for="name" />
-        	<p:outputLabel  id="name" value="#{editCustomerBean.customer.name}" />
-		
-			<p:outputLabel value="#{msg['surname']}" for="surname" />
-        	<p:inputText  id="surname" value="#{editCustomerBean.customer.surname}"/>
-		
-			<p:outputLabel value="#{msg['birth-year']}" for="birthYear" />
-        	<p:inputText  id="birthYear" value="#{editCustomerBean.customer.birthYear}" />
-		
-		</h:panelGrid>
+
+		<dl class="dl-horizontal">
+			<dt>#{msg['patient']}:</dt>
+			<dd><h:outputText value="#{viewCustomerBean.customer.surname} #{viewCustomerBean.customer.name}" /></dd>
+
+			<dt>#{msg['gender']}:</dt>
+			<dd><h:outputText value="#{msg['GenderType.'.concat(viewCustomerBean.customer.gender)]}" /></dd>
+
+			<dt>#{msg['birth-year']}:</dt>
+			<dd><h:outputText value="#{viewCustomerBean.customer.birthYear}" /></dd>
+
+			<dt>#{msg['address']}:</dt>
+			<dd><h:outputText value="#{viewCustomerBean.customer.address}" /></dd>
+
+			<dt>#{msg['allergies']}:</dt>
+			<dd class="text-danger">
+				<ui:repeat value="#{viewCustomerBean.customer.allergies}" var="allergy" varStatus="status">
+					<h:outputText value="#{allergy.name}"/><h:outputText value=", " rendered="#{!status.last}"/> 
+				</ui:repeat>
+			</dd>
+			
+			<dt>#{msg['past-illnesses']}:</dt>
+			<dd class="text-danger">
+				<ui:repeat value="#{viewCustomerBean.customer.pastIllnesses}" var="pastIllnesse" varStatus="status">
+					<h:outputText value="#{pastIllnesse.name}"/><h:outputText value=", " rendered="#{!status.last}"/> 
+				</ui:repeat>
+			</dd>
+			
+			
+			<dt>#{msg['notes']}:</dt>
+			<dd><h:outputText value="#{viewCustomerBean.customer.notes}" /></dd>
+			
+			<dt></dt>
+			<dd>
+				<p:commandButton action="pretty:edit-customer" title="#{msg['edit']}" icon="fa fa-edit" immediate="true" ajax="false">
+					<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="#{viewCustomerBean.customer.id}"/>
+				</p:commandButton>
+			</dd>
+			
+		</dl>
+
+
+		<p:dataTable id="visits" var="visit" value="#{viewCustomerBean.visits}" 
+					 rows="15" paginator="true" paginatorPosition="bottom" lazy="true" rowIndexVar="rowIndex">
+			
+			<f:facet name="header">
+    	        <h:outputText value="#{msg['visits']}"/>
+	        </f:facet>
+			
+			<p:column headerText="#{msg['row-number-header']}" styleClass="">#{rowIndex + 1}</p:column>
+			<p:column headerText="#{msg['date']}" >
+				<h:outputText value="#{visit.visitDate}" >
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="#{msg['todo-info']}">
+				<h:outputText value="todo" />
+			</p:column>
+			<p:column headerText="#{msg['price']}" sortBy="#{visit.price}" filterBy="#{visit.price}" filterStyleClass="todo">
+				<h:outputText value="#{visit.price}" >
+					<f:convertNumber pattern="#0.00" type="currency"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="#{msg['paid']}" sortBy="#{visit.paid}" filterBy="#{visit.paid}" filterStyleClass="todo">
+				<h:outputText value="#{visit.paid}" >
+					<f:convertNumber pattern="#0.00" type="currency"/>
+				</h:outputText>
+			</p:column>
+			
+			<p:column headerText="#{msg['actions']}">
+				<p:commandButton title="#{msg['edit']}" icon="fa fa-edit" immediate="true" ajax="false" action="pretty:edit-visit">
+					<f:setPropertyActionListener target="#{editVisitBean.customerId}" value="#{viewCustomerBean.customer.id}"/>
+    	        	<f:setPropertyActionListener target="#{editVisitBean.visitId}" value="#{visit.id}"/>
+				</p:commandButton>
+			</p:column>
+			
+			<f:facet name="footer">
+    	        <p:commandButton icon="fa fa-plus" value="#{msg['new-visit']}" action="pretty:edit-visit" immediate="true" ajax="false">
+    	        	<f:setPropertyActionListener target="#{editVisitBean.customerId}" value="#{viewCustomerBean.customer.id}"/>
+    	        	<f:setPropertyActionListener target="#{editVisitBean.visitId}" value="0"/>
+    	        </p:commandButton>
+	        </f:facet>
+			
+		</p:dataTable>
+
 
 	</ui:define>
 </ui:composition>

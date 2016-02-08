@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/", "/logout", "/error", "/javax.faces.resource/**").permitAll()
 
-				.antMatchers("/customer-list/**", "/edit-customer/**").hasRole("EMPLOYEE")
+				.antMatchers("/customer-list/**", "/edit-customer/**", "/view-customer/**", "/edit-visit/**", "/view-visit/**").hasRole("EMPLOYEE")
 				//.antMatchers("/edit-customer/**").hasRole("ADMIN")
 				.and()
 				.exceptionHandling().accessDeniedPage("/access-denied")

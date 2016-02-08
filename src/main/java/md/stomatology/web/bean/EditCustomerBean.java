@@ -26,7 +26,7 @@ import md.stomatology.util.WebUtil;
 
 @ManagedBean
 @ViewScoped
-@URLMapping(id = "edit-customer", pattern = "/edit-customer/#{customerId : editCustomerBean.customerId}", viewId = "/WEB-INF/views/pages/secure/edit-customer.xhtml")
+@URLMapping(id = "edit-customer", pattern = "/edit-customer/#{/[0-9]+/ customerId : editCustomerBean.customerId}", viewId = "/WEB-INF/views/pages/secure/edit-customer.xhtml")
 public class EditCustomerBean implements Serializable {
 
 	private static Logger LOG = LoggerFactory.getLogger(LoginBean.class);

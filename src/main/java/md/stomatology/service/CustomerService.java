@@ -1,12 +1,16 @@
 package md.stomatology.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -68,6 +72,11 @@ public class CustomerService {
 
 	@Transactional
 	public void saveCustomer(Customer customer) throws Exception {
+		if (customer.getCreateDate() == null) {
+			customer.setCreateDate(new Date());	
+		} else {
+			customer.setUpdateDate(new Date());
+		}
 		customerRepository.save(customer);
 	}
 
@@ -77,8 +86,13 @@ public class CustomerService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<Customer> getCustomers(PageRequest pageRequest) {
-		return customerRepository.findAll(pageRequest);
+	public Page<Customer> getCustomers(Specifications<Customer> specifications, int page, int size, Sort sort) {
+		
+		Sort createDateSort = new Sort(Direction.DESC, "createDate");
+		sort = sort == null ? createDateSort :	sort.and(createDateSort);
+		PageRequest pageRequest = new PageRequest(page, size, sort);
+		
+		return customerRepository.findAll(specifications, pageRequest);
 	}
 	
 }
