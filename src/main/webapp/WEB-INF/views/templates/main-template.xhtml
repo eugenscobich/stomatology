@@ -34,11 +34,9 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				    </button>
-				    
-				    <p:commandLink styleClass="navbar-brand" action="pretty:index" immediate="true" title="#{msg['mialis-dent']}" value="#{msg['mialis-dent']}">
-				    	<p:graphicImage value="#{resource['img:logo22.png']}" width="71" height="50"/>
-				    </p:commandLink>
-				
+				    <p:graphicImage value="#{resource['img:lh.png']}" styleClass="pull-left pTop18 "/>
+				    <p:commandLink styleClass="navbar-brand" action="pretty:index" immediate="true" title="#{msg['mialis-dent']}" value="#{msg['mialis-dent']}"> </p:commandLink>
+					
 				</p:outputPanel>
 				<div class="navbar-collapse collapse" id="navbar">
 					<ul class="nav navbar-nav">
@@ -50,7 +48,7 @@
 					<ul class="nav navbar-nav navbar-right">
 					
 						<li>
-							<p:commandLink styleClass="fa fa-user" action="pretty:edit-customer" immediate="true" title="#{msg['add-customer']}">
+							<p:commandLink styleClass="fa fa-user" action="pretty:edit-customer" immediate="true" title="#{msg['new-customer']}">
 								<f:setPropertyActionListener target="#{editCustomerBean.customerId}" value="0"/>
 							</p:commandLink>
 						</li>
@@ -63,29 +61,32 @@
 						<li>
 							<p:commandLink styleClass="fa fa-medkit" title="Materiale"/>					
 						</li>
-						
 						<li>
-							<p:commandLink action="#{languageBean.changeLocale('en_GB')}" ajax="false">
-								<p:graphicImage value="#{resource['img:gb.svg']}" width="20" height="10"/>
-							</p:commandLink>
-						</li>
-						<li>
-							<p:commandLink action="#{languageBean.changeLocale('ro_RO')}" ajax="false">
-								<p:graphicImage value="#{resource['img:md.svg']}" width="20" height="10"/>
-							</p:commandLink>
-						</li>
-						<li>
-							<p:commandLink action="#{languageBean.changeLocale('ru_RU')}" ajax="false">
-								<p:graphicImage value="#{resource['img:ru.svg']}" width="20" height="10"/>
-							</p:commandLink>
+							<ul class="lang nav navbar-nav navbar-left">
+								<li>
+									<p:commandLink action="#{languageBean.changeLocale('en_GB')}" ajax="false">
+										<p:graphicImage value="#{resource['img:gb.svg']}" width="20" height="10"/>
+									</p:commandLink>
+								</li>
+								<li>
+									<p:commandLink action="#{languageBean.changeLocale('ro_RO')}" ajax="false">
+										<p:graphicImage value="#{resource['img:md.svg']}" width="20" height="10"/>
+									</p:commandLink>
+								</li>
+								<li>
+									<p:commandLink action="#{languageBean.changeLocale('ru_RU')}" ajax="false">
+										<p:graphicImage value="#{resource['img:ru.svg']}" width="20" height="10"/>
+									</p:commandLink>
+								</li>
+							</ul>
 						</li>
 						<li>
 							<sec:authorize access="!isAuthenticated()">
-								<p:commandLink styleClass="fa fa-sign-in" value="#{msg['login']}" action="pretty:login" immediate="true"/>
+								<p:commandLink styleClass="fa fa-sign-in" action="pretty:login" immediate="true"/> <!-- value="#{msg['login']}" -->
 							</sec:authorize>
 							
 							<sec:authorize access="isAuthenticated()" >
-								<p:commandLink styleClass="fa fa-sign-out" value="#{msg['logout']}" action="pretty:logout" immediate="true"/>
+								<p:commandLink styleClass="fa fa-sign-out" action="pretty:logout" immediate="true"/> <!-- value="#{msg['logout']}" -->
 							</sec:authorize>
 						</li>
 					</ul>
