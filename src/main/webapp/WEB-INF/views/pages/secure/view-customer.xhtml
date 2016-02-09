@@ -85,6 +85,11 @@
 					<f:setPropertyActionListener target="#{editVisitBean.customerId}" value="#{viewCustomerBean.customer.id}"/>
     	        	<f:setPropertyActionListener target="#{editVisitBean.visitId}" value="#{visit.id}"/>
 				</p:commandButton>
+				
+				<sec:authorize access="hasAnyRole('ROLE_DIRECTOR')">
+					<p:commandButton icon="fa fa-remove" title="#{msg['remove']}" action="#{viewCustomerBean.removeVisit(visit)}" update="@form:visits"/>
+				</sec:authorize>
+				
 			</p:column>
 			
 			<f:facet name="footer">

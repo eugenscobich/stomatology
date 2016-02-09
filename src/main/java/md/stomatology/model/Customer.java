@@ -53,11 +53,11 @@ public class Customer {
 	private String phone;
 	
 	@Column(name = "create_date")
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 
 	@Column(name = "update_date")
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
 	
 	@Column(name = "notes" , length = 1000)
@@ -82,7 +82,7 @@ public class Customer {
 	@JoinColumn(name = "dentist_id")
 	private User dentist;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "customer_id")
 	private List<Visit> visits;
 	

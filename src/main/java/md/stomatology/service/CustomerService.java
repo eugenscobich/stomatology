@@ -28,22 +28,6 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-    @PreAuthorize("hasRole('ROLE_EUGEN')")
-	@Transactional
-	public void addCustomer(Customer customer) {
-		customerRepository.save(customer);
-	}
-
-    @Transactional
-    public void deleteCustomer(Customer customer) {
-    	customerRepository.delete(customer);
-    }
-
-    @Transactional
-    public void updateCustomer(Customer customer) {
-    	customerRepository.save(customer);
-    }
-
     @Transactional(readOnly = true)
     public Customer getCustomerById(Long customerId) {
     	Customer customer = customerRepository.findOne(customerId);
@@ -79,7 +63,8 @@ public class CustomerService {
 		}
 		customerRepository.save(customer);
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
 	@Transactional
 	public void removeCustomer(Customer customer) {
 		customerRepository.delete(customer);

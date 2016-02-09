@@ -76,6 +76,18 @@ public class ViewCustomerBean implements Serializable {
 		WebUtil.addWarnMessage("could-not-load-customer-details", "");
 		return "pretty:customer-list";
 	}
+	
+	public String removeVisit(Visit visit) {
+		try {
+			visitService.removeVisit(visit);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
+			WebUtil.addErrorMessage("could-not-remove-visit", "error", new String[] { e.getMessage() });
+			return "";
+		}
+		WebUtil.addSuccessMessage("visit-has-removed-successfully");
+		return "";
+	}
 
 	public CustomerService getCustomerService() {
 		return customerService;

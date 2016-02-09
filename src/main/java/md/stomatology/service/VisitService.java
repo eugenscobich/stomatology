@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,7 @@ public class VisitService {
 		Customer customer = customerService.getCustomerById(customerId);
 		Visit visit = new Visit();
 		visit.setCustomer(customer);
+		visit.setVisitDate(new Date());
 		return visit;
 	}
 
@@ -64,6 +66,12 @@ public class VisitService {
 			visit.setUpdateDate(new Date());
 		}
 		visitRepository.save(visit);
+	}
+
+	@PreAuthorize("hasRole('ROLE_DIRECTOR')")
+	@Transactional
+	public void removeVisit(Visit visit) {
+		visitRepository.delete(visit);
 	}
 	
 }

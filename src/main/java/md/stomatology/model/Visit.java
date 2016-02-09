@@ -27,11 +27,11 @@ public class Visit {
 	private Long id;
 
 	@Column(name = "visit_date")
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date visitDate;
 
 	@Column(name = "update_date")
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
 	
 	@Column(name = "additional_info")
