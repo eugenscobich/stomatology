@@ -24,7 +24,7 @@
 <h:body>
 	<h:form>
 
-		<nav role="navigation" class="navbar navbar-default navbar-static-top">
+		<nav role="navigation" class="navbar navbar-default navbar-static-top navbar-noStyle">
 			<p:outputPanel layout="block" styleClass="container">
 				<p:outputPanel layout="block" styleClass="navbar-header">
 
@@ -62,7 +62,12 @@
 							<p:commandLink styleClass="fa fa-medkit" title="Materiale"/>					
 						</li>
 						<li>
-							<ul class="lang nav navbar-nav navbar-left">
+							<ul class="userName">
+								<li>
+									<p:commandLink value="#{loginBean.user.username}" rendered="#{not empty loginBean.user}" action="#{languageBean.changeLocale('en_GB')}" ajax="false" >Alina</p:commandLink>
+								</li>
+							</ul>
+							<ul class="lang nav navbar-nav navbar-left floatL">
 								<li>
 									<p:commandLink action="#{languageBean.changeLocale('en_GB')}" ajax="false">
 										<p:graphicImage value="#{resource['img:gb.svg']}" width="20" height="10"/>
