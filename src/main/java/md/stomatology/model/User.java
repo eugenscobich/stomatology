@@ -30,6 +30,12 @@ public class User implements UserDetails {
 
 	@Column(name = "username", length = 50)
 	private String username;
+	
+	@Column(name = "name", length = 50)
+	private String name;
+	
+	@Column(name = "surname", length = 50)
+	private String surname;
 
 	@Column(name = "password", length = 50)
 	private String password;
@@ -99,5 +105,21 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return Boolean.TRUE.equals(enabled);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 }

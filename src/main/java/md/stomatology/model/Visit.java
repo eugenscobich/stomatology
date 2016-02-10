@@ -47,6 +47,14 @@ public class Visit {
 	@JoinColumn(name= "customer_id")
 	private Customer customer;
 
+	@ManyToOne
+	@JoinColumn(name = "dentist_id")
+	private User dentist;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "visit_id")
+	private List<ToothInfo> toothInfos;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "visit_id")
 	private List<File> files;
@@ -113,6 +121,22 @@ public class Visit {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public User getDentist() {
+		return dentist;
+	}
+
+	public void setDentist(User dentist) {
+		this.dentist = dentist;
+	}
+
+	public List<ToothInfo> getToothInfos() {
+		return toothInfos;
+	}
+
+	public void setToothInfos(List<ToothInfo> toothInfos) {
+		this.toothInfos = toothInfos;
 	}
 	
 }

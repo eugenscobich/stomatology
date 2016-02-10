@@ -43,6 +43,9 @@
 			<dt>#{msg['notes']}:</dt>
 			<dd><h:outputText value="#{viewCustomerBean.customer.notes}" /></dd>
 			
+			<dt>#{msg['dentist']}:</dt>
+			<dd><h:outputText value="#{viewCustomerBean.customer.dentist.surname} #{viewCustomerBean.customer.dentist.name}" /></dd>
+			
 			<dt></dt>
 			<dd>
 				<p:commandButton action="pretty:edit-customer" title="#{msg['edit']}" icon="fa fa-edit" immediate="true" ajax="false">

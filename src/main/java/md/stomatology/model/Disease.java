@@ -2,13 +2,17 @@ package md.stomatology.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import md.stomatology.model.type.ImplantType;
+
 @Entity
-@Table(name = "disease")
+@Table(name = "diseases")
 public class Disease {
 
 	@Id
@@ -21,6 +25,13 @@ public class Disease {
 	
 	@Column(name = "short_name")
 	private String shortName;
+	
+	@Column(name = "is_removed")
+	private Boolean isRemoved;
+
+	@Column(name = "implant_type")
+	@Enumerated(EnumType.STRING)
+	private ImplantType implantType;
 
 	public Long getId() {
 		return id;
@@ -44,6 +55,22 @@ public class Disease {
 
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
+	}
+
+	public Boolean getIsRemoved() {
+		return isRemoved;
+	}
+
+	public void setIsRemoved(Boolean isRemoved) {
+		this.isRemoved = isRemoved;
+	}
+
+	public ImplantType getImplantType() {
+		return implantType;
+	}
+
+	public void setImplantType(ImplantType implantType) {
+		this.implantType = implantType;
 	}
 	
 }

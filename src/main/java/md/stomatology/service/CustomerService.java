@@ -45,7 +45,7 @@ public class CustomerService {
 		Customer customer = new Customer();
 		
 		Collection<? extends GrantedAuthority> authorities = currentUser.getAuthorities();
-		boolean isDentist = authorities.contains(new Authority(AuthorityType.ROLE_DENTIST));
+		boolean isDentist = authorities.stream().anyMatch(authority -> authority.getAuthority().equals(AuthorityType.ROLE_DENTIST.toString()));
 		
 		if (isDentist) {
 			customer.setDentist(currentUser);

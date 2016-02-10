@@ -19,6 +19,25 @@
 					<h:outputText value="#{editVisitBean.visit.customer.surname} #{editVisitBean.visit.customer.name}" />
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<p:outputLabel value="#{msg['dentist']}" styleClass="col-sm-2 control-label" />
+				<div class="col-sm-10">
+					<p:autoComplete id="dentist" 
+							value="#{editVisitBean.visit.dentist}" 
+							dropdown="true"  
+							var="dentist"
+							itemLabel="#{dentist.surname} #{dentist.name}" 
+							itemValue="#{dentist}"
+							converter="#{userConverter}" 
+							completeMethod="#{editVisitBean.completeDentists}"
+							placeholder="#{msg['search-or-select-one']}">
+							
+							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectDentist}" />
+							
+			        </p:autoComplete>
+				</div>
+			</div>
 		
 			<div class="form-group">
 				<p:outputLabel value="#{msg['visit-date']}" for="visitDate" styleClass="col-sm-2 control-label" />
@@ -26,6 +45,165 @@
 					<p:calendar id="visitDate" value="#{editVisitBean.visit.visitDate}" pattern="dd.MM.yyyy HH:mm"/>
 				</div>
 			</div>
+			
+			
+			
+			
+			
+			<div class="form-group">
+				<p:outputLabel value="#{msg['dentition']}" styleClass="col-sm-12 control-label" />
+				<div class="col-sm-12">
+					<table class="dentition">
+						<tbody>
+							<tr class="tooth">
+								<td><p:graphicImage value="#{resource['img:18/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:17/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:16/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:15/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:14/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:13/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:12/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:11/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:21/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:22/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:23/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:24/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:25/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:26/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:27/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:28/default.svg']}" width="64"/></td>
+							</tr>
+							<tr class="tooth_number">
+								<td>18</td>
+								<td>17</td>
+								<td>16</td>
+								<td>15</td>
+								<td>14</td>
+								<td>13</td>
+								<td>12</td>
+								<td>11</td>
+								<td>21</td>
+								<td>22</td>
+								<td>23</td>
+								<td>24</td>
+								<td>25</td>
+								<td>26</td>
+								<td>27</td>
+								<td>28</td>
+							</tr>
+							<tr class="tooth_distressed_surfaces">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr class="tooth_distressed_surfaces">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr class="tooth_number">
+								<td>48</td>
+								<td>47</td>
+								<td>46</td>
+								<td>45</td>
+								<td>44</td>
+								<td>43</td>
+								<td>42</td>
+								<td>41</td>
+								<td>31</td>
+								<td>32</td>
+								<td>33</td>
+								<td>34</td>
+								<td>35</td>
+								<td>36</td>
+								<td>37</td>
+								<td>38</td>
+							</tr>
+							<tr class="tooth">
+								<td><p:graphicImage value="#{resource['img:48/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:47/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:46/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:45/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:44/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:43/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:42/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:41/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:31/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:32/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:33/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:34/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:35/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:36/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:37/default.svg']}" width="64"/></td>
+								<td><p:graphicImage value="#{resource['img:38/default.svg']}" width="64"/></td>
+							</tr>
+							
+						</tbody>
+					
+					</table>
+					
+					
+					
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
+					
+					
+					
+					
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			<div class="form-group">
 				<p:outputLabel value="#{msg['additional-info']}" for="additional-info" styleClass="col-sm-2 control-label"/>

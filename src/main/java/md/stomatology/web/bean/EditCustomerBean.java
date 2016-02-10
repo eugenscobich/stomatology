@@ -22,6 +22,7 @@ import md.stomatology.model.User;
 import md.stomatology.service.AllergyService;
 import md.stomatology.service.CustomerService;
 import md.stomatology.service.PastIllnesseService;
+import md.stomatology.service.UserService;
 import md.stomatology.util.WebUtil;
 
 @ManagedBean
@@ -38,6 +39,9 @@ public class EditCustomerBean implements Serializable {
 
 	@ManagedProperty(value = "#{allergyService}")
 	private transient AllergyService allergyService;
+	
+	@ManagedProperty(value = "#{userService}")
+	private transient UserService userService;
 
 	@ManagedProperty(value = "#{pastIllnesseService}")
 	private transient PastIllnesseService pastIllnesseService;
@@ -108,6 +112,20 @@ public class EditCustomerBean implements Serializable {
 		PastIllnesse pastIllnesse = (PastIllnesse) event.getObject();
 		customer.getPastIllnesses().remove(pastIllnesse);
 	}
+	
+	public List<User> completeDentists(String query) {
+		List<User> users = userService.getDentists(query, customer.getDentist());
+		return users;
+	}
+
+	public void handleSelectDentist(SelectEvent event) {
+		User dentist = (User) event.getObject();
+		customer.setDentist(dentist);
+	}
+
+	public void handleUnselectDentist(UnselectEvent event) {
+		customer.setDentist(null);
+	}
 
 	public CustomerService getCustomerService() {
 		return customerService;
@@ -147,6 +165,14 @@ public class EditCustomerBean implements Serializable {
 
 	public void setPastIllnesseService(PastIllnesseService pastIllnesseService) {
 		this.pastIllnesseService = pastIllnesseService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 }

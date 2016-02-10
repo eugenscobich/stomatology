@@ -22,6 +22,7 @@ import md.stomatology.model.User;
 import md.stomatology.service.AllergyService;
 import md.stomatology.service.VisitService;
 import md.stomatology.service.PastIllnesseService;
+import md.stomatology.service.UserService;
 import md.stomatology.util.WebUtil;
 
 @ManagedBean
@@ -39,6 +40,9 @@ public class EditVisitBean implements Serializable {
 	@ManagedProperty(value = "#{viewCustomerBean}")
 	private transient ViewCustomerBean viewCustomerBean;
 
+	@ManagedProperty(value = "#{userService}")
+	private transient UserService userService;
+	
 	private Long customerId;
 	
 	private Long visitId;
@@ -58,7 +62,8 @@ public class EditVisitBean implements Serializable {
 					return "pretty:view-customer";
 				}
 			} else {
-				visit = visitService.createNewVisit(customerId);
+				User currentUser = WebUtil.getCurrentUser();
+				visit = visitService.createNewVisit(customerId, currentUser);
 			}
 			return null;
 		}
@@ -78,6 +83,17 @@ public class EditVisitBean implements Serializable {
 		WebUtil.addSuccessMessage("visit-has-saved-successfully");
 		viewCustomerBean.setCustomerId(customerId);
 		return "pretty:view-customer";
+	}
+	
+	
+	public List<User> completeDentists(String query) {
+		List<User> users = userService.getDentists(query, visit.getDentist());
+		return users;
+	}
+
+	public void handleSelectDentist(SelectEvent event) {
+		User dentist = (User) event.getObject();
+		visit.setDentist(dentist);
 	}
 	
 	public VisitService getVisitService() {
@@ -118,6 +134,14 @@ public class EditVisitBean implements Serializable {
 
 	public void setViewCustomerBean(ViewCustomerBean viewCustomerBean) {
 		this.viewCustomerBean = viewCustomerBean;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 }
