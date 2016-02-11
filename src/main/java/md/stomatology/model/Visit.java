@@ -55,6 +55,9 @@ public class Visit {
 	@JoinColumn(name = "visit_id")
 	private List<ToothInfo> toothInfos;
 	
+	private transient List<ToothInfo> topToothInfos;
+	private transient List<ToothInfo> bottomToothInfos;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "visit_id")
 	private List<File> files;
@@ -137,6 +140,22 @@ public class Visit {
 
 	public void setToothInfos(List<ToothInfo> toothInfos) {
 		this.toothInfos = toothInfos;
+	}
+
+	public List<ToothInfo> getTopToothInfos() {
+		return topToothInfos;
+	}
+
+	public void setTopToothInfos(List<ToothInfo> topToothInfos) {
+		this.topToothInfos = topToothInfos;
+	}
+
+	public List<ToothInfo> getBottomToothInfos() {
+		return bottomToothInfos;
+	}
+
+	public void setBottomToothInfos(List<ToothInfo> bottomToothInfos) {
+		this.bottomToothInfos = bottomToothInfos;
 	}
 	
 }

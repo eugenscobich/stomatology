@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	
+  		<p:dialog header="#{msg['tooth']} #{toothInfo.index}" widgetVar="#{'toothInfoDialog_'.concat(toothInfo.index)}" modal="true" 
+   			height="400" width="700" dynamic="true" styleClass="container-fluid">
+			<div class="form-horizontal">
+				<div class="form-group">
+					<p:outputLabel value="#{msg['diseases']}" styleClass="col-sm-3 control-label" />
+					<div class="col-sm-9">
+						
+						<p:autoComplete multiple="true" 
+							value="#{toothInfo.diseases}" 
+							dropdown="true"  
+							var="disease"
+							itemLabel="#{disease.name}" 
+							itemValue="#{disease}"
+							converter="#{diseaseConverter}" 
+							forceSelection="true"
+							completeMethod="#{editVisitBean.completeDisease}"
+							placeholder="#{msg['search-or-select-one']}">
+							
+							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectDisease}" />
+							<p:ajax event="itemUnselect" listener="#{editVisitBean.handleUnselectDisease}" />
+							
+			        	</p:autoComplete>	
+						
+					</div>
+				</div>
+				<div class="form-group">
+					<p:outputLabel value="#{msg['treatments']}" styleClass="col-sm-3 control-label" />
+					<div class="col-sm-9">
+						
+						<p:autoComplete multiple="true" 
+							value="#{toothInfo.treatments}" 
+							dropdown="true"  
+							var="treatment"
+							itemLabel="#{treatment.name}(#{treatment.materialUsed})" 
+							itemValue="#{treatment}"
+							converter="#{treatmentConverter}" 
+							forceSelection="true"
+							completeMethod="#{editVisitBean.completeTreatment}"
+							placeholder="#{msg['search-or-select-one']}">
+							
+							
+							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectTreatment}" />
+							<p:ajax event="itemUnselect" listener="#{editVisitBean.handleUnselectTreatment}" />
+							
+			        	</p:autoComplete>	
+						
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<p:outputLabel value="#{msg['gum-pockets-depth']}" styleClass="col-sm-3 control-label" />
+					
+					
+					<div class="col-sm-1">#{msg['top']}:</div>
+					
+					<div class="col-sm-1">
+						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthTop}">
+							<f:selectItem itemLabel="-" itemValue="" />
+				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
+				        </p:selectOneMenu>
+					</div>
+					
+					<div class="col-sm-1">#{msg['right']}:</div>
+					<div class="col-sm-1">
+						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthRight}">
+							<f:selectItem itemLabel="-" itemValue="" />
+				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
+				        </p:selectOneMenu>
+					</div>
+					
+					<div class="col-sm-1">#{msg['bottom']}:</div>
+					<div class="col-sm-1">
+						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthBottom}">
+							<f:selectItem itemLabel="-" itemValue="" />
+				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
+				        </p:selectOneMenu>
+					</div>
+					
+					<div class="col-sm-1">#{msg['left']}:</div>
+					<div class="col-sm-1">
+						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthLeft}">
+							<f:selectItem itemLabel="-" itemValue="" />
+				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
+				        </p:selectOneMenu>
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<p:outputLabel value="#{msg['distressed-surfaces']}" styleClass="col-sm-3 control-label" />
+					<div class="col-sm-9">
+						<p:inputText value="#{toothInfo.distressedSurfaces}"/>
+						
+						<p:graphicImage value="#{resource['img:distressed_surfaces_4/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" 
+							rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}" id="distressed_surfaces_4_#{toothInfo.toothIndex}" 
+							styleClass="distressed-surfaces-image"/>
+								   			
+				   		<p:graphicImage value="#{resource['img:distressed_surfaces_4/default.svg']}" 
+				   			rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}" id="distressed_surfaces_4_default"
+				   			styleClass="distressed-surfaces-image"/>
+				   			
+				   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" 
+				   			rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}" id="distressed_surfaces_5_#{toothInfo.toothIndex}"
+				   			styleClass="distressed-surfaces-image"/>
+				   			
+				   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/default.svg']}" 
+							rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}" id="distressed_surfaces_5_default"
+							styleClass="distressed-surfaces-image"/>
+						
+						<script src="#{resource['js:edit-visit-tooth-dialog.js']}" />
+						
+					</div>
+				</div>
+				
+			</div>
+			
+			<f:facet name="footer">
+                <p:commandButton value="Ok" update="@form:tooth"/>
+            </f:facet>  
+			
+		</p:dialog>
+</ui:composition>
+
+

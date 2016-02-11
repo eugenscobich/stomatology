@@ -48,9 +48,18 @@ public class ToothInfo {
 	@Column(name = "distressed_surfaces")
 	private String distressedSurfaces;
 	
-	@Column(name = "gum_pockets_depth")
-	private String gumPocketsDepth;
-
+	@Column(name = "gum_pockets_depth_top")
+	private Integer gumPocketsDepthTop;
+	
+	@Column(name = "gum_pockets_depth_right")
+	private Integer gumPocketsDepthRight;
+	
+	@Column(name = "gum_pockets_depth_bottom")
+	private Integer gumPocketsDepthBottom;
+	
+	@Column(name = "gum_pockets_depth_left")
+	private Integer gumPocketsDepthLeft;
+	
 	public Long getId() {
 		return id;
 	}
@@ -73,14 +82,6 @@ public class ToothInfo {
 
 	public void setDiseases(List<Disease> diseases) {
 		this.diseases = diseases;
-	}
-
-	public String getGumPocketsDepth() {
-		return gumPocketsDepth;
-	}
-
-	public void setGumPocketsDepth(String gumPocketsDepth) {
-		this.gumPocketsDepth = gumPocketsDepth;
 	}
 
 	public Integer getToothQuadrant() {
@@ -115,4 +116,45 @@ public class ToothInfo {
 		this.treatments = treatments;
 	} 
 	
+	public String getIndex(){
+		return "" + toothQuadrant + toothIndex;
+	}
+
+	public Boolean getIsRemoved() {
+		Boolean tratmentIsRemoved = treatments != null ?treatments.stream().anyMatch(treatment -> treatment.getIsRemoved()) : false;
+		Boolean diseaseResult = diseases!= null ? diseases.stream().anyMatch(disease -> disease.getIsRemoved()) : false;
+		return tratmentIsRemoved || diseaseResult;
+	}
+
+	public Integer getGumPocketsDepthTop() {
+		return gumPocketsDepthTop;
+	}
+
+	public void setGumPocketsDepthTop(Integer gumPocketsDepthTop) {
+		this.gumPocketsDepthTop = gumPocketsDepthTop;
+	}
+
+	public Integer getGumPocketsDepthRight() {
+		return gumPocketsDepthRight;
+	}
+
+	public void setGumPocketsDepthRight(Integer gumPocketsDepthRight) {
+		this.gumPocketsDepthRight = gumPocketsDepthRight;
+	}
+
+	public Integer getGumPocketsDepthBottom() {
+		return gumPocketsDepthBottom;
+	}
+
+	public void setGumPocketsDepthBottom(Integer gumPocketsDepthBottom) {
+		this.gumPocketsDepthBottom = gumPocketsDepthBottom;
+	}
+
+	public Integer getGumPocketsDepthLeft() {
+		return gumPocketsDepthLeft;
+	}
+
+	public void setGumPocketsDepthLeft(Integer gumPocketsDepthLeft) {
+		this.gumPocketsDepthLeft = gumPocketsDepthLeft;
+	}
 }

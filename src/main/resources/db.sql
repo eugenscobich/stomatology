@@ -729,42 +729,42 @@ INSERT INTO customers_to_past_illnesses (customer_id, past_illnesse_id) VALUES
 
 
 INSERT INTO diseases (id, name, short_name, is_removed, implant_type) VALUES
-(1, '\u0417\u0434\u043e\u0440\u043e\u0432\u044b\u0439', 'N', false, null),
-(2, '\u041a\u0430\u0440\u0438\u0435\u0441', 'C', false, null),
-(3, '\u041f\u043b\u043e\u043c\u0431\u0430 \u0441 \u043a\u0430\u0440\u0438\u0435\u0441\u043e\u043c', '\u041f/\u0421', false, null),
-(4, '\u041f\u0443\u043b\u044c\u043f\u0438\u0442', 'P', false, null),
-(5, '\u041f\u0435\u0440\u0438\u043e\u0434\u043e\u043d\u0442\u0438\u0442', 'Pt', false, null),
-(6, '\u041a\u043b\u0438\u043d\u043e\u0432\u0438\u0434\u043d\u044b\u0439 \u0434\u0435\u0444\u0435\u043a\u0442', '\u041a\u0414', false, null),
-(7, '\u0424\u0440\u0430\u043a\u0442\u0443\u0440\u0430 \u044d\u043c\u0430\u043b\u0438', '\u0424\u042d', false, null),
-(8, '\u041a\u0440\u043e\u0432\u043e\u0442\u043e\u0447\u0438\u0432\u043e\u0441\u0442\u044c', 'K', false, null),
-(9, '\u0417\u0443\u0431\u043d\u043e\u0439 \u043a\u0430\u043c\u0435\u043d\u044c', '\u0417\u041a', false, null),
-(10, '\u041f\u0430\u0440\u043e\u0434\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u044b\u0439 \u043a\u0430\u0440\u043c\u0430\u043d', '\u041f\u0440\u041a', false, null),
-(11, '\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442', 'O', true, null),
-(12, '\u0418\u043c\u043f\u043b\u0430\u043d\u0442\u0430\u043d\u0442', '\u0418', false, 'IMPLANT'),
-(13, '\u0424\u0440\u0430\u043a\u0442\u0443\u0440\u0430 \u043a\u043e\u0440\u043e\u043d\u043a\u0438"', '\u0424\u041a', false, null),
-(14, '\u0424\u0440\u0430\u043a\u0442\u0443\u0440\u0430 \u0437\u0443\u0431\u0430', '\u0424\u0417', false, null);
+(1, 'Zdoroviy', 'N', false, null),
+(2, 'Kariyes', 'C', false, null),
+(3, 'Plomba s kariyesom', '\u041f/\u0421', false, null),
+(4, 'Poolpit', 'P', false, null),
+(5, 'Pyeriodontit', 'Pt', false, null),
+(6, 'Klinovidniy dyefyekt', '\u041a\u0414', false, null),
+(7, 'Fraktoora emali', '\u0424\u042d', false, null),
+(8, 'Krovotochivost', 'K', false, null),
+(9, 'Zoobnoy kamyen', '\u0417\u041a', false, null),
+(10, 'Parodontalniy karman', '\u041f\u0440\u041a', false, null),
+(11, 'Otsootstvooyet', 'O', true, null),
+(12, 'Implantant', '\u0418', false, 'IMPLANT'),
+(13, 'Fraktoora koronki', '\u0424\u041a', false, null),
+(14, 'Fraktoora zooba', '\u0424\u0417', false, null);
 
 INSERT INTO treatments (id, name, short_name, material_used, is_removed, implant_type) VALUES
-(1, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435', '\u041f', '\u0425\u0438\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0435', false, null),
-(2, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435', '\u041fC', '\u0441\u0442\u0435\u043a\u043b\u043e', false, null),
-(3, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435', '\u041f\u0424', '\u0444\u043e\u0442\u043e\u043f\u043e\u043b\u0438\u043c\u0435\u0440', false, null),
-(4, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435', '\u041f\u0410', '\u0410\u043c\u0430\u043b\u044c\u0433\u0430\u043c\u043d', false, null),
-(5, '\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 \u0438\u043c\u043f\u043b\u0430\u043d\u0442\u0430\u043d\u0442\u0430', '\u0418', '\u0422\u0438\u0442\u0430\u043d', false, 'IMPLANT'),
-(6, '\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 \u0430\u043d\u043a\u0435\u0440\u0430', '\u0410\u041c', '\u041c\u0435\u0442\u0430\u043b\u043b', false, 'IMPLANT_AND_ABUTMENT'),
-(7, '\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 \u0430\u043d\u043a\u0435\u0440\u0430', '\u0410\u0421', '\u0421\u0442\u0435\u043a\u043b\u043e\u0432\u043e\u043b\u043e\u043a\u043d\u043e', false, 'IMPLANT_AND_ABUTMENT'),
-(8, '\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 \u043a\u043e\u0440\u043e\u043d\u043a\u0438', '\u041a\u041c\u043a', '\u041c\u0435\u0442\u0430\u043b\u043b\u043e\u043a\u0435\u0440\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f', false, 'IMPLANT_AND_ABUTMENT_AND_UPPER_CROWN'),
-(9, '\u0423\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u0430 \u043a\u043e\u0440\u043e\u043d\u043a\u0438', '\u041a\u041c\u043a', '\u041c\u0435\u0442\u0430\u043b\u043b\u043e\u043a\u0435\u0440\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f', false, null),
-(10, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043a\u0430\u043d\u0430\u043b\u0430', '\u041a\u0424', '\u0424\u043e\u0440\u043e\u0434\u0435\u043d\u0442', false, null),
-(11, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043a\u0430\u043d\u0430\u043b\u0430', '\u041ah+', 'AHPlus', false, null),
-(12, '\u041f\u043b\u043e\u043c\u0431\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043a\u0430\u043d\u0430\u043b\u0430', '\u041a\u0412', '\u0412\u0438\u0442\u0430\u043f\u0435\u043a\u0441', false, null),
-(13, '\u0423\u0434\u0430\u043b\u0435\u043d\u043d\u0438\u0435', '\u0423', null, true, null);
+(1, 'Plombirovaniye', '\u041f', '\u0425\u0438\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0435', false, null),
+(2, 'Plombirovaniye', '\u041fC', '\u0441\u0442\u0435\u043a\u043b\u043e', false, null),
+(3, 'Plombirovaniye', '\u041f\u0424', '\u0444\u043e\u0442\u043e\u043f\u043e\u043b\u0438\u043c\u0435\u0440', false, null),
+(4, 'Plombirovaniye', '\u041f\u0410', '\u0410\u043c\u0430\u043b\u044c\u0433\u0430\u043c\u043d', false, null),
+(5, 'Oostanovka implantanta', '\u0418', '\u0422\u0438\u0442\u0430\u043d', false, 'IMPLANT'),
+(6, 'Oostanovka ankyera', '\u0410\u041c', '\u041c\u0435\u0442\u0430\u043b\u043b', false, 'IMPLANT_AND_ABUTMENT'),
+(7, 'Oostanovka ankyera', '\u0410\u0421', '\u0421\u0442\u0435\u043a\u043b\u043e\u0432\u043e\u043b\u043e\u043a\u043d\u043e', false, 'IMPLANT_AND_ABUTMENT'),
+(8, 'Oostanovka ankyera', '\u041a\u041c\u043a', '\u041c\u0435\u0442\u0430\u043b\u043b\u043e\u043a\u0435\u0440\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f', false, 'IMPLANT_AND_ABUTMENT_AND_UPPER_CROWN'),
+(9, 'Oostanovka ankyera', '\u041a\u041c\u043a', '\u041c\u0435\u0442\u0430\u043b\u043b\u043e\u043a\u0435\u0440\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f', false, null),
+(10, 'Plombirovaniye kanala', '\u041a\u0424', '\u0424\u043e\u0440\u043e\u0434\u0435\u043d\u0442', false, null),
+(11, 'Plombirovaniye kanala', '\u041ah+', 'AHPlus', false, null),
+(12, 'Plombirovaniye kanala', '\u041a\u0412', '\u0412\u0438\u0442\u0430\u043f\u0435\u043a\u0441', false, null),
+(13, 'Oodalyenniye', '\u0423', null, true, null);
 
 
-INSERT INTO tooth_infos (id, tooth_quadrant, tooth_index, notes, distressed_surfaces, gum_pockets_depth, visit_id) VALUES
-(1, 1, 1, 'notes11', '1,5', '2,0,5,9', 1),
-(2, 4, 5, 'notes45', '2,3,4,5', '2,3,7,0', 1),
-(3, 2, 3, 'notes23', '4,5', '6,5,5,9', 1),
-(4, 3, 8, 'notes38', '2,3,4,5', '2,3,7,0', 2);
+INSERT INTO tooth_infos (id, tooth_quadrant, tooth_index, notes, distressed_surfaces, gum_pockets_depth_top, gum_pockets_depth_right, gum_pockets_depth_bottom, gum_pockets_depth_left, visit_id) VALUES
+(1, 1, 1, 'notes11', '1_4', 2, 0, 5, 9, 1),
+(2, 4, 5, 'notes45', '2_3_4_5', 2, 3, 7, 0, 1),
+(3, 2, 3, 'notes23', '2_4', 6, 5, 5, 9, 1),
+(4, 3, 8, 'notes38', '2_3_4_5', 2, 3, 7, 0, 1);
 
 INSERT INTO tooth_infos_to_diseases (tooth_info_id, disease_id) VALUES
 (1, 1),

@@ -2,7 +2,9 @@ package md.stomatology.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import md.stomatology.model.Authority;
 import md.stomatology.model.Customer;
 import md.stomatology.model.ToothInfo;
+import md.stomatology.model.Treatment;
 import md.stomatology.model.User;
 import md.stomatology.model.Visit;
 import md.stomatology.model.type.AuthorityType;
@@ -52,27 +55,67 @@ public class VisitService {
 		return visitRepository.findAll(specifications, pageRequest);
 	}
 
+	
+	private ToothInfo getToothInfo(List<ToothInfo> toothInfos, int i, int j) {
+		ToothInfo savedToothInfo = null;
+		for (ToothInfo toothInfo : toothInfos) {
+			if (toothInfo.getToothQuadrant() == i && toothInfo.getToothIndex() == j) {
+				savedToothInfo = toothInfo;
+				break;
+			}
+		}
+
+		if (savedToothInfo == null) {
+			savedToothInfo = new ToothInfo();
+			savedToothInfo.setToothQuadrant(i);
+			savedToothInfo.setToothIndex(j);
+		}
+		return savedToothInfo;
+	}
+	
 	@Transactional(readOnly = true)
 	public Visit getVisitById(Long visitId) {
 		Visit visit = visitRepository.findOne(visitId);
 		List<ToothInfo> toothInfos = visit.getToothInfos();
 		
-		List<ToothInfo> toothInfosToShow = new ArrayList<>();
+		ToothInfo[][] toothInfosToShow = new ToothInfo[4][8];
 		
-		for (int i = 1; i <= 4; i++) {
-			for (int j = 1; j <= 8; j++) {
-				ToothInfo savedToothInfo = null;
-				for (ToothInfo toothInfo : toothInfos) {
-					if (toothInfo.getToothQuadrant() == i && toothInfo.getToothIndex() == j) {
-						savedToothInfo = toothInfo;
-						break;
-					}
+		for (ToothInfo toothInfo : toothInfos) {
+			toothInfosToShow[toothInfo.getToothQuadrant() - 1][toothInfo.getToothIndex() - 1] = toothInfo;
+		}
+		for (int i = 0; i <= 3; i++) {
+			for (int j = 0; j <= 7; j++) {
+				if (toothInfosToShow[i][j] == null) {
+					ToothInfo toothInfo = new ToothInfo();
+					toothInfo.setToothQuadrant(i + 1);
+					toothInfo.setToothIndex(j + 1);
+					toothInfosToShow[i][j] = toothInfo;
 				}
-				
-				
 			}
 		}
 		
+		
+		
+		List<ToothInfo> topToothInfos = new ArrayList<>();
+		for (int k = 7; k >= 0; k--) {
+			topToothInfos.add(toothInfosToShow[0][k]);
+		}
+		
+		for (int k = 0; k <= 7; k++) {
+			topToothInfos.add(toothInfosToShow[1][k]);
+		}
+		visit.setTopToothInfos(topToothInfos);
+		
+		List<ToothInfo> bottomToothInfos = new ArrayList<>();
+		for (int k = 7; k >= 0; k--) {
+			bottomToothInfos.add(toothInfosToShow[3][k]);
+		}
+		
+		for (int k = 0; k <= 7; k++) {
+			bottomToothInfos.add(toothInfosToShow[2][k]);
+		}
+		
+		visit.setBottomToothInfos(bottomToothInfos);
 		
 		return visit;
 	}

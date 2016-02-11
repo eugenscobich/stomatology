@@ -58,6 +58,22 @@ public class Treatment {
 
 	public void setMaterialUsed(String materialUsed) {
 		this.materialUsed = materialUsed;
+	}
+
+	public Boolean getIsRemoved() {
+		return isRemoved;
+	}
+
+	public void setIsRemoved(Boolean isRemoved) {
+		this.isRemoved = isRemoved;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	} 
 	
 }
