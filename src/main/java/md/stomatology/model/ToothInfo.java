@@ -22,7 +22,7 @@ import md.stomatology.model.type.ImplantType;
 public class ToothInfo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	

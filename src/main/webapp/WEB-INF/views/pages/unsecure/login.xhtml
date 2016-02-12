@@ -8,17 +8,19 @@
     <ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
 		<ui:param name="pageTitle" value="#{msg['login']}" />
         <ui:define name="content">
-    		<p:defaultCommand target="login" />
-    
-        	<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
-	        	<p:outputLabel for="userName" value="#{msg['username']}"/>
-	        	<p:inputText id="userName" required="true" value="#{loginBean.userName}" requiredMessage="#{msg['please-enter-username']}"/>
-	        	
-	        	<p:outputLabel for="password" value="#{msg['password']}"/>
-	        	<p:password id="password" required="true" value="#{loginBean.password}" requiredMessage="#{msg['please-enter-password']}"/>
-
-	        	<p:commandButton id="login" value="#{msg['login']}" action="#{loginBean.login}" tabindex="0"/>
-	        </p:panelGrid>
+        	<h:form id="mainForm">
+	    		<p:defaultCommand target="login" />
+	    
+	        	<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-panelgrid-blank">
+		        	<p:outputLabel for="userName" value="#{msg['username']}"/>
+		        	<p:inputText id="userName" required="true" value="#{loginBean.userName}" requiredMessage="#{msg['please-enter-username']}"/>
+		        	
+		        	<p:outputLabel for="password" value="#{msg['password']}"/>
+		        	<p:password id="password" required="true" value="#{loginBean.password}" requiredMessage="#{msg['please-enter-password']}"/>
+	
+		        	<p:commandButton id="login" value="#{msg['login']}" action="#{loginBean.login}" tabindex="0"/>
+		        </p:panelGrid>
+			</h:form>
         </ui:define>
     </ui:composition>
 </html>

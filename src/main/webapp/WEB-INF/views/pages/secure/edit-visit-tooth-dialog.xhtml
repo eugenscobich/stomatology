@@ -6,6 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	
+	<h:form id="toothInfoDialogForm">
   		<p:dialog header="#{msg['tooth']} #{editVisitBean.toothInfo.index}" widgetVar="toothInfoDialog" modal="true" 
    			height="400" width="700" styleClass="container-fluid" id="toothInfoDialog" dynamic="true">
 			<div class="form-horizontal">
@@ -24,8 +25,7 @@
 							completeMethod="#{editVisitBean.completeDisease}"
 							placeholder="#{msg['search-or-select-one']}">
 							
-							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectDisease}" />
-							<p:ajax event="itemUnselect" listener="#{editVisitBean.handleUnselectDisease}" />
+							
 							
 			        	</p:autoComplete>	
 						
@@ -47,8 +47,7 @@
 							placeholder="#{msg['search-or-select-one']}">
 							
 							
-							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectTreatment}" />
-							<p:ajax event="itemUnselect" listener="#{editVisitBean.handleUnselectTreatment}" />
+							
 							
 			        	</p:autoComplete>	
 						
@@ -109,10 +108,12 @@
 			</div>
 			
 			<f:facet name="footer">
-                <p:commandButton value="Ok" update="@form:tooth" action="#{editVisitBean.changeToothInfo}"/>
+                <p:commandButton value="#{msg['ok']}" update=":mainForm:toothList" action="#{editVisitBean.changeToothInfo}" oncomplete="PF('toothInfoDialog').hide();"/>
+                <p:commandButton value="#{msg['cancel']}" update=":mainForm:toothList" oncomplete="PF('toothInfoDialog').hide();" immediate="true" process="@this"/>
             </f:facet>  
 			
 		</p:dialog>
+	</h:form>
 </ui:composition>
 
 

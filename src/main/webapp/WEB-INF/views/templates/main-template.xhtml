@@ -22,8 +22,7 @@
    	
 </h:head>
 <h:body>
-	<h:form>
-
+	<h:form id="navigationForm">
 		<nav role="navigation" class="navbar navbar-default navbar-static-top navbar-noStyle">
 			<p:outputPanel layout="block" styleClass="container">
 				<p:outputPanel layout="block" styleClass="navbar-header">
@@ -98,16 +97,16 @@
 				</div>
 			</p:outputPanel>
 		</nav>
-	
-		<div class="container">
-			<div class="jumbotron">
-				<h2>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</h2>
-				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-				<ui:insert name="content">{content}</ui:insert>
-			</div>
-		</div>
-	
 	</h:form>
+	
+	<div class="container">
+		<div class="jumbotron">
+			<h2>#{empty pageTitle ? '{#pageTitle}' : pageTitle}</h2>
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<ui:insert name="content">{content}</ui:insert>
+		</div>
+	</div>
+
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="#{resource['bootstrap:js/bootstrap.js']}" />
 </h:body>

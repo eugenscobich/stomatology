@@ -105,28 +105,6 @@ public class EditVisitBean implements Serializable {
 	
 	public void changeToothInfo() {
 		toothInfo.getId();
-		/*
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
-		String distressedSurfaces = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.distressedSurfaces}", String.class);
-		Integer gumPocketsDepthTop = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthTop}", Integer.class);
-		Integer gumPocketsDepthRight = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthRight}", Integer.class);
-		Integer gumPocketsDepthBottom = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthBottom}", Integer.class);
-		Integer gumPocketsDepthLeft = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthLeft}", Integer.class);
-		
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				toothInfo.setDistressedSurfaces(distressedSurfaces);
-				toothInfo.setGumPocketsDepthBottom(gumPocketsDepthBottom);
-				toothInfo.setGumPocketsDepthRight(gumPocketsDepthRight);
-				toothInfo.setGumPocketsDepthLeft(gumPocketsDepthLeft);
-				toothInfo.setGumPocketsDepthTop(gumPocketsDepthTop);
-				if (toothInfo.getId() == null) {
-					toothInfo.setId(0l);	
-				}
-				return;
-			}
-		}
-		*/
 	}
 	
 	public List<User> completeDentists(String query) {
@@ -262,7 +240,12 @@ public class EditVisitBean implements Serializable {
 		return toothInfo;
 	}
 
-	public void setToothInfo(ToothInfo toothInfo) {
-		this.toothInfo = toothInfo;
+	public void setToothInfo(String toothInfoIndex) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
+			if (toothInfo.getIndex().equals(toothInfoIndex)) {
+				this.toothInfo = toothInfo;
+				return;
+			}
+		}
 	}
 }
