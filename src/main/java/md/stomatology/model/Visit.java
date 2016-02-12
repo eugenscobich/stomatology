@@ -1,5 +1,6 @@
 package md.stomatology.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -156,6 +157,13 @@ public class Visit {
 
 	public void setBottomToothInfos(List<ToothInfo> bottomToothInfos) {
 		this.bottomToothInfos = bottomToothInfos;
+	}
+
+	public List<ToothInfo> getAllToothInfos() {
+		List<ToothInfo> result = new ArrayList<>();
+		result.addAll(topToothInfos);
+		result.addAll(bottomToothInfos);
+		return result;
 	}
 	
 }

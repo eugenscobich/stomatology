@@ -62,41 +62,10 @@
 							<tr class="tooth">
 								<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
 									<td>
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.index).concat('/default.svg')]}" style="width: 100%;" 
-								   			rendered="#{not toothInfo.isRemoved}" 
-								   			id="tooth_default" onclick="PF('toothInfoDialog_#{toothInfo.index}').show();"/>
+								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
+								   			id="tooth_default" onclick="PF('toothInfoDialog').show();"/>
 								   			
-								   		<p:tooltip for="tooth_default" rendered="#{not toothInfo.isRemoved}">
-								   			<dl class="dl-horizontal">
-								   				<dt>#{msg['tooth-index']}:</dt>
-												<dd><h:outputText value="#{toothInfo.index}"/></dd>
-												<dt>#{msg['diseases']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-													      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['treatments']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-													      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['gum-pockets-depth']}:</dt>
-												<dd>
-													<h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/>
-												</dd>
-								   			</dl>
-								   		</p:tooltip>
-								   		
-								   		
-								   		
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.index).concat('/removed.svg')]}" style="width: 100%;" 
-								   			rendered="#{toothInfo.isRemoved}"
-								   			id="tooth_removed" onclick="PF('toothInfoDialog_#{toothInfo.index}').show();"/>
-								   			
-								   			
-								   		<p:tooltip for="tooth_removed" rendered="#{toothInfo.isRemoved}">
+								   		<p:tooltip for="tooth_default">
 								   			<dl class="dl-horizontal">
 								   				<dt>#{msg['tooth-index']}:</dt>
 												<dd><h:outputText value="#{toothInfo.index}"/></dd>
@@ -128,36 +97,14 @@
 							<tr class="tooth_distressed_surfaces">
 								<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
 									<td>
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_4/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" style="width: 100%;" 
-								   			rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}"/>
-								   			
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_4/default.svg']}" style="width: 100%;" 
-								   			rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}"/>
-								   			
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" style="width: 100%;" 
-								   			rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}"/>
-								   			
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/default.svg']}" style="width: 100%;" 
-								   			rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}"/>
-								   			
+										<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
 								   	</td>
 								</ui:repeat>
 							</tr>
 							<tr class="tooth_distressed_surfaces">
 								<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
 									<td>
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_4/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" style="width: 100%;" 
-								   			rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}"/>
-								   			
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_4/default.svg']}" style="width: 100%;" 
-								   			rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}"/>
-								   			
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" style="width: 100%;" 
-								   			rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}"/>
-								   			
-								   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/default.svg']}" style="width: 100%;" 
-								   			rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}"/>
-								   			
+								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
 								   	</td>
 								</ui:repeat>
 							</tr>

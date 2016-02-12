@@ -13,6 +13,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
+
+import md.stomatology.model.type.ImplantType;
+
 @Entity
 @Table(name = "tooth_infos")
 public class ToothInfo {
@@ -120,12 +124,6 @@ public class ToothInfo {
 		return "" + toothQuadrant + toothIndex;
 	}
 
-	public Boolean getIsRemoved() {
-		Boolean tratmentIsRemoved = treatments != null ?treatments.stream().anyMatch(treatment -> treatment.getIsRemoved()) : false;
-		Boolean diseaseResult = diseases!= null ? diseases.stream().anyMatch(disease -> disease.getIsRemoved()) : false;
-		return tratmentIsRemoved || diseaseResult;
-	}
-
 	public Integer getGumPocketsDepthTop() {
 		return gumPocketsDepthTop;
 	}
@@ -157,4 +155,52 @@ public class ToothInfo {
 	public void setGumPocketsDepthLeft(Integer gumPocketsDepthLeft) {
 		this.gumPocketsDepthLeft = gumPocketsDepthLeft;
 	}
+	
+	public String getDistressedSurfacesImageSrc() {
+		StringBuilder imageSrc = new StringBuilder("distressed_surfaces_");
+		if (toothIndex < 5) {
+			imageSrc.append("4");
+		} else if (toothIndex > 4) {
+			imageSrc.append("5");
+		}
+		imageSrc.append("/");
+		if (StringUtils.isNotBlank(distressedSurfaces)) {
+			imageSrc.append(distressedSurfaces);
+		} else {
+			imageSrc.append("default");
+		}
+		imageSrc.append(".svg");
+		return imageSrc.toString();
+	}
+
+	public String getToothImageSrc() {
+		StringBuilder imageSrc = new StringBuilder();
+		
+		ImplantType implantTypeTreatments = treatments != null ? treatments.stream().map(treatment -> treatment.getImplantType()).max(Enum::compareTo).get() : null;
+		ImplantType implantTypeDiseases = diseases != null ? diseases.stream().map(disease -> disease.getImplantType()).max(Enum::compareTo).get() : null;
+		
+		if (implantTypeTreatments != null && implantTypeTreatments.compareTo(implantTypeDiseases) > 0) {
+			imageSrc.append(implantTypeTreatments.toString());
+		} else if (implantTypeTreatments != null && implantTypeTreatments.compareTo(implantTypeDiseases) < 0) {
+			imageSrc.append(implantTypeDiseases.toString());
+		} else if (implantTypeDiseases != null) {
+			imageSrc.append(implantTypeDiseases.toString());
+		} else {
+			imageSrc.append(getIndex());
+			Boolean tratmentHasRemoved = treatments != null ? treatments.stream().anyMatch(treatment -> treatment.getIsRemoved()) : false;
+			Boolean diseaseHasRemoved = diseases!= null ? diseases.stream().anyMatch(disease -> disease.getIsRemoved()) : false;
+			imageSrc.append("/");
+			if (tratmentHasRemoved || diseaseHasRemoved) {
+				imageSrc.append("removed");
+			} else {
+				imageSrc.append("default");
+			}
+		}
+		
+		
+		imageSrc.append(".svg");
+		return imageSrc.toString();
+	}
+
+	
 }

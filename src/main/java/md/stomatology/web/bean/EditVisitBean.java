@@ -100,6 +100,26 @@ public class EditVisitBean implements Serializable {
 	}
 	
 	
+	public void changeToothInfo() {
+		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
+		String distressedSurfaces = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.distressedSurfaces}", String.class);
+		Integer gumPocketsDepthTop = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthTop}", Integer.class);
+		Integer gumPocketsDepthRight = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthRight}", Integer.class);
+		Integer gumPocketsDepthBottom = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthBottom}", Integer.class);
+		Integer gumPocketsDepthLeft = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthLeft}", Integer.class);
+		
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
+			if(toothInfo.getIndex().equals(toothIndex)) {
+				toothInfo.setDistressedSurfaces(distressedSurfaces);
+				toothInfo.setGumPocketsDepthBottom(gumPocketsDepthBottom);
+				toothInfo.setGumPocketsDepthRight(gumPocketsDepthRight);
+				toothInfo.setGumPocketsDepthLeft(gumPocketsDepthLeft);
+				toothInfo.setGumPocketsDepthTop(gumPocketsDepthTop);
+				return;
+			}
+		}
+	}
+	
 	public List<User> completeDentists(String query) {
 		List<User> users = userService.getDentists(query, visit.getDentist());
 		return users;
@@ -110,11 +130,9 @@ public class EditVisitBean implements Serializable {
 		visit.setDentist(dentist);
 	}
 	
-	
-	
 	public List<Disease> completeDisease(String query) {
 		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
-		for (ToothInfo toothInfo : visit.getToothInfos()) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if(toothInfo.getIndex().equals(toothIndex)) {
 				return diseaseService.getDiseases(query, toothInfo.getDiseases());
 			}
@@ -126,7 +144,7 @@ public class EditVisitBean implements Serializable {
 		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Disease disease = (Disease) event.getObject();
 		
-		for (ToothInfo toothInfo : visit.getToothInfos()) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if(toothInfo.getIndex().equals(toothIndex)) {
 				if (toothInfo.getDiseases() == null) {
 					toothInfo.setDiseases(new ArrayList<>()); 
@@ -140,7 +158,7 @@ public class EditVisitBean implements Serializable {
 	public void handleUnselectDisease(UnselectEvent event) {
 		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Disease disease = (Disease) event.getObject();
-		for (ToothInfo toothInfo : visit.getToothInfos()) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if(toothInfo.getIndex().equals(toothIndex)) {
 				toothInfo.getDiseases().remove(disease);
 				return;
@@ -150,7 +168,7 @@ public class EditVisitBean implements Serializable {
 
 	public List<Treatment> completeTreatment(String query) {
 		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
-		for (ToothInfo toothInfo : visit.getToothInfos()) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if(toothInfo.getIndex().equals(toothIndex)) {
 				return treatmentService.getTreatments(query, toothInfo.getTreatments());
 			}
@@ -162,7 +180,7 @@ public class EditVisitBean implements Serializable {
 		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Treatment treatment = (Treatment) event.getObject();
 		
-		for (ToothInfo toothInfo : visit.getToothInfos()) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if(toothInfo.getIndex().equals(toothIndex)) {
 				if (toothInfo.getTreatments() == null) {
 					toothInfo.setTreatments(new ArrayList<>()); 
@@ -176,7 +194,7 @@ public class EditVisitBean implements Serializable {
 	public void handleUnselectTreatment(UnselectEvent event) {
 		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Treatment treatment = (Treatment) event.getObject();
-		for (ToothInfo toothInfo : visit.getToothInfos()) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if(toothInfo.getIndex().equals(toothIndex)) {
 				toothInfo.getTreatments().remove(treatment);
 				return;

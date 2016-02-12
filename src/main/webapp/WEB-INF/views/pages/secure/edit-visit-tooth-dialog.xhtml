@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	
-  		<p:dialog header="#{msg['tooth']} #{toothInfo.index}" widgetVar="#{'toothInfoDialog_'.concat(toothInfo.index)}" modal="true" 
+  		<p:dialog header="#{msg['tooth']} #{toothInfo.index}" widgetVar="toothInfoDialog" modal="true" 
    			height="400" width="700" dynamic="true" styleClass="container-fluid">
 			<div class="form-horizontal">
 				<div class="form-group">
@@ -97,23 +97,9 @@
 				<div class="form-group">
 					<p:outputLabel value="#{msg['distressed-surfaces']}" styleClass="col-sm-3 control-label" />
 					<div class="col-sm-9">
-						<p:inputText value="#{toothInfo.distressedSurfaces}"/>
-						
-						<p:graphicImage value="#{resource['img:distressed_surfaces_4/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" 
-							rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}" id="distressed_surfaces_4_#{toothInfo.toothIndex}" 
-							styleClass="distressed-surfaces-image"/>
-								   			
-				   		<p:graphicImage value="#{resource['img:distressed_surfaces_4/default.svg']}" 
-				   			rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex lt 5}" id="distressed_surfaces_4_default"
-				   			styleClass="distressed-surfaces-image"/>
-				   			
-				   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/'.concat(toothInfo.distressedSurfaces).concat('.svg')]}" 
-				   			rendered="#{not empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}" id="distressed_surfaces_5_#{toothInfo.toothIndex}"
-				   			styleClass="distressed-surfaces-image"/>
-				   			
-				   		<p:graphicImage value="#{resource['img:distressed_surfaces_5/default.svg']}" 
-							rendered="#{empty toothInfo.distressedSurfaces and toothInfo.toothIndex gt 4}" id="distressed_surfaces_5_default"
-							styleClass="distressed-surfaces-image"/>
+						<p:inputText value="#{toothInfo.distressedSurfaces}" styleClass="hidden distressed_surfaces_#{toothInfo.index}" />
+						<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" 
+							styleClass="dialog-distressed-surfaces-image tooth_index_#{toothInfo.index}"/>
 						
 						<script src="#{resource['js:edit-visit-tooth-dialog.js']}" />
 						
@@ -123,7 +109,7 @@
 			</div>
 			
 			<f:facet name="footer">
-                <p:commandButton value="Ok" update="@form:tooth"/>
+                <p:commandButton value="Ok" update="@form:tooth" actionListener="#{editVisitBean.changeToothInfo}"/>
             </f:facet>  
 			
 		</p:dialog>
