@@ -76,13 +76,20 @@ public class VisitService {
 	@Transactional(readOnly = true)
 	public Visit getVisitById(Long visitId) {
 		Visit visit = visitRepository.findOne(visitId);
+		initVisit(visit);
+		return visit;
+	}
+
+	private void initVisit(Visit visit) {
 		List<ToothInfo> toothInfos = visit.getToothInfos();
 		
 		ToothInfo[][] toothInfosToShow = new ToothInfo[4][8];
-		
-		for (ToothInfo toothInfo : toothInfos) {
-			toothInfosToShow[toothInfo.getToothQuadrant() - 1][toothInfo.getToothIndex() - 1] = toothInfo;
+		if (toothInfos != null) {
+			for (ToothInfo toothInfo : toothInfos) {
+				toothInfosToShow[toothInfo.getToothQuadrant() - 1][toothInfo.getToothIndex() - 1] = toothInfo;
+			}
 		}
+		
 		for (int i = 0; i <= 3; i++) {
 			for (int j = 0; j <= 7; j++) {
 				if (toothInfosToShow[i][j] == null) {
@@ -93,8 +100,6 @@ public class VisitService {
 				}
 			}
 		}
-		
-		
 		
 		List<ToothInfo> topToothInfos = new ArrayList<>();
 		for (int k = 7; k >= 0; k--) {
@@ -117,8 +122,8 @@ public class VisitService {
 		
 		visit.setBottomToothInfos(bottomToothInfos);
 		
-		return visit;
 	}
+
 
 	@Transactional(readOnly = true)
 	public Visit createNewVisit(Long customerId, User currentUser) {
@@ -134,6 +139,7 @@ public class VisitService {
 		}
 		
 		visit.setVisitDate(new Date());
+		initVisit(visit);
 		return visit;
 	}
 
@@ -144,6 +150,16 @@ public class VisitService {
 		} else {
 			visit.setUpdateDate(new Date());
 		}
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
+			if (toothInfo.getId() != null && toothInfo.getId().equals(0l)) {
+				toothInfo.setId(null);
+				if (visit.getToothInfos() == null) {
+					visit.setToothInfos(new ArrayList<>());
+				} 
+				visit.getToothInfos().add(toothInfo);
+			}
+		}
+		
 		visitRepository.save(visit);
 	}
 

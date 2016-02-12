@@ -176,15 +176,27 @@ public class ToothInfo {
 	public String getToothImageSrc() {
 		StringBuilder imageSrc = new StringBuilder();
 		
-		ImplantType implantTypeTreatments = treatments != null ? treatments.stream().map(treatment -> treatment.getImplantType()).max(Enum::compareTo).get() : null;
-		ImplantType implantTypeDiseases = diseases != null ? diseases.stream().map(disease -> disease.getImplantType()).max(Enum::compareTo).get() : null;
-		
-		if (implantTypeTreatments != null && implantTypeTreatments.compareTo(implantTypeDiseases) > 0) {
-			imageSrc.append(implantTypeTreatments.toString());
-		} else if (implantTypeTreatments != null && implantTypeTreatments.compareTo(implantTypeDiseases) < 0) {
-			imageSrc.append(implantTypeDiseases.toString());
-		} else if (implantTypeDiseases != null) {
-			imageSrc.append(implantTypeDiseases.toString());
+		ImplantType implantType = null;
+		if (treatments != null) {
+			for (Treatment treatment : treatments) {
+				if (treatment.getImplantType() != null && implantType == null) {
+					implantType = treatment.getImplantType(); 
+				} else if (treatment.getImplantType() != null && treatment.getImplantType().compareTo(implantType) > 0) {
+					implantType = treatment.getImplantType();
+				}
+			}
+		}
+		if (diseases != null) {
+			for (Disease disease : diseases) {
+				if (disease.getImplantType() != null && implantType == null) {
+					implantType = disease.getImplantType(); 
+				} else if (disease.getImplantType() != null && disease.getImplantType().compareTo(implantType) > 0) {
+					implantType = disease.getImplantType();
+				}
+			}
+		}
+		if (implantType != null) {
+			imageSrc.append(implantType.toString());
 		} else {
 			imageSrc.append(getIndex());
 			Boolean tratmentHasRemoved = treatments != null ? treatments.stream().anyMatch(treatment -> treatment.getIsRemoved()) : false;
@@ -202,5 +214,10 @@ public class ToothInfo {
 		return imageSrc.toString();
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Index: " + getIndex();
+	}
 	
 }

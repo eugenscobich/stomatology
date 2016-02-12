@@ -62,34 +62,35 @@
 							<tr class="tooth">
 								<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
 									<td>
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
-								   			id="tooth_default" onclick="PF('toothInfoDialog').show();"/>
-								   			
-								   		<p:tooltip for="tooth_default">
-								   			<dl class="dl-horizontal">
-								   				<dt>#{msg['tooth-index']}:</dt>
-												<dd><h:outputText value="#{toothInfo.index}"/></dd>
-												<dt>#{msg['diseases']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-													      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['treatments']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-													      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['gum-pockets-depth']}:</dt>
-												<dd>
-													<h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/>
-												</dd>
-								   			</dl>
-								   		</p:tooltip>
-								   		
-								   		<ui:include src="/WEB-INF/views/pages/secure/edit-visit-tooth-dialog.xhtml"/>
-								   		
+										<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo)}" update="@form:tooth:toothInfoDialog" 
+											oncomplete="PF('toothInfoDialog').show();">
+									
+									   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
+									   			id="tooth_info_top"/>
+									   			
+									   		<p:tooltip for="tooth_info_top">
+									   			<dl class="dl-horizontal">
+									   				<dt>#{msg['tooth-index']}:</dt>
+													<dd><h:outputText value="#{toothInfo.index}"/></dd>
+													<dt>#{msg['diseases']}:</dt>
+													<dd>
+														<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
+														      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
+														</ui:repeat>
+													</dd>
+													<dt>#{msg['treatments']}:</dt>
+													<dd>
+														<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
+														      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
+														</ui:repeat>
+													</dd>
+													<dt>#{msg['gum-pockets-depth']}:</dt>
+													<dd>
+														<h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/>
+													</dd>
+									   			</dl>
+									   		</p:tooltip>
+								   		</p:commandLink>
 								   	</td>
 								</ui:repeat>
 							</tr>
@@ -112,32 +113,10 @@
 							<tr class="tooth">
 								<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
 									<td>
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.index).concat('/default.svg')]}" style="width: 100%;" 
-								   			rendered="#{not toothInfo.isRemoved}" id="tooth_default"/>
-								   			
-								   		<p:tooltip for="tooth_default" rendered="#{not toothInfo.isRemoved}">
-								   			<dl class="dl-horizontal">
-								   				<dt>#{msg['tooth-index']}:</dt>
-												<dd><h:outputText value="#{toothInfo.index}"/></dd>
-												<dt>#{msg['diseases']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-													      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['treatments']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-													      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-								   			</dl>
-								   		</p:tooltip>
-								   		
-								   		
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.index).concat('/removed.svg')]}" style="width: 100%;" 
-								   			rendered="#{toothInfo.isRemoved}" for="tooth_removed"/>
-								   		<p:tooltip for="tooth_removed" rendered="#{toothInfo.isRemoved}">
+										<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
+								   			id="tooth_default" onclick="PF('toothInfoDialog_#{toothInfo.index}').show();"/>
+
+								   		<p:tooltip for="tooth_default">
 								   			<dl class="dl-horizontal">
 								   				<dt>#{msg['tooth-index']}:</dt>
 												<dd><h:outputText value="#{toothInfo.index}"/></dd>
@@ -167,7 +146,7 @@
 					
 					</table>
 					
-					
+					<ui:include src="/WEB-INF/views/pages/secure/edit-visit-tooth-dialog.xhtml"/>
 					
 					
 
