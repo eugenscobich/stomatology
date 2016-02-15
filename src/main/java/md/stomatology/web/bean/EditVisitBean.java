@@ -8,6 +8,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
@@ -63,9 +64,14 @@ public class EditVisitBean implements Serializable {
 
 	private Visit visit;
 
+	private ToothInfo toothInfo;
+	private List<Disease> diseases;
+	private List<Treatment> treatments;
+	
 	@URLAction(onPostback = false)
 	public String loadVisit() {
 		LOG.info("loadVisit");
+		toothInfo = new ToothInfo();
 		if (visitId != null) {
 			if (visitId != 0) {
 				try {
@@ -101,23 +107,11 @@ public class EditVisitBean implements Serializable {
 	
 	
 	public void changeToothInfo() {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
-		String distressedSurfaces = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.distressedSurfaces}", String.class);
-		Integer gumPocketsDepthTop = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthTop}", Integer.class);
-		Integer gumPocketsDepthRight = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthRight}", Integer.class);
-		Integer gumPocketsDepthBottom = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthBottom}", Integer.class);
-		Integer gumPocketsDepthLeft = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.gumPocketsDepthLeft}", Integer.class);
-		
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				toothInfo.setDistressedSurfaces(distressedSurfaces);
-				toothInfo.setGumPocketsDepthBottom(gumPocketsDepthBottom);
-				toothInfo.setGumPocketsDepthRight(gumPocketsDepthRight);
-				toothInfo.setGumPocketsDepthLeft(gumPocketsDepthLeft);
-				toothInfo.setGumPocketsDepthTop(gumPocketsDepthTop);
-				return;
-			}
+		if (toothInfo.getId() == null) {
+			toothInfo.setId(0l);	
 		}
+		toothInfo.setDiseases(diseases);
+		toothInfo.setTreatments(treatments);
 	}
 	
 	public List<User> completeDentists(String query) {
@@ -131,75 +125,31 @@ public class EditVisitBean implements Serializable {
 	}
 	
 	public List<Disease> completeDisease(String query) {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				return diseaseService.getDiseases(query, toothInfo.getDiseases());
-			}
-		}
-		return Collections.emptyList();
+		return diseaseService.getDiseases(query, diseases);
 	}
 
 	public void handleSelectDisease(SelectEvent event) {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Disease disease = (Disease) event.getObject();
-		
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				if (toothInfo.getDiseases() == null) {
-					toothInfo.setDiseases(new ArrayList<>()); 
-				}
-				toothInfo.getDiseases().add(disease);
-				return;
-			}
-		}
+		diseases.add(disease);
 	}
 
 	public void handleUnselectDisease(UnselectEvent event) {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Disease disease = (Disease) event.getObject();
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				toothInfo.getDiseases().remove(disease);
-				return;
-			}
-		}
+		diseases.remove(disease);
 	}
 
 	public List<Treatment> completeTreatment(String query) {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				return treatmentService.getTreatments(query, toothInfo.getTreatments());
-			}
-		}
-		return Collections.emptyList();
+		return treatmentService.getTreatments(query, treatments);
 	}
 
 	public void handleSelectTreatment(SelectEvent event) {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Treatment treatment = (Treatment) event.getObject();
-		
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				if (toothInfo.getTreatments() == null) {
-					toothInfo.setTreatments(new ArrayList<>()); 
-				}
-				toothInfo.getTreatments().add(treatment);
-				return;
-			}
-		}
+		treatments.add(treatment);
 	}
 
 	public void handleUnselectTreatment(UnselectEvent event) {
-		String toothIndex = FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{toothInfo.index}", String.class);
 		Treatment treatment = (Treatment) event.getObject();
-		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
-			if(toothInfo.getIndex().equals(toothIndex)) {
-				toothInfo.getTreatments().remove(treatment);
-				return;
-			}
-		}
+		treatments.remove(treatment);
 	}
 	
 	
@@ -273,5 +223,42 @@ public class EditVisitBean implements Serializable {
 			values[i] = i;
 		}
 		return values;
+	}
+
+	public ToothInfo getToothInfo() {
+		return toothInfo;
+	}
+
+	public void setToothInfo(String toothInfoIndex) {
+		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
+			if (toothInfo.getIndex().equals(toothInfoIndex)) {
+				this.toothInfo = toothInfo;
+				diseases = new ArrayList<>();
+				if (toothInfo.getDiseases() != null) {
+					diseases.addAll(toothInfo.getDiseases());
+				}
+				treatments = new ArrayList<>();
+				if (toothInfo.getTreatments() != null) {
+					treatments.addAll(toothInfo.getTreatments());
+				}
+				return;
+			}
+		}
+	}
+
+	public List<Disease> getDiseases() {
+		return diseases;
+	}
+
+	public void setDiseases(List<Disease> diseases) {
+		this.diseases = diseases;
+	}
+
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
 	}
 }

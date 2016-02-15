@@ -10,222 +10,179 @@
 	
 	<ui:param name="pageTitle" value="#{editVisitBean.visit.id == null ? msg['new-visit'] : msg['edit-visit']}" />
 	<ui:define name="content">
+		<h:form id="mainForm">
+			<h:panelGroup layout="block" styleClass="form-horizontal" >
+			
+				<div class="form-group">
+					<p:outputLabel value="#{msg['patient']}" styleClass="col-sm-2 control-label" />
+					<div class="col-sm-10">
+						<h:outputText value="#{editVisitBean.visit.customer.surname} #{editVisitBean.visit.customer.name}" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<p:outputLabel value="#{msg['dentist']}" styleClass="col-sm-2 control-label" />
+					<div class="col-sm-10">
+						<p:autoComplete id="dentist" 
+								value="#{editVisitBean.visit.dentist}" 
+								dropdown="true"  
+								var="dentist"
+								itemLabel="#{dentist.surname} #{dentist.name}" 
+								itemValue="#{dentist}"
+								converter="#{userConverter}" 
+								completeMethod="#{editVisitBean.completeDentists}"
+								placeholder="#{msg['search-or-select-one']}">
+								
+								<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectDentist}" />
+								
+				        </p:autoComplete>
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<p:outputLabel value="#{msg['visit-date']}" for="visitDate" styleClass="col-sm-2 control-label" />
+					<div class="col-sm-10">
+						<p:calendar id="visitDate" value="#{editVisitBean.visit.visitDate}" pattern="dd.MM.yyyy HH:mm"/>
+					</div>
+				</div>
+				
+				
+				<h:panelGroup layout="block" styleClass="form-group" id="toothList">
+					<p:outputLabel value="#{msg['dentition']}" styleClass="col-sm-12 control-label" />
+					<div class="col-sm-12">
+						<table class="dentition">
+							<tbody>
+								<tr class="tooth_number">
+									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
+										<td>#{toothInfo.index}</td>
+									</ui:repeat>
+								</tr>
+								<tr class="tooth">
+									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
+										<td>
+											<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo.index)}" update=":toothInfoDialogForm:toothInfoDialog" 
+												oncomplete="PF('toothInfoDialog').show();" immediate="true">
+										
+										   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
+										   			id="tooth_info_top"/>
+										   			
+										   		<p:tooltip for="tooth_info_top" >
+										   			<dl class="dl-horizontal">
+										   				<dt>#{msg['tooth-index']}:</dt>
+														<dd><h:outputText value="#{toothInfo.index}"/></dd>
+														<dt>#{msg['diseases']}:</dt>
+														<dd>
+															<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
+															      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
+															</ui:repeat>
+														</dd>
+														<dt>#{msg['treatments']}:</dt>
+														<dd>
+															<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
+															      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
+															</ui:repeat>
+														</dd>
+														<dt>#{msg['gum-pockets-depth']}:</dt>
+														<dd>
+															<h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/>
+														</dd>
+										   			</dl>
+										   		</p:tooltip>
+									   		</p:commandLink>
+									   	</td>
+									</ui:repeat>
+								</tr>
+								
+								<tr class="tooth_distressed_surfaces">
+									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
+										<td>
+											<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
+									   	</td>
+									</ui:repeat>
+								</tr>
+								<tr class="tooth_distressed_surfaces">
+									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
+										<td>
+									   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
+									   	</td>
+									</ui:repeat>
+								</tr>
+								
+								<tr class="tooth">
+									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
+										<td>
+											<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo.index)}"  update=":toothInfoDialogForm:toothInfoDialog" 
+													oncomplete="PF('toothInfoDialog').show();" immediate="true">
+												<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
+										   			id="tooth_info_bottom"/>
+		
+										   		<p:tooltip for="tooth_info_bottom">
+										   			<dl class="dl-horizontal">
+										   				<dt>#{msg['tooth-index']}:</dt>
+														<dd><h:outputText value="#{toothInfo.index}"/></dd>
+														<dt>#{msg['diseases']}:</dt>
+														<dd>
+															<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
+															      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
+															</ui:repeat>
+														</dd>
+														<dt>#{msg['treatments']}:</dt>
+														<dd>
+															<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
+															      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
+															</ui:repeat>
+														</dd>
+										   			</dl>
+										   		</p:tooltip>
+									   		</p:commandLink>
+									   	</td>
+									</ui:repeat>
+								</tr>
+								<tr class="tooth_number">
+									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
+										<td>#{toothInfo.index}</td>
+									</ui:repeat>
+								</tr>
+							</tbody>
+						
+						</table>
+						
+						
+						
+					</div>
+				</h:panelGroup>
+				
+				
+				<div class="form-group">
+					<p:outputLabel value="#{msg['additional-info']}" for="additional-info" styleClass="col-sm-2 control-label"/>
+					<div class="col-sm-10">
+						<p:inputTextarea id="additional-info" rows="6" cols="33" value="#{editVisitBean.visit.additionalInfo}" placeholder="#{msg['please-insert-additional-info']}" styleClass="form-control"/>
+					</div>
+				</div>
 	
-		<h:panelGroup layout="block" styleClass="form-horizontal" >
-		
-			<div class="form-group">
-				<p:outputLabel value="#{msg['patient']}" styleClass="col-sm-2 control-label" />
-				<div class="col-sm-10">
-					<h:outputText value="#{editVisitBean.visit.customer.surname} #{editVisitBean.visit.customer.name}" />
+				<div class="form-group">
+					<p:outputLabel value="#{msg['price']}" for="price" styleClass="col-sm-2 control-label"/>
+					<div class="col-sm-10">
+						<p:inputText id="price" value="#{editVisitBean.visit.price}" placeholder="0.00" styleClass="form-control"/>  
+					</div>
 				</div>
-			</div>
-			
-			<div class="form-group">
-				<p:outputLabel value="#{msg['dentist']}" styleClass="col-sm-2 control-label" />
-				<div class="col-sm-10">
-					<p:autoComplete id="dentist" 
-							value="#{editVisitBean.visit.dentist}" 
-							dropdown="true"  
-							var="dentist"
-							itemLabel="#{dentist.surname} #{dentist.name}" 
-							itemValue="#{dentist}"
-							converter="#{userConverter}" 
-							completeMethod="#{editVisitBean.completeDentists}"
-							placeholder="#{msg['search-or-select-one']}">
-							
-							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectDentist}" />
-							
-			        </p:autoComplete>
+				
+				<div class="form-group">
+					<p:outputLabel value="#{msg['paid']}" for="paid" styleClass="col-sm-2 control-label"/>
+					<div class="col-sm-10">
+						<p:inputText id="paid" value="#{editVisitBean.visit.paid}" placeholder="0.00" styleClass="form-control"/>  
+					</div>
 				</div>
-			</div>
-		
-			<div class="form-group">
-				<p:outputLabel value="#{msg['visit-date']}" for="visitDate" styleClass="col-sm-2 control-label" />
-				<div class="col-sm-10">
-					<p:calendar id="visitDate" value="#{editVisitBean.visit.visitDate}" pattern="dd.MM.yyyy HH:mm"/>
-				</div>
-			</div>
-			
-			
-			
-			
-			<h:panelGroup layout="block" styleClass="form-group" id="tooth">
-				<p:outputLabel value="#{msg['dentition']}" styleClass="col-sm-12 control-label" />
-				<div class="col-sm-12">
-					<table class="dentition">
-						<tbody>
-							<tr class="tooth_number">
-								<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-									<td>#{toothInfo.index}</td>
-								</ui:repeat>
-							</tr>
-							<tr class="tooth">
-								<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-									<td>
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
-								   			id="tooth_default" onclick="PF('toothInfoDialog').show();"/>
-								   			
-								   		<p:tooltip for="tooth_default">
-								   			<dl class="dl-horizontal">
-								   				<dt>#{msg['tooth-index']}:</dt>
-												<dd><h:outputText value="#{toothInfo.index}"/></dd>
-												<dt>#{msg['diseases']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-													      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['treatments']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-													      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['gum-pockets-depth']}:</dt>
-												<dd>
-													<h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/>
-												</dd>
-								   			</dl>
-								   		</p:tooltip>
-								   		
-								   		<ui:include src="/WEB-INF/views/pages/secure/edit-visit-tooth-dialog.xhtml"/>
-								   		
-								   	</td>
-								</ui:repeat>
-							</tr>
-							
-							<tr class="tooth_distressed_surfaces">
-								<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-									<td>
-										<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
-								   	</td>
-								</ui:repeat>
-							</tr>
-							<tr class="tooth_distressed_surfaces">
-								<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-									<td>
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
-								   	</td>
-								</ui:repeat>
-							</tr>
-							
-							<tr class="tooth">
-								<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-									<td>
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.index).concat('/default.svg')]}" style="width: 100%;" 
-								   			rendered="#{not toothInfo.isRemoved}" id="tooth_default"/>
-								   			
-								   		<p:tooltip for="tooth_default" rendered="#{not toothInfo.isRemoved}">
-								   			<dl class="dl-horizontal">
-								   				<dt>#{msg['tooth-index']}:</dt>
-												<dd><h:outputText value="#{toothInfo.index}"/></dd>
-												<dt>#{msg['diseases']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-													      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['treatments']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-													      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-								   			</dl>
-								   		</p:tooltip>
-								   		
-								   		
-								   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.index).concat('/removed.svg')]}" style="width: 100%;" 
-								   			rendered="#{toothInfo.isRemoved}" for="tooth_removed"/>
-								   		<p:tooltip for="tooth_removed" rendered="#{toothInfo.isRemoved}">
-								   			<dl class="dl-horizontal">
-								   				<dt>#{msg['tooth-index']}:</dt>
-												<dd><h:outputText value="#{toothInfo.index}"/></dd>
-												<dt>#{msg['diseases']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-													      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-												<dt>#{msg['treatments']}:</dt>
-												<dd>
-													<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-													      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-													</ui:repeat>
-												</dd>
-								   			</dl>
-								   		</p:tooltip>
-								   	</td>
-								</ui:repeat>
-							</tr>
-							<tr class="tooth_number">
-								<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-									<td>#{toothInfo.index}</td>
-								</ui:repeat>
-							</tr>
-						</tbody>
-					
-					</table>
-					
-					
-					
-					
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					
-					
-					
-					
-					
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<p:commandButton styleClass="btn btn-default" action="#{editVisitBean.save}" value="#{msg['save']}"/>
+					</div>
 				</div>
 			</h:panelGroup>
-			
-			
-			
-			
-			
-			
-			
-			<div class="form-group">
-				<p:outputLabel value="#{msg['additional-info']}" for="additional-info" styleClass="col-sm-2 control-label"/>
-				<div class="col-sm-10">
-					<p:inputTextarea id="additional-info" rows="6" cols="33" value="#{editVisitBean.visit.additionalInfo}" placeholder="#{msg['please-insert-additional-info']}" styleClass="form-control"/>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<p:outputLabel value="#{msg['price']}" for="price" styleClass="col-sm-2 control-label"/>
-				<div class="col-sm-10">
-					<p:inputText id="price" value="#{editVisitBean.visit.price}" placeholder="0.00" styleClass="form-control"/>  
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<p:outputLabel value="#{msg['paid']}" for="paid" styleClass="col-sm-2 control-label"/>
-				<div class="col-sm-10">
-					<p:inputText id="paid" value="#{editVisitBean.visit.paid}" placeholder="0.00" styleClass="form-control"/>  
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<p:commandButton styleClass="btn btn-default" action="#{editVisitBean.save}" value="#{msg['save']}"/>
-				</div>
-			</div>
-		</h:panelGroup>
+		</h:form>
+		
+		<ui:include src="/WEB-INF/views/pages/secure/edit-visit-tooth-dialog.xhtml"/>
 		
 	</ui:define>
 </ui:composition>

@@ -6,15 +6,16 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	
-  		<p:dialog header="#{msg['tooth']} #{toothInfo.index}" widgetVar="toothInfoDialog" modal="true" 
-   			height="400" width="700" dynamic="true" styleClass="container-fluid">
+	<h:form id="toothInfoDialogForm">
+  		<p:dialog header="#{msg['tooth']} #{editVisitBean.toothInfo.index}" widgetVar="toothInfoDialog" modal="true" 
+   			height="400" width="700" styleClass="container-fluid" id="toothInfoDialog" dynamic="true">
 			<div class="form-horizontal">
 				<div class="form-group">
 					<p:outputLabel value="#{msg['diseases']}" styleClass="col-sm-3 control-label" />
 					<div class="col-sm-9">
 						
 						<p:autoComplete multiple="true" 
-							value="#{toothInfo.diseases}" 
+							value="#{editVisitBean.diseases}" 
 							dropdown="true"  
 							var="disease"
 							itemLabel="#{disease.name}" 
@@ -24,8 +25,8 @@
 							completeMethod="#{editVisitBean.completeDisease}"
 							placeholder="#{msg['search-or-select-one']}">
 							
-							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectDisease}" />
-							<p:ajax event="itemUnselect" listener="#{editVisitBean.handleUnselectDisease}" />
+							<p:ajax event="itemSelect" process="@this" update="@this"/>
+							<p:ajax event="itemUnselect" process="@this" update="@this"/>
 							
 			        	</p:autoComplete>	
 						
@@ -36,7 +37,7 @@
 					<div class="col-sm-9">
 						
 						<p:autoComplete multiple="true" 
-							value="#{toothInfo.treatments}" 
+							value="#{editVisitBean.treatments}" 
 							dropdown="true"  
 							var="treatment"
 							itemLabel="#{treatment.name}(#{treatment.materialUsed})" 
@@ -46,9 +47,9 @@
 							completeMethod="#{editVisitBean.completeTreatment}"
 							placeholder="#{msg['search-or-select-one']}">
 							
+							<p:ajax event="itemSelect" process="@this" update="@this"/>
+							<p:ajax event="itemUnselect" process="@this" update="@this"/>
 							
-							<p:ajax event="itemSelect" listener="#{editVisitBean.handleSelectTreatment}" />
-							<p:ajax event="itemUnselect" listener="#{editVisitBean.handleUnselectTreatment}" />
 							
 			        	</p:autoComplete>	
 						
@@ -62,7 +63,7 @@
 					<div class="col-sm-1">#{msg['top']}:</div>
 					
 					<div class="col-sm-1">
-						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthTop}">
+						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthTop}" id="gumPocketsDepthTop">
 							<f:selectItem itemLabel="-" itemValue="" />
 				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
 				        </p:selectOneMenu>
@@ -70,7 +71,7 @@
 					
 					<div class="col-sm-1">#{msg['right']}:</div>
 					<div class="col-sm-1">
-						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthRight}">
+						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthRight}" id="gumPocketsDepthRight">
 							<f:selectItem itemLabel="-" itemValue="" />
 				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
 				        </p:selectOneMenu>
@@ -78,7 +79,7 @@
 					
 					<div class="col-sm-1">#{msg['bottom']}:</div>
 					<div class="col-sm-1">
-						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthBottom}">
+						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthBottom}" id="gumPocketsDepthBottom">
 							<f:selectItem itemLabel="-" itemValue="" />
 				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
 				        </p:selectOneMenu>
@@ -86,7 +87,7 @@
 					
 					<div class="col-sm-1">#{msg['left']}:</div>
 					<div class="col-sm-1">
-						<p:selectOneMenu value="#{toothInfo.gumPocketsDepthLeft}">
+						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthLeft}" id="gumPocketsDepthLeft">
 							<f:selectItem itemLabel="-" itemValue="" />
 				            <f:selectItems value="#{editVisitBean.gumPocketDepthList}" />
 				        </p:selectOneMenu>
@@ -95,10 +96,10 @@
 				
 				
 				<div class="form-group">
-					<p:outputLabel value="#{msg['distressed-surfaces']}" styleClass="col-sm-3 control-label" />
+					<p:outputLabel value="#{msg['distressed-surfaces']}" styleClass="col-sm-3 control-label"/>
 					<div class="col-sm-9">
-						<p:inputText value="#{toothInfo.distressedSurfaces}" styleClass="hidden distressed_surfaces_#{toothInfo.index}" />
-						<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" 
+						<p:inputText id="distressedSurfaces" value="#{editVisitBean.toothInfo.distressedSurfaces}" styleClass="hidden distressed_surfaces_#{toothInfo.index}" />
+						<p:graphicImage value="#{resource['img:'.concat(editVisitBean.toothInfo.distressedSurfacesImageSrc)]}" 
 							styleClass="dialog-distressed-surfaces-image tooth_index_#{toothInfo.index}"/>
 						
 						<script src="#{resource['js:edit-visit-tooth-dialog.js']}" />
@@ -109,10 +110,12 @@
 			</div>
 			
 			<f:facet name="footer">
-                <p:commandButton value="Ok" update="@form:tooth" actionListener="#{editVisitBean.changeToothInfo}"/>
+                <p:commandButton value="#{msg['ok']}" update=":mainForm:toothList" action="#{editVisitBean.changeToothInfo}" oncomplete="PF('toothInfoDialog').hide();"/>
+                <p:commandButton value="#{msg['cancel']}" update=":mainForm:toothList" oncomplete="PF('toothInfoDialog').hide();" immediate="true" process="@this"/>
             </f:facet>  
 			
 		</p:dialog>
+	</h:form>
 </ui:composition>
 
 
