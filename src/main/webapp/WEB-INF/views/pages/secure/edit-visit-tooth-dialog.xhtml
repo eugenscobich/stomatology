@@ -15,7 +15,7 @@
 					<div class="col-sm-9">
 						
 						<p:autoComplete multiple="true" 
-							value="#{editVisitBean.toothInfo.diseases}" 
+							value="#{editVisitBean.diseases}" 
 							dropdown="true"  
 							var="disease"
 							itemLabel="#{disease.name}" 
@@ -25,7 +25,8 @@
 							completeMethod="#{editVisitBean.completeDisease}"
 							placeholder="#{msg['search-or-select-one']}">
 							
-							
+							<p:ajax event="itemSelect" process="@this" update="@this"/>
+							<p:ajax event="itemUnselect" process="@this" update="@this"/>
 							
 			        	</p:autoComplete>	
 						
@@ -36,7 +37,7 @@
 					<div class="col-sm-9">
 						
 						<p:autoComplete multiple="true" 
-							value="#{editVisitBean.toothInfo.treatments}" 
+							value="#{editVisitBean.treatments}" 
 							dropdown="true"  
 							var="treatment"
 							itemLabel="#{treatment.name}(#{treatment.materialUsed})" 
@@ -46,7 +47,8 @@
 							completeMethod="#{editVisitBean.completeTreatment}"
 							placeholder="#{msg['search-or-select-one']}">
 							
-							
+							<p:ajax event="itemSelect" process="@this" update="@this"/>
+							<p:ajax event="itemUnselect" process="@this" update="@this"/>
 							
 							
 			        	</p:autoComplete>	

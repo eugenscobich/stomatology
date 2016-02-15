@@ -8,6 +8,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.SelectEvent;
@@ -64,6 +65,8 @@ public class EditVisitBean implements Serializable {
 	private Visit visit;
 
 	private ToothInfo toothInfo;
+	private List<Disease> diseases;
+	private List<Treatment> treatments;
 	
 	@URLAction(onPostback = false)
 	public String loadVisit() {
@@ -104,7 +107,11 @@ public class EditVisitBean implements Serializable {
 	
 	
 	public void changeToothInfo() {
-		toothInfo.getId();
+		if (toothInfo.getId() == null) {
+			toothInfo.setId(0l);	
+		}
+		toothInfo.setDiseases(diseases);
+		toothInfo.setTreatments(treatments);
 	}
 	
 	public List<User> completeDentists(String query) {
@@ -118,49 +125,31 @@ public class EditVisitBean implements Serializable {
 	}
 	
 	public List<Disease> completeDisease(String query) {
-		return diseaseService.getDiseases(query, toothInfo.getDiseases());
+		return diseaseService.getDiseases(query, diseases);
 	}
 
 	public void handleSelectDisease(SelectEvent event) {
 		Disease disease = (Disease) event.getObject();
-		if (toothInfo.getDiseases() == null) {
-			toothInfo.setDiseases(new ArrayList<>()); 
-		}
-		toothInfo.getDiseases().add(disease);
-		if (toothInfo.getId() == null) {
-			toothInfo.setId(0l);	
-		}
+		diseases.add(disease);
 	}
 
 	public void handleUnselectDisease(UnselectEvent event) {
 		Disease disease = (Disease) event.getObject();
-		toothInfo.getDiseases().remove(disease);
-		if (toothInfo.getId() == null) {
-			toothInfo.setId(0l);	
-		}
+		diseases.remove(disease);
 	}
 
 	public List<Treatment> completeTreatment(String query) {
-		return treatmentService.getTreatments(query, toothInfo.getTreatments());
+		return treatmentService.getTreatments(query, treatments);
 	}
 
 	public void handleSelectTreatment(SelectEvent event) {
 		Treatment treatment = (Treatment) event.getObject();
-		if (toothInfo.getTreatments() == null) {
-			toothInfo.setTreatments(new ArrayList<>()); 
-		}
-		toothInfo.getTreatments().add(treatment);
-		if (toothInfo.getId() == null) {
-			toothInfo.setId(0l);	
-		}
+		treatments.add(treatment);
 	}
 
 	public void handleUnselectTreatment(UnselectEvent event) {
 		Treatment treatment = (Treatment) event.getObject();
-		toothInfo.getTreatments().remove(treatment);
-		if (toothInfo.getId() == null) {
-			toothInfo.setId(0l);	
-		}
+		treatments.remove(treatment);
 	}
 	
 	
@@ -244,8 +233,32 @@ public class EditVisitBean implements Serializable {
 		for (ToothInfo toothInfo : visit.getAllToothInfos()) {
 			if (toothInfo.getIndex().equals(toothInfoIndex)) {
 				this.toothInfo = toothInfo;
+				diseases = new ArrayList<>();
+				if (toothInfo.getDiseases() != null) {
+					diseases.addAll(toothInfo.getDiseases());
+				}
+				treatments = new ArrayList<>();
+				if (toothInfo.getTreatments() != null) {
+					treatments.addAll(toothInfo.getTreatments());
+				}
 				return;
 			}
 		}
+	}
+
+	public List<Disease> getDiseases() {
+		return diseases;
+	}
+
+	public void setDiseases(List<Disease> diseases) {
+		this.diseases = diseases;
+	}
+
+	public List<Treatment> getTreatments() {
+		return treatments;
+	}
+
+	public void setTreatments(List<Treatment> treatments) {
+		this.treatments = treatments;
 	}
 }
