@@ -69,3 +69,28 @@
 	 color:#DF8798;
 	 font-weight: bold;
 }
+.inputSwitch {
+    padding: 0px;
+}
+.inputSwitch .ui-inputswitch-off,
+.inputSwitch .ui-inputswitch-on,
+.inputSwitch .ui-inputswitch-handle   {
+	height: 32px;
+    padding-top: 6px;
+}
+.inputnline .ui-autocomplete-multiple-container .ui-autocomplete-input-token input {
+	width: 145px;
+}
+.autocomplete100 {
+	display: table;
+    width: 100%;
+    padding-right: 36px;
+}
+.autocomplete100 .ui-autocomplete-multiple-container {
+    display: table-cell;
+    width: auto;
+}
+.autocomplete100 .ui-autocomplete-dropdown {
+	display: table-cell;
+    width: 36px;
+}
