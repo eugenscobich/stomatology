@@ -17,7 +17,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="IMPLANT_top.svg">
+   sodipodi:docname="IMPLANT_top.svg"
+   inkscape:export-filename="D:\Workspace\stomatology\src\main\webapp\resources\img\IMPLANT_top.png"
+   inkscape:export-xdpi="57.599998"
+   inkscape:export-ydpi="57.599998">
   <defs
      id="defs4">
     <inkscape:path-effect
@@ -62,17 +65,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.5249607"
-     inkscape:cx="-99.015877"
-     inkscape:cy="120.19115"
+     inkscape:zoom="3.5708336"
+     inkscape:cx="8.3188523"
+     inkscape:cy="122.60869"
      inkscape:document-units="px"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer3"
      showgrid="false"
      showborder="true"
      borderlayer="false"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
-     inkscape:window-x="1916"
+     inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
      units="px"
@@ -164,7 +167,7 @@
        width="100"
        height="150"
        x="0"
-       y="-3.5527137e-015" />
+       y="0" />
     <path
        inkscape:connector-curvature="0"
        id="path4321"
@@ -329,11 +332,9 @@
      id="layer8"
      inkscape:label="Layer 8">
     <path
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
-       d="m 50,34.847656 0,0.002 c -4.883738,0.02443 -8.390131,0.01563 -13.316406,0.01563 L 25,50 l 0,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 0,3.90096 -4,0.099 -7.823874,2.26664 8.639697,3.08477 -10.131118,2.51567 8.161133,3.74113 L 19,139.51483 l 7.55419,3.52996 -9.199212,2.25517 7.749666,3.82242 -9.183885,1.87762 7.963898,3.61384 -8.77472,3.28715 L 32,158 l 0,2 18,0 c 6.000055,0.12394 12.000068,-0.13364 18,0 l 0,-2 11.148595,0 5.831633,-4.07924 -8.415816,-0.74251 6.326691,-4.70296 -7.524713,-0.84152 6.722736,-4.90099 -8.22409,-0.75698 7.183491,-4.50376 -9.157424,-0.23432 7.931263,-5.16535 -9.192185,-0.92192 7.785636,-4.65539 L 68.287149,126 75,122 l -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -11.484375,-15.134766 c -4.999974,0 -8.515697,0.0082 -13.515625,-0.01758 z"
-       transform="translate(0,-7.6293945e-6)"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 41.605469,160.09711 c -2.952631,-0.01 -5.97914,-0.0432 -9.222657,-0.0703 l 0,-1.88282 -11.148437,0 L 15,154.06586 l 8.818359,-0.74414 -7.515625,-4.84375 8.712891,-0.69922 -7.142578,-5.18164 8.644531,-0.47656 -7.183594,-4.50391 9.158204,-0.23438 -7.931641,-5.16601 9.191406,-0.92188 -7.505859,-5.07421 8.710937,-0.0762 -5.574219,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-3.999998 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 8,-4 -8,-4 11.484376,-15.13476 c 4.858356,0 8.353881,0.005 13.132812,-0.0176 0.139302,-6.7e-4 0.241196,7.3e-4 0.382812,0 4.778931,0.0231 8.274457,0.0176 13.132813,0.0176 L 75,50.143982 l -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,4 8,4 -8,3.999998 8,4 -8,4 8,4 -8,4 8,4 -5.574219,4 8.710938,0.0762 -7.50586,5.07421 9.191407,0.92188 -7.931641,5.16601 9.158203,0.23438 -7.183594,4.50391 8.644532,0.47656 -7.142578,5.18164 8.71289,0.69922 -7.515625,4.84375 L 85,154.06588 79.148438,158.144 68,158.144 l 0,1.88282 c -6.416276,0.0537 -11.986654,0.13042 -17.808594,0.002 -2.878868,0.0635 -5.697718,0.0782 -8.585937,0.0684 z"
        id="path4747"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" />
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

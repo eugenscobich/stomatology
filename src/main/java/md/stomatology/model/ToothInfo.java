@@ -169,7 +169,7 @@ public class ToothInfo {
 		} else {
 			imageSrc.append("default");
 		}
-		imageSrc.append(".svg");
+		imageSrc.append(".png");
 		return imageSrc.toString();
 	}
 
@@ -196,11 +196,17 @@ public class ToothInfo {
 			}
 		}
 		if (implantType != null) {
-			imageSrc.append(implantType.toString());
-			if (toothQuadrant < 3 ) {
-				imageSrc.append("_top");
-			} else if (toothQuadrant > 2) {
-				imageSrc.append("_bottom");
+			if (implantType == ImplantType.IMPLANT_AND_ABUTMENT_AND_UPPER_CROWN) {
+				imageSrc.append(getIndex());
+				imageSrc.append("/");
+				imageSrc.append(implantType.toString());
+			} else {
+				imageSrc.append(implantType.toString());
+				if (toothQuadrant < 3 ) {
+					imageSrc.append("_top");
+				} else if (toothQuadrant > 2) {
+					imageSrc.append("_bottom");
+				}
 			}
 		} else {
 			imageSrc.append(getIndex());
@@ -215,7 +221,7 @@ public class ToothInfo {
 		}
 		
 		
-		imageSrc.append(".svg");
+		imageSrc.append(".png");
 		return imageSrc.toString();
 	}
 

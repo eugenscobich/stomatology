@@ -52,20 +52,15 @@
 					<div class="col-sm-12">
 						<table class="dentition">
 							<tbody>
-								<tr class="tooth_number">
-									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-										<td>#{toothInfo.index}</td>
-									</ui:repeat>
-								</tr>
 								<tr class="tooth">
 									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-										<td>
+										<td class="tooth-info-cell">
 											<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo.index)}" update=":toothInfoDialogForm:toothInfoDialog" 
 												oncomplete="PF('toothInfoDialog').show();" immediate="true">
 										
 										   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
 										   			id="tooth_info_top"/>
-										   			
+										   		<span class="tooth-info-top-index-number">#{toothInfo.index}</span>
 										   		<p:tooltip for="tooth_info_top" >
 										   			<dl class="dl-horizontal">
 										   				<dt>#{msg['tooth-index']}:</dt>
@@ -89,6 +84,7 @@
 										   			</dl>
 										   		</p:tooltip>
 									   		</p:commandLink>
+									   		
 									   	</td>
 									</ui:repeat>
 								</tr>
@@ -110,12 +106,12 @@
 								
 								<tr class="tooth">
 									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-										<td>
+										<td class="tooth-info-cell">
 											<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo.index)}"  update=":toothInfoDialogForm:toothInfoDialog" 
 													oncomplete="PF('toothInfoDialog').show();" immediate="true">
 												<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
 										   			id="tooth_info_bottom"/>
-		
+												<span class="tooth-info-bottom-index-number ">#{toothInfo.index}</span>
 										   		<p:tooltip for="tooth_info_bottom">
 										   			<dl class="dl-horizontal">
 										   				<dt>#{msg['tooth-index']}:</dt>
@@ -135,12 +131,8 @@
 										   			</dl>
 										   		</p:tooltip>
 									   		</p:commandLink>
+									   		
 									   	</td>
-									</ui:repeat>
-								</tr>
-								<tr class="tooth_number">
-									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-										<td>#{toothInfo.index}</td>
 									</ui:repeat>
 								</tr>
 							</tbody>

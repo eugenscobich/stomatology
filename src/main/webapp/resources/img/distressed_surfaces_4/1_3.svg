@@ -15,7 +15,10 @@
    id="svg4737"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="1_3.svg">
+   sodipodi:docname="1_3.svg"
+   inkscape:export-filename="D:\Workspace\stomatology\src\main\webapp\resources\img\distressed_surfaces_4\1_3.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4739" />
   <sodipodi:namedview
@@ -26,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.9195959"
-     inkscape:cx="55.991682"
+     inkscape:cx="33.83146"
      inkscape:cy="42.627548"
      inkscape:document-units="px"
      inkscape:current-layer="layer10"
@@ -34,7 +37,7 @@
      units="px"
      inkscape:window-width="1920"
      inkscape:window-height="1027"
-     inkscape:window-x="1916"
+     inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1" />
   <metadata
@@ -45,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

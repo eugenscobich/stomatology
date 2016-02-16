@@ -9,6 +9,11 @@
 	<h:form id="toothInfoDialogForm">
   		<p:dialog header="#{msg['tooth']} #{editVisitBean.toothInfo.index}" widgetVar="toothInfoDialog" modal="true" 
    			height="400" width="700" styleClass="container-fluid" id="toothInfoDialog" dynamic="true">
+   			
+   			<f:facet name="header">
+                <span>tra la la </span>
+            </f:facet>  
+   			
 			<div class="form-horizontal">
 				<div class="form-group">
 					<p:outputLabel value="#{msg['diseases']}" styleClass="col-sm-3 control-label" />

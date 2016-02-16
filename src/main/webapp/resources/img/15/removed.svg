@@ -17,7 +17,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="removed.svg">
+   sodipodi:docname="removed.svg"
+   inkscape:export-filename="D:\Workspace\stomatology\src\main\webapp\resources\img\15\removed.png"
+   inkscape:export-xdpi="57.75"
+   inkscape:export-ydpi="57.75">
   <defs
      id="defs4">
     <inkscape:path-effect
@@ -63,17 +66,17 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.7854167"
-     inkscape:cx="-141.64401"
+     inkscape:cx="-239.94039"
      inkscape:cy="41.563464"
      inkscape:document-units="px"
      inkscape:current-layer="layer4"
      showgrid="false"
      showborder="true"
      borderlayer="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="997"
-     inkscape:window-x="1272"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
      inkscape:window-maximized="1"
      units="px"
      inkscape:object-paths="false"
@@ -91,7 +94,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
