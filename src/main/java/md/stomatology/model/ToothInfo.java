@@ -197,6 +197,11 @@ public class ToothInfo {
 		}
 		if (implantType != null) {
 			imageSrc.append(implantType.toString());
+			if (toothQuadrant < 3 ) {
+				imageSrc.append("_top");
+			} else if (toothQuadrant > 2) {
+				imageSrc.append("_bottom");
+			}
 		} else {
 			imageSrc.append(getIndex());
 			Boolean tratmentHasRemoved = treatments != null ? treatments.stream().anyMatch(treatment -> treatment.getIsRemoved()) : false;
