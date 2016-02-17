@@ -23,6 +23,11 @@
 		<view-id value="/WEB-INF/views/pages/unsecure/access-denied.xhtml" />
 	</url-mapping>
 	
+	<url-mapping id="invalid-session">
+		<pattern value="/invalid-session" />
+		<view-id value="/WEB-INF/views/pages/unsecure/invalid-session.xhtml" />
+	</url-mapping>
+	
 	<url-mapping id="logout">
 		<pattern value="/logout" />
 		<view-id value="/WEB-INF/views/pages/unsecure/index.xhtml" />

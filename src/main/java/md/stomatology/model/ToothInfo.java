@@ -169,7 +169,7 @@ public class ToothInfo {
 		} else {
 			imageSrc.append("default");
 		}
-		imageSrc.append(".png");
+		imageSrc.append(".svg");
 		return imageSrc.toString();
 	}
 
@@ -221,7 +221,7 @@ public class ToothInfo {
 		}
 		
 		
-		imageSrc.append(".png");
+		imageSrc.append(".svg");
 		return imageSrc.toString();
 	}
 

@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/", "/logout", "/error", "/javax.faces.resource/**").permitAll()
+				.antMatchers("/", "/logout", "/error", "/invalid-session", "/javax.faces.resource/**").permitAll()
 
 				.antMatchers("/customer-list/**", "/edit-customer/**", "/view-customer/**", "/edit-visit/**", "/view-visit/**").hasRole("EMPLOYEE")
 				//.antMatchers("/edit-customer/**").hasRole("ADMIN")
@@ -72,7 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/login")
 				.loginProcessingUrl("/login-page-which-does-not-exist")
 				.failureUrl("/login?error").permitAll()
-				.successHandler(authenticationSuccessHandler())
+				//.successHandler(authenticationSuccessHandler())
+				.and()
+				.sessionManagement().invalidSessionUrl("/invalid-session")
+				//.and().rememberMe().rememberMeServices(rememberMeServices)
 				.and()
 				.logout().disable();
 	}

@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -35,6 +36,7 @@ public class LoginBean implements Serializable {
 	
 	private String userName = null; 
     private String password = null;
+    private boolean rememberMe = false;
     private String redirectUrl;
     private User user;
     
@@ -52,7 +54,7 @@ public class LoginBean implements Serializable {
 
     public String login() throws IOException {
         try {
-            Authentication request = new UsernamePasswordAuthenticationToken(this.getUserName(), this.getPassword());
+        	Authentication request = new UsernamePasswordAuthenticationToken(this.getUserName(), this.getPassword());
             Authentication result = authenticationManager.authenticate(request);
             user = (User) result.getPrincipal();
             SecurityContextHolder.getContext().setAuthentication(result);
@@ -116,6 +118,14 @@ public class LoginBean implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean getRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(boolean rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 
 }

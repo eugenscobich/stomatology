@@ -8,7 +8,7 @@ $(document).ready(function(){
 		
 		var src = image.src;
 		i = src.lastIndexOf('/');
-		var j = src.indexOf('.png.xhtml');
+		var j = src.indexOf('.svg.xhtml');
 		var srcBefore =  src.substring(0, i + 1);
 		var srcAfter =  src.substring(j, src.lenght);
 		var srcDistressedSurfaces =  src.substring(i+1, j);
