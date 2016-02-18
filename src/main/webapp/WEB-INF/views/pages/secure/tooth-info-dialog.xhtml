@@ -6,20 +6,24 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:sec="http://www.springframework.org/security/tags">
 	
-	<h:form id="toothInfoDialogForm">
+	<h:form id="toothInfoDialogForm" styleClass="tooth-info-dialog">
   		<p:dialog header="#{msg['tooth']} #{editVisitBean.toothInfo.index}" widgetVar="toothInfoDialog" modal="true" 
-   			height="400" width="700" styleClass="container-fluid" id="toothInfoDialog" dynamic="true">
-   			
-   			<f:facet name="header">
-                <span>tra la la </span>
-            </f:facet>  
+   			height="500" width="800" styleClass="container-fluid" id="toothInfoDialog" dynamic="true">
    			
 			<div class="form-horizontal">
+			
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-9">
+						<p:graphicImage value="#{resource['img:'.concat(editVisitBean.toothInfo.toothImageSrc)]}" style="width: 40px;"/>
+					</div>
+				</div>
+			
+			
 				<div class="form-group">
 					<p:outputLabel value="#{msg['diseases']}" styleClass="col-sm-3 control-label" />
 					<div class="col-sm-9">
 						
-						<p:autoComplete multiple="true" 
+						<p:autoComplete multiple="true" styleClass="inline autocomplete100" 
 							value="#{editVisitBean.diseases}" 
 							dropdown="true"  
 							var="disease"
@@ -41,7 +45,7 @@
 					<p:outputLabel value="#{msg['treatments']}" styleClass="col-sm-3 control-label" />
 					<div class="col-sm-9">
 						
-						<p:autoComplete multiple="true" 
+						<p:autoComplete multiple="true" styleClass="inline autocomplete100" 
 							value="#{editVisitBean.treatments}" 
 							dropdown="true"  
 							var="treatment"
@@ -65,8 +69,7 @@
 					<p:outputLabel value="#{msg['gum-pockets-depth']}" styleClass="col-sm-3 control-label" />
 					
 					
-					<div class="col-sm-1">#{msg['top']}:</div>
-					
+					<div class="col-sm-1"><h:outputLabel value="#{msg['top']}:" styleClass="control-label"/></div>
 					<div class="col-sm-1">
 						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthTop}" id="gumPocketsDepthTop">
 							<f:selectItem itemLabel="-" itemValue="" />
@@ -74,7 +77,7 @@
 				        </p:selectOneMenu>
 					</div>
 					
-					<div class="col-sm-1">#{msg['right']}:</div>
+					<div class="col-sm-1"><h:outputLabel value="#{msg['right']}:" styleClass="control-label"/></div>
 					<div class="col-sm-1">
 						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthRight}" id="gumPocketsDepthRight">
 							<f:selectItem itemLabel="-" itemValue="" />
@@ -82,7 +85,7 @@
 				        </p:selectOneMenu>
 					</div>
 					
-					<div class="col-sm-1">#{msg['bottom']}:</div>
+					<div class="col-sm-1"><h:outputLabel value="#{msg['bottom']}:" styleClass="control-label"/></div>
 					<div class="col-sm-1">
 						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthBottom}" id="gumPocketsDepthBottom">
 							<f:selectItem itemLabel="-" itemValue="" />
@@ -90,7 +93,7 @@
 				        </p:selectOneMenu>
 					</div>
 					
-					<div class="col-sm-1">#{msg['left']}:</div>
+					<div class="col-sm-1"><h:outputLabel value="#{msg['left']}:" styleClass="control-label"/></div>
 					<div class="col-sm-1">
 						<p:selectOneMenu value="#{editVisitBean.toothInfo.gumPocketsDepthLeft}" id="gumPocketsDepthLeft">
 							<f:selectItem itemLabel="-" itemValue="" />
@@ -106,9 +109,6 @@
 						<p:inputText id="distressedSurfaces" value="#{editVisitBean.toothInfo.distressedSurfaces}" styleClass="hidden distressed_surfaces_#{toothInfo.index}" />
 						<p:graphicImage value="#{resource['img:'.concat(editVisitBean.toothInfo.distressedSurfacesImageSrc)]}" 
 							styleClass="dialog-distressed-surfaces-image tooth_index_#{toothInfo.index}"/>
-						
-						<script src="#{resource['js:edit-visit-tooth-dialog.js']}" />
-						
 					</div>
 				</div>
 				
@@ -120,6 +120,7 @@
             </f:facet>  
 			
 		</p:dialog>
+		<script src="#{resource['js:tooth-info-dialog.js']}" />
 	</h:form>
 </ui:composition>
 

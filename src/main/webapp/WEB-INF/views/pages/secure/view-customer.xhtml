@@ -63,14 +63,26 @@
 	    	        <h:outputText value="#{msg['visits']}"/>
 		        </f:facet>
 				
-				<p:column headerText="#{msg['row-number-header']}" styleClass="">#{rowIndex + 1}</p:column>
+				<p:column headerText="#{msg['row-number-header']}" styleClass="index-column">#{rowIndex + 1}</p:column>
 				<p:column headerText="#{msg['date']}" >
 					<h:outputText value="#{visit.visitDate}" >
 						<f:convertDateTime pattern="dd.MM.yyyy" />
 					</h:outputText>
 				</p:column>
-				<p:column headerText="#{msg['todo-info']}">
-					<h:outputText value="todo" />
+				<p:column headerText="#{msg['manipulation-and-diagnoses']}">
+					<ui:repeat value="#{visit.toothInfos}" var="toothInfo">
+						<span class="label label-danger"><h:outputText value="#{toothInfo.index}:"/></span>
+						<ui:repeat value="#{toothInfo.diseases}" var="disease">
+							<span class="label label-warning"><h:outputText value="#{disease.name}"/></span>
+						</ui:repeat>
+						<ui:repeat value="#{toothInfo.treatments}" var="treatment">
+							<span class="label label-success">
+						    	<h:outputText value="#{treatment.name}"/>
+						    </span>
+						</ui:repeat>
+						<span class="label label-info"><h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/></span>
+						<br/>										   			
+					</ui:repeat>
 				</p:column>
 				<p:column headerText="#{msg['price']}" sortBy="#{visit.price}" filterBy="#{visit.price}" filterStyleClass="todo">
 					<h:outputText value="#{visit.price}" >

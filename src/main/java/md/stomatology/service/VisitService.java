@@ -2,9 +2,7 @@ package md.stomatology.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +16,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import md.stomatology.model.Authority;
 import md.stomatology.model.Customer;
 import md.stomatology.model.ToothInfo;
-import md.stomatology.model.Treatment;
 import md.stomatology.model.User;
 import md.stomatology.model.Visit;
 import md.stomatology.model.type.AuthorityType;
@@ -44,7 +40,7 @@ public class VisitService {
 		sort = sort == null ? createDateSort :	sort.and(createDateSort);
 		PageRequest pageRequest = new PageRequest(page, size, sort);
 		
-		SpecificationFilter<Visit> filterByCustomerId = new SpecificationFilter<>("customer", "=", customerId);
+		SpecificationFilter<Visit> filterByCustomerId = new SpecificationFilter<>("customer", "=", customerId, Visit.class, "toothInfos");
 		
 		if (specifications != null) {
 			specifications = specifications.and(filterByCustomerId);
@@ -55,24 +51,7 @@ public class VisitService {
 		return visitRepository.findAll(specifications, pageRequest);
 	}
 
-	
-	private ToothInfo getToothInfo(List<ToothInfo> toothInfos, int i, int j) {
-		ToothInfo savedToothInfo = null;
-		for (ToothInfo toothInfo : toothInfos) {
-			if (toothInfo.getToothQuadrant() == i && toothInfo.getToothIndex() == j) {
-				savedToothInfo = toothInfo;
-				break;
-			}
-		}
 
-		if (savedToothInfo == null) {
-			savedToothInfo = new ToothInfo();
-			savedToothInfo.setToothQuadrant(i);
-			savedToothInfo.setToothIndex(j);
-		}
-		return savedToothInfo;
-	}
-	
 	@Transactional(readOnly = true)
 	public Visit getVisitById(Long visitId) {
 		Visit visit = visitRepository.findOne(visitId);

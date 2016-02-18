@@ -154,27 +154,29 @@
 	
 				<div class="form-group">
 					<p:outputLabel value="#{msg['price']}" for="price" styleClass="col-sm-2 control-label"/>
-					<div class="col-sm-10">
-						<p:inputText id="price" value="#{editVisitBean.visit.price}" placeholder="0.00" styleClass="form-control"/>  
+					<div class="col-sm-2">
+						<p:inputText id="price" value="#{editVisitBean.visit.price}" placeholder="0.00" styleClass="form-control price-input"/>  
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<p:outputLabel value="#{msg['paid']}" for="paid" styleClass="col-sm-2 control-label"/>
-					<div class="col-sm-10">
-						<p:inputText id="paid" value="#{editVisitBean.visit.paid}" placeholder="0.00" styleClass="form-control"/>  
+					<div class="col-sm-1">
+						<p:commandButton icon="fa fa-arrow-right" styleClass="copy-price-to-paid-button" onclick="return false;"/>
 					</div>
+					<p:outputLabel value="#{msg['paid']}" for="paid" styleClass="col-sm-1 control-label"/>
+					<div class="col-sm-2">
+						<p:inputText id="paid" value="#{editVisitBean.visit.paid}" placeholder="0.00" styleClass="form-control paid-input"/>  
+					</div>
+					
 				</div>
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<p:commandButton styleClass="btn btn-default" action="#{editVisitBean.save}" value="#{msg['save']}"/>
+						<p:commandButton action="#{editVisitBean.save}" value="#{msg['save']}"/>
 					</div>
 				</div>
 			</h:panelGroup>
+			
 		</h:form>
-		
-		<ui:include src="/WEB-INF/views/pages/secure/edit-visit-tooth-dialog.xhtml"/>
+		<script src="#{resource['js:edit-visit.js']}" />
+		<ui:include src="/WEB-INF/views/pages/secure/tooth-info-dialog.xhtml"/>
 		
 	</ui:define>
 </ui:composition>

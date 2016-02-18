@@ -1,5 +1,8 @@
-$(document).ready(function(){
+$(document).ready(function() {
+	console.log("load");
 	var $distressedSurfacesImages = $('.dialog-distressed-surfaces-image');
+	
+	
 	
 	var setDistressedSurfaces = function(image, surfaceIndex) {
 		var imageClassName = image.className;
@@ -41,7 +44,8 @@ $(document).ready(function(){
 		image.src = srcBefore + itemsStr + srcAfter;
 	}
 	
-	$distressedSurfacesImages.click(function(event) {
+	$('.tooth-info-dialog').on('click', '.dialog-distressed-surfaces-image', function(event){
+		
 		var src = event.target.src;
 		var i = src.lastIndexOf('/');
 		var srcDistressedSurfacesNumber = src.substring(i - 1, i);

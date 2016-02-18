@@ -11,6 +11,8 @@
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>en</supported-locale>
+			<supported-locale>ro</supported-locale>
+			<supported-locale>ru</supported-locale>
 		</locale-config>
 		
 		<resource-bundle>
@@ -30,5 +32,9 @@
 		<phase-listener>md.stomatology.util.LogPhaseListener</phase-listener>
 		<phase-listener>com.ocpsoft.pretty.faces.event.MultiPageMessagesSupport</phase-listener>
 	</lifecycle>
+
+    <factory>
+        <exception-handler-factory>md.stomatology.util.ViewExpiredExceptionHandlerFactory</exception-handler-factory>
+    </factory>
 
 </faces-config>

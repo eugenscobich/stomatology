@@ -93,6 +93,11 @@
 .autocomplete100 .ui-autocomplete-dropdown {
 	display: table-cell;
     width: 36px;
+    top: 0;
+}
+
+.ui-autocomplete-panel {
+	width: auto !important;
 }
 
 .tooth-info-cell {
@@ -115,4 +120,30 @@
 .ui-widget-header {
 	border: none;
     background: transparent;
+}
+
+.ui-datatable .ui-datatable-footer {
+	text-align: right;
+}	
+
+.ui-datatable .ui-datatable-header {
+    text-align: left;
+    font-size: 1.4em;
+}
+
+.ui-datatable table {
+	table-layout: auto;
+}
+
+.ui-datatable th, .ui-datatable td {
+	width: auto;
+}
+
+.ui-datatable th.index-column, .ui-datatable td.index-column {
+	width: 1%;
+    white-space: nowrap;
+}
+
+.ui-dialog .ui-dialog-footer {
+	text-align:  right;
 }

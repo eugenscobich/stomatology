@@ -19,8 +19,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import md.stomatology.service.CustomUserDetailsService;
+import md.stomatology.service.PersistentTokenService;
 
 /**
  * @author Siva
@@ -30,12 +33,13 @@ import md.stomatology.service.CustomUserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	private DataSource dataSource;
 
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
+	@Autowired
+	private PersistentTokenRepository persistentTokenService;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder registry) throws Exception {
 		 registry.userDetailsService(customUserDetailsService);
@@ -75,8 +79,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				//.successHandler(authenticationSuccessHandler())
 				.and()
 				.sessionManagement().invalidSessionUrl("/invalid-session")
-				//.and().rememberMe().rememberMeServices(rememberMeServices)
+				.and().rememberMe().key("secret").rememberMeServices(persistentTokenBasedRememberMeServices())
 				.and()
 				.logout().disable();
+	}
+
+	
+	@Bean
+	public PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices(){
+		PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices = new PersistentTokenBasedRememberMeServices("secret", customUserDetailsService, persistentTokenService);
+		persistentTokenBasedRememberMeServices.setParameter("mainForm:rememberMe_input");
+		return persistentTokenBasedRememberMeServices;
 	}
 }

@@ -39,9 +39,9 @@ public class SessionTimeoutListener implements PhaseListener {
 			return;
 		}
 		
-		if (request.getRequestURL().toString().contains("invalid-session")) {
+		if (request.getRequestURL().toString().contains("spring-security-invalid-session")) {
 			try {
-				if (((rc != null && RequestContext.getCurrentInstance().isAjaxRequest())
+				if (((rc != null && rc.isAjaxRequest())
 						|| (fc != null && fc.getPartialViewContext().isPartialRequest()))
 						&& fc.getResponseWriter() == null && fc.getRenderKit() == null) {
 					
@@ -52,7 +52,7 @@ public class SessionTimeoutListener implements PhaseListener {
 					ResponseWriter responseWriter = renderKit.createResponseWriter(response.getWriter(), null, request.getCharacterEncoding());
 					fc.setResponseWriter(responseWriter);
 					//WebUtil.addErrorMessage("invalid-session");
-					ec.redirect(ec.getRequestContextPath() + "/invalid-session");
+					ec.redirect(ec.getRequestContextPath() + "/spring-security-invalid-session");
 				}
 
 			} catch (IOException e) {

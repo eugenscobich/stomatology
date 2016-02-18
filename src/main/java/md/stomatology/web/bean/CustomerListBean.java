@@ -107,13 +107,13 @@ public class CustomerListBean implements Serializable {
 			if (filters.size() > 0) {
 				filterIterator = filters.entrySet().iterator();
 				Entry<String, Object> entry = filterIterator.next();
-				specifications = Specifications.where(new SpecificationFilter<>(entry.getKey(), "like", entry.getValue()));
+				specifications = Specifications.where(new SpecificationFilter<>(entry.getKey(), "like", entry.getValue(), Customer.class));
 			}
 			
 			if (filterIterator != null) {
 				for (; filterIterator.hasNext();) {
 					Entry<String, Object> entry = filterIterator.next();
-					specifications = specifications.and(new SpecificationFilter<>(entry.getKey(), "like", entry.getValue()));
+					specifications = specifications.and(new SpecificationFilter<>(entry.getKey(), "like", entry.getValue(), Customer.class));
 				}
 			}
 			

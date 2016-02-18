@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" 
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" 
 	xmlns:p="http://primefaces.org/ui" xmlns:sec="http://www.springframework.org/security/tags"
-	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	lang="#{languageBean.localeCode}">
+<f:view locale="#{languageBean.locale}">	
 <h:head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,7 +21,7 @@
      		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
      		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
    	<![endif]-->
-   	
+   	<meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/invalid-session"/>
 </h:head>
 <h:body>
 	<h:form id="navigationForm">
@@ -110,4 +112,5 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="#{resource['bootstrap:js/bootstrap.js']}" />
 </h:body>
+</f:view>
 </html>

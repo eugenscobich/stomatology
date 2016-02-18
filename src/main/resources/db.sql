@@ -729,35 +729,35 @@ INSERT INTO customers_to_past_illnesses (customer_id, past_illnesse_id) VALUES
 
 
 INSERT INTO diseases (id, name, short_name, is_removed, implant_type) VALUES
-(1, 'Zdoroviy', 'N', false, null),
-(2, 'Kariyes', 'C', false, null),
-(3, 'Plomba s kariyesom', '\u041f/\u0421', false, null),
-(4, 'Poolpit', 'P', false, null),
-(5, 'Pyeriodontit', 'Pt', false, null),
-(6, 'Klinovidniy dyefyekt', '\u041a\u0414', false, null),
-(7, 'Fraktoora emali', '\u0424\u042d', false, null),
-(8, 'Krovotochivost', 'K', false, null),
-(9, 'Zoobnoy kamyen', '\u0417\u041a', false, null),
-(10, 'Parodontalniy karman', '\u041f\u0440\u041a', false, null),
-(11, 'Otsootstvooyet', 'O', true, null),
-(12, 'Implantant', '\u0418', false, 'IMPLANT'),
-(13, 'Fraktoora koronki', '\u0424\u041a', false, null),
-(14, 'Fraktoora zooba', '\u0424\u0417', false, null);
+(1, 'Здоровый', 'N', false, null),
+(2, 'Кариес', 'C', false, null),
+(3, 'Пломба с кариесом', '\u041f/\u0421', false, null),
+(4, 'Пульпит', 'P', false, null),
+(5, 'Периодонтит', 'Pt', false, null),
+(6, 'Клиновидный дефект', '\u041a\u0414', false, null),
+(7, 'Фрактура эмали', '\u0424\u042d', false, null),
+(8, 'Кровоточивость', 'K', false, null),
+(9, 'Зубной камень', '\u0417\u041a', false, null),
+(10, 'Пародонтальный карман', '\u041f\u0440\u041a', false, null),
+(11, 'Отсутствует', 'O', true, null),
+(12, 'Имплантант', '\u0418', false, 'IMPLANT'),
+(13, 'Фрактура коронки', '\u0424\u041a', false, null),
+(14, 'Фрактура зуба', '\u0424\u0417', false, null);
 
 INSERT INTO treatments (id, name, short_name, material_used, is_removed, implant_type) VALUES
-(1, 'Plombirovaniye', '\u041f', '\u0425\u0438\u043c\u0438\u0447\u0435\u0441\u043a\u043e\u0435', false, null),
-(2, 'Plombirovaniye', '\u041fC', '\u0441\u0442\u0435\u043a\u043b\u043e', false, null),
-(3, 'Plombirovaniye', '\u041f\u0424', '\u0444\u043e\u0442\u043e\u043f\u043e\u043b\u0438\u043c\u0435\u0440', false, null),
-(4, 'Plombirovaniye', '\u041f\u0410', '\u0410\u043c\u0430\u043b\u044c\u0433\u0430\u043c\u043d', false, null),
-(5, 'Oostanovka implantanta', '\u0418', '\u0422\u0438\u0442\u0430\u043d', false, 'IMPLANT'),
-(6, 'Oostanovka ankyera', '\u0410\u041c', '\u041c\u0435\u0442\u0430\u043b\u043b', false, 'IMPLANT_AND_ABUTMENT'),
-(7, 'Oostanovka ankyera', '\u0410\u0421', '\u0421\u0442\u0435\u043a\u043b\u043e\u0432\u043e\u043b\u043e\u043a\u043d\u043e', false, 'IMPLANT_AND_ABUTMENT'),
-(8, 'Oostanovka ankyera', '\u041a\u041c\u043a', '\u041c\u0435\u0442\u0430\u043b\u043b\u043e\u043a\u0435\u0440\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f', false, 'IMPLANT_AND_ABUTMENT_AND_UPPER_CROWN'),
-(9, 'Oostanovka ankyera', '\u041a\u041c\u043a', '\u041c\u0435\u0442\u0430\u043b\u043b\u043e\u043a\u0435\u0440\u0430\u043c\u0438\u0447\u0435\u0441\u043a\u0430\u044f', false, null),
-(10, 'Plombirovaniye kanala', '\u041a\u0424', '\u0424\u043e\u0440\u043e\u0434\u0435\u043d\u0442', false, null),
-(11, 'Plombirovaniye kanala', '\u041ah+', 'AHPlus', false, null),
-(12, 'Plombirovaniye kanala', '\u041a\u0412', '\u0412\u0438\u0442\u0430\u043f\u0435\u043a\u0441', false, null),
-(13, 'Oodalyenniye', '\u0423', null, true, null);
+(1, 'Пломбирование', '\u041f', 'Химическое', false, null),
+(2, 'Пломбирование', '\u041fC', 'Стекло', false, null),
+(3, 'Пломбирование', '\u041f\u0424', 'Фотополимер', false, null),
+(4, 'Пломбирование', '\u041f\u0410', 'Амальгамн', false, null),
+(5, 'Установка имплантанта', '\u0418', 'Титан', false, 'IMPLANT'),
+(6, 'Установка анкера', '\u0410\u041c', 'Металл', false, 'IMPLANT_AND_ABUTMENT'),
+(7, 'Установка анкера', '\u0410\u0421', 'Стекловолокно', false, 'IMPLANT_AND_ABUTMENT'),
+(8, 'Установка анкера', '\u041a\u041c\u043a', 'Металлокерамическая', false, 'IMPLANT_AND_ABUTMENT_AND_UPPER_CROWN'),
+(9, 'Установка анкера', '\u041a\u041c\u043a', 'Металлокерамическая', false, null),
+(10, 'Пломбирование канала', '\u041a\u0424', 'Фородент', false, null),
+(11, 'Пломбирование канала', '\u041ah+', 'AHPlus', false, null),
+(12, 'Пломбирование канала', '\u041a\u0412', 'Витапекс', false, null),
+(13, 'Удаление', '\u0423', null, true, null);
 
 
 INSERT INTO tooth_infos (id, tooth_quadrant, tooth_index, notes, distressed_surfaces, gum_pockets_depth_top, gum_pockets_depth_right, gum_pockets_depth_bottom, gum_pockets_depth_left, visit_id) VALUES
