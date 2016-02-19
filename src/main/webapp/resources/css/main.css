@@ -147,3 +147,10 @@
 .ui-dialog .ui-dialog-footer {
 	text-align:  right;
 }
+.ignore-ui-state-disabled.ui-state-disabled {
+	opacity: 1;
+}
+
+.tooth-image {
+	width: 64px;
+}

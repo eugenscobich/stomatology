@@ -2,10 +2,13 @@ package md.stomatology.repository.specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.data.jpa.domain.Specification;
 
 import md.stomatology.model.Customer;
@@ -34,8 +37,9 @@ public class SpecificationFilter<T> implements Specification<T> {
 					root.fetch(attribute, JoinType.LEFT);
 				}
 			}
+			criteriaQuery.distinct(true);
 		}
-		//criteriaQuery.distinct(true);
+		
 		
 		if (operation.equalsIgnoreCase(">")) {
 			return criteriaBuilder.greaterThanOrEqualTo(root.<String> get(key), value.toString());
@@ -49,7 +53,8 @@ public class SpecificationFilter<T> implements Specification<T> {
 			}
 		} else if (operation.equalsIgnoreCase("=")) {
 			return criteriaBuilder.equal(root.get(key), value);
-		}
+		} 
+		
 		return null;
 	}
 

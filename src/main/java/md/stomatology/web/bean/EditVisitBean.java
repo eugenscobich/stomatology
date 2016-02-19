@@ -3,7 +3,9 @@ package md.stomatology.web.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -45,21 +47,21 @@ public class EditVisitBean implements Serializable {
 
 	@ManagedProperty(value = "#{visitService}")
 	private transient VisitService visitService;
-	
+
 	@ManagedProperty(value = "#{viewCustomerBean}")
 	private transient ViewCustomerBean viewCustomerBean;
 
 	@ManagedProperty(value = "#{userService}")
 	private transient UserService userService;
-	
+
 	@ManagedProperty("#{diseaseService}")
 	private transient DiseaseService diseaseService;
-	
+
 	@ManagedProperty("#{treatmentService}")
 	private transient TreatmentService treatmentService;
-	
+
 	private Long customerId;
-	
+
 	private Long visitId;
 
 	private Visit visit;
@@ -67,7 +69,7 @@ public class EditVisitBean implements Serializable {
 	private ToothInfo toothInfo;
 	private List<Disease> diseases;
 	private List<Treatment> treatments;
-	
+
 	@URLAction(onPostback = false)
 	public String loadVisit() {
 		LOG.info("loadVisit");
@@ -77,7 +79,8 @@ public class EditVisitBean implements Serializable {
 				try {
 					visit = visitService.getVisitById(visitId);
 				} catch (Exception e) {
-					WebUtil.addErrorMessage("could-not-load-visit-details", "error", new String[] {e.getCause() + ": " + e.getMessage()});
+					WebUtil.addErrorMessage("could-not-load-visit-details", "error",
+							new String[] { e.getCause() + ": " + e.getMessage() });
 					viewCustomerBean.setCustomerId(customerId);
 					return "pretty:view-customer";
 				}
@@ -97,23 +100,26 @@ public class EditVisitBean implements Serializable {
 			visitService.saveVisit(visit);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
-			WebUtil.addErrorMessage("could-not-save-visit", "error", new String[]{ e.getMessage() });
+			WebUtil.addErrorMessage("could-not-save-visit", "error", new String[] { e.getMessage() });
 			return "";
 		}
 		WebUtil.addSuccessMessage("visit-has-saved-successfully");
 		viewCustomerBean.setCustomerId(customerId);
 		return "pretty:view-customer";
 	}
-	
-	
+
 	public void changeToothInfo() {
 		if (toothInfo.getId() == null) {
-			toothInfo.setId(0l);	
+			toothInfo.setId(0l);
 		}
-		toothInfo.setDiseases(diseases);
-		toothInfo.setTreatments(treatments);
+		if (diseases != null) {
+			toothInfo.setDiseases(new HashSet<>(diseases));
+		}
+		if (treatments != null) {
+			toothInfo.setTreatments(new HashSet<>(treatments));
+		}
 	}
-	
+
 	public List<User> completeDentists(String query) {
 		List<User> users = userService.getDentists(query, visit.getDentist());
 		return users;
@@ -123,7 +129,7 @@ public class EditVisitBean implements Serializable {
 		User dentist = (User) event.getObject();
 		visit.setDentist(dentist);
 	}
-	
+
 	public List<Disease> completeDisease(String query) {
 		return diseaseService.getDiseases(query, diseases);
 	}
@@ -151,8 +157,7 @@ public class EditVisitBean implements Serializable {
 		Treatment treatment = (Treatment) event.getObject();
 		treatments.remove(treatment);
 	}
-	
-	
+
 	public VisitService getVisitService() {
 		return visitService;
 	}
@@ -216,10 +221,10 @@ public class EditVisitBean implements Serializable {
 	public void setTreatmentService(TreatmentService treatmentService) {
 		this.treatmentService = treatmentService;
 	}
-	
+
 	public int[] getGumPocketDepthList() {
 		int[] values = new int[10];
-		for(int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			values[i] = i;
 		}
 		return values;
@@ -261,4 +266,9 @@ public class EditVisitBean implements Serializable {
 	public void setTreatments(List<Treatment> treatments) {
 		this.treatments = treatments;
 	}
+
+	public void setToothInfo(ToothInfo toothInfo) {
+		this.toothInfo = toothInfo;
+	}
+
 }

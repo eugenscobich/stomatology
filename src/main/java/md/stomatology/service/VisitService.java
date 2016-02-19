@@ -1,10 +1,15 @@
 package md.stomatology.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,7 +70,12 @@ public class VisitService {
 		ToothInfo[][] toothInfosToShow = new ToothInfo[4][8];
 		if (toothInfos != null) {
 			for (ToothInfo toothInfo : toothInfos) {
-				toothInfosToShow[toothInfo.getToothQuadrant() - 1][toothInfo.getToothIndex() - 1] = toothInfo;
+				ToothInfo alredyExist = toothInfosToShow[toothInfo.getToothQuadrant() - 1][toothInfo.getToothIndex() - 1];
+				if (alredyExist == null) {
+					toothInfosToShow[toothInfo.getToothQuadrant() - 1][toothInfo.getToothIndex() - 1] = toothInfo;
+				} else {
+					aggregateToothInfo(alredyExist, toothInfo);
+				}
 			}
 		}
 		
@@ -101,6 +111,33 @@ public class VisitService {
 		
 		visit.setBottomToothInfos(bottomToothInfos);
 		
+	}
+
+
+	private void aggregateToothInfo(ToothInfo alredyExist, ToothInfo current) {
+		if (alredyExist.getDiseases() == null && current.getDiseases() != null) {
+			alredyExist.setDiseases(current.getDiseases());
+		} else if (alredyExist.getDiseases() != null && current.getDiseases() != null) {
+			alredyExist.getDiseases().addAll(current.getDiseases());
+		}
+		
+		if (alredyExist.getTreatments() == null && current.getTreatments() != null) {
+			alredyExist.setTreatments(current.getTreatments());
+		} else if (alredyExist.getTreatments() != null && current.getTreatments() != null) {
+			alredyExist.getTreatments().addAll(current.getTreatments());
+		}
+		
+		String alredyExistDistressedSurfaces = alredyExist.getDistressedSurfaces();
+		String currentDistressedSurfaces = current.getDistressedSurfaces();
+		if (StringUtils.isNotBlank(alredyExistDistressedSurfaces) && StringUtils.isNotBlank(currentDistressedSurfaces)) {
+			String[] alredyExistDistressedSurfacesSplited = alredyExistDistressedSurfaces.split("_");
+			Set<String> alredyExistDistressedSurfacesSet = new TreeSet<>(Arrays.asList(alredyExistDistressedSurfacesSplited));
+			String[] currentDistressedSurfacesSplited = currentDistressedSurfaces.split("_");
+			alredyExistDistressedSurfacesSet.addAll(Arrays.asList(currentDistressedSurfacesSplited));
+			alredyExist.setDistressedSurfaces(StringUtils.join(alredyExistDistressedSurfacesSet, "_"));
+		} else if (StringUtils.isNotBlank(currentDistressedSurfaces)) {
+			alredyExist.setDistressedSurfaces(currentDistressedSurfaces);
+		}
 	}
 
 
@@ -146,6 +183,25 @@ public class VisitService {
 	@Transactional
 	public void removeVisit(Visit visit) {
 		visitRepository.delete(visit);
+	}
+
+	@Transactional(readOnly = true)
+	public Visit getAggregatedVisit(Long customerId) {
+		List<Visit> visits = getVisitsByCustomerd(customerId);
+		Visit returnVisit = new Visit();
+		returnVisit.setToothInfos(new ArrayList<>());
+		for (Visit visit : visits) {
+			returnVisit.getToothInfos().addAll(visit.getToothInfos());
+		}
+		initVisit(returnVisit);
+		return returnVisit;
+	}
+
+	@Transactional(readOnly = true)
+	public List<Visit> getVisitsByCustomerd(Long customerId) {
+		SpecificationFilter<Visit> filterByCustomerId = new SpecificationFilter<>("customer", "=", customerId, Visit.class, "toothInfos");
+		Sort createDateSort = new Sort(Direction.DESC, "updateDate");
+		return visitRepository.findAll(Specifications.where(filterByCustomerId), createDateSort);
 	}
 	
 }

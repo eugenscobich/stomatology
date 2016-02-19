@@ -58,7 +58,11 @@ public class ViewCustomerBean implements Serializable {
 
 	private Customer customer;
 
-	private LazyDataModel<Visit> visits;
+	//private LazyDataModel<Visit> visits;
+	
+	private List<Visit> visits;
+	
+	private Visit aggregatedVisit;
 	
 	@URLAction(onPostback = false)
 	public String loadCustomer() {
@@ -66,7 +70,9 @@ public class ViewCustomerBean implements Serializable {
 		if (customerId != null) {
 			try {
 				customer = customerService.getCustomerById(customerId);
-				visits = new LazyVisitDataModel();
+				visits = visitService.getVisitsByCustomerd(customerId);
+				//visits = new LazyVisitDataModel();
+				aggregatedVisit = visitService.getAggregatedVisit(customerId);
 			} catch (Exception e) {
 				WebUtil.addErrorMessage("could-not-load-customer-details", "error", e.getMessage());
 				return "pretty:customer-list";
@@ -122,12 +128,30 @@ public class ViewCustomerBean implements Serializable {
 		this.visitService = visitService;
 	}
 
-
+/*
 	public LazyDataModel<Visit> getVisits() {
 		return visits;
 	}
 
 	public void setVisits(LazyDataModel<Visit> visits) {
+		this.visits = visits;
+	}
+*/
+
+	public Visit getAggregatedVisit() {
+		return aggregatedVisit;
+	}
+
+	public void setAggregatedVisit(Visit aggregatedVisit) {
+		this.aggregatedVisit = aggregatedVisit;
+	}
+
+
+	public List<Visit> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
 

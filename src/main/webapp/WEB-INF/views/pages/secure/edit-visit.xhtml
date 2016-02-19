@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:ui="http://java.sun.com/jsf/facelets" 
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:com="http://java.sun.com/jsf/composite/components">
 
 <ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
 	
@@ -47,104 +48,12 @@
 				</div>
 				
 				
-				<h:panelGroup layout="block" styleClass="form-group" id="toothList">
-					<p:outputLabel value="#{msg['dentition']}" styleClass="col-sm-12 control-label" />
+				<div class="form-group">
+					<p:outputLabel value="#{msg['teeth-formula']}" styleClass="col-sm-12 control-label" />
 					<div class="col-sm-12">
-						<table class="dentition">
-							<tbody>
-								<tr class="tooth">
-									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-										<td class="tooth-info-cell">
-											<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo.index)}" update=":toothInfoDialogForm:toothInfoDialog" 
-												oncomplete="PF('toothInfoDialog').show();" immediate="true">
-										
-										   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
-										   			id="tooth_info_top"/>
-										   		<span class="tooth-info-top-index-number">#{toothInfo.index}</span>
-										   		<p:tooltip for="tooth_info_top" >
-										   			<dl class="dl-horizontal">
-										   				<dt>#{msg['tooth-index']}:</dt>
-														<dd><h:outputText value="#{toothInfo.index}"/></dd>
-														<dt>#{msg['diseases']}:</dt>
-														<dd>
-															<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-															      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-															</ui:repeat>
-														</dd>
-														<dt>#{msg['treatments']}:</dt>
-														<dd>
-															<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-															      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-															</ui:repeat>
-														</dd>
-														<dt>#{msg['gum-pockets-depth']}:</dt>
-														<dd>
-															<h:outputText value="#{toothInfo.gumPocketsDepthTop}, #{toothInfo.gumPocketsDepthRight}, #{toothInfo.gumPocketsDepthBottom}, #{toothInfo.gumPocketsDepthLeft}"/>
-														</dd>
-										   			</dl>
-										   		</p:tooltip>
-									   		</p:commandLink>
-									   		
-									   	</td>
-									</ui:repeat>
-								</tr>
-								
-								<tr class="tooth_distressed_surfaces">
-									<ui:repeat value="#{editVisitBean.visit.topToothInfos}" var="toothInfo">
-										<td>
-											<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
-									   	</td>
-									</ui:repeat>
-								</tr>
-								<tr class="tooth_distressed_surfaces">
-									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-										<td>
-									   		<p:graphicImage value="#{resource['img:'.concat(toothInfo.distressedSurfacesImageSrc)]}" style="width: 100%;"/>
-									   	</td>
-									</ui:repeat>
-								</tr>
-								
-								<tr class="tooth">
-									<ui:repeat value="#{editVisitBean.visit.bottomToothInfos}" var="toothInfo">
-										<td class="tooth-info-cell">
-											<p:commandLink actionListener="#{editVisitBean.setToothInfo(toothInfo.index)}"  update=":toothInfoDialogForm:toothInfoDialog" 
-													oncomplete="PF('toothInfoDialog').show();" immediate="true">
-												<p:graphicImage value="#{resource['img:'.concat(toothInfo.toothImageSrc)]}" style="width: 100%;" 
-										   			id="tooth_info_bottom"/>
-												<span class="tooth-info-bottom-index-number ">#{toothInfo.index}</span>
-										   		<p:tooltip for="tooth_info_bottom">
-										   			<dl class="dl-horizontal">
-										   				<dt>#{msg['tooth-index']}:</dt>
-														<dd><h:outputText value="#{toothInfo.index}"/></dd>
-														<dt>#{msg['diseases']}:</dt>
-														<dd>
-															<ui:repeat value="#{toothInfo.diseases}" var="disease" varStatus="status">
-															      <h:outputText value="#{disease.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-															</ui:repeat>
-														</dd>
-														<dt>#{msg['treatments']}:</dt>
-														<dd>
-															<ui:repeat value="#{toothInfo.treatments}" var="treatment" varStatus="status">
-															      <h:outputText value="#{treatment.name}"/><h:outputText value=", " rendered="#{!status.last}"/>
-															</ui:repeat>
-														</dd>
-										   			</dl>
-										   		</p:tooltip>
-									   		</p:commandLink>
-									   		
-									   	</td>
-									</ui:repeat>
-								</tr>
-							</tbody>
-						
-						</table>
-						
-						
-						
+						<com:teethFormula visit="#{editVisitBean.visit}" editVisitBean="#{editVisitBean}" id="teethFormula"/>
 					</div>
-				</h:panelGroup>
-				
-				
+				</div>
 				<div class="form-group">
 					<p:outputLabel value="#{msg['additional-info']}" for="additional-info" styleClass="col-sm-2 control-label"/>
 					<div class="col-sm-10">

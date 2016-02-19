@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:ui="http://java.sun.com/jsf/facelets" 
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:com="http://java.sun.com/jsf/composite/components">
 
 <ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
 	
@@ -55,27 +56,28 @@
 				
 			</dl>
 	
+			<com:teethFormula visit="#{viewCustomerBean.aggregatedVisit}"/>
 	
 			<p:dataTable id="visits" var="visit" value="#{viewCustomerBean.visits}" 
-						 rows="15" paginator="true" paginatorPosition="bottom" lazy="true" rowIndexVar="rowIndex">
+						 rows="15" paginator="true" paginatorPosition="bottom" rowIndexVar="rowIndex">
 				
 				<f:facet name="header">
 	    	        <h:outputText value="#{msg['visits']}"/>
 		        </f:facet>
 				
 				<p:column headerText="#{msg['row-number-header']}" styleClass="index-column">#{rowIndex + 1}</p:column>
-				<p:column headerText="#{msg['date']}" >
+				<p:column headerText="#{msg['date']}" sortBy="#{visit.visitDate}" >
 					<h:outputText value="#{visit.visitDate}" >
-						<f:convertDateTime pattern="dd.MM.yyyy" />
+						<f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="#{msg['manipulation-and-diagnoses']}">
 					<ui:repeat value="#{visit.toothInfos}" var="toothInfo">
 						<span class="label label-danger"><h:outputText value="#{toothInfo.index}:"/></span>
-						<ui:repeat value="#{toothInfo.diseases}" var="disease">
+						<ui:repeat value="#{toothInfo.diseases.toArray()}" var="disease">
 							<span class="label label-warning"><h:outputText value="#{disease.name}"/></span>
 						</ui:repeat>
-						<ui:repeat value="#{toothInfo.treatments}" var="treatment">
+						<ui:repeat value="#{toothInfo.treatments.toArray()}" var="treatment">
 							<span class="label label-success">
 						    	<h:outputText value="#{treatment.name}"/>
 						    </span>

@@ -1,6 +1,7 @@
 package md.stomatology.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,13 +39,13 @@ public class ToothInfo {
 	@JoinTable(name="tooth_infos_to_diseases",
 		      joinColumns={@JoinColumn(name="tooth_info_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="disease_id", referencedColumnName="id")})
-	private List<Disease> diseases;
+	private Set<Disease> diseases;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="tooth_infos_to_treatments",
 		      joinColumns={@JoinColumn(name="tooth_info_id", referencedColumnName="id")},
 		      inverseJoinColumns={@JoinColumn(name="treatment_id", referencedColumnName="id")})
-	private List<Treatment> treatments;
+	private Set<Treatment> treatments;
 	
 	@Column(name = "notes")
 	private String notes;
@@ -80,11 +81,11 @@ public class ToothInfo {
 		this.toothIndex = toothIndex;
 	}
 
-	public List<Disease> getDiseases() {
+	public Set<Disease> getDiseases() {
 		return diseases;
 	}
 
-	public void setDiseases(List<Disease> diseases) {
+	public void setDiseases(Set<Disease> diseases) {
 		this.diseases = diseases;
 	}
 
@@ -112,11 +113,11 @@ public class ToothInfo {
 		this.distressedSurfaces = distressedSurfaces;
 	}
 
-	public List<Treatment> getTreatments() {
+	public Set<Treatment> getTreatments() {
 		return treatments;
 	}
 
-	public void setTreatments(List<Treatment> treatments) {
+	public void setTreatments(Set<Treatment> treatments) {
 		this.treatments = treatments;
 	} 
 	

@@ -115,8 +115,8 @@
 			</div>
 			
 			<f:facet name="footer">
-                <p:commandButton value="#{msg['ok']}" update=":mainForm:toothList" action="#{editVisitBean.changeToothInfo}" oncomplete="PF('toothInfoDialog').hide();"/>
-                <p:commandButton value="#{msg['cancel']}" update=":mainForm:toothList" oncomplete="PF('toothInfoDialog').hide();" immediate="true" process="@this"/>
+                <p:commandButton value="#{msg['ok']}" update=":mainForm:teethFormula" action="#{editVisitBean.changeToothInfo}" oncomplete="PF('toothInfoDialog').hide();"/>
+                <p:commandButton value="#{msg['cancel']}" update=":mainForm:teethFormula" oncomplete="PF('toothInfoDialog').hide();" immediate="true" process="@this"/>
             </f:facet>  
 			
 		</p:dialog>

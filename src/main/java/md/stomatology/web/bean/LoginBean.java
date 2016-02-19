@@ -100,6 +100,7 @@ public class LoginBean implements Serializable {
 
     public String logout() {
     	user = null;
+    	rememberMeServices.loginFail(WebUtil.getHttpServletRequest(), WebUtil.getHttpServletResponse());
         SecurityContextHolder.clearContext();
         return "pretty:index";
     }
