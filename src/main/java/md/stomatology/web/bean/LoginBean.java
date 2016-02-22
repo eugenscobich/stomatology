@@ -56,6 +56,7 @@ public class LoginBean implements Serializable {
     	 if (savedRequest != null) {
     		 redirectUrl = savedRequest.getRedirectUrl();
     	 }
+    	 user = WebUtil.getCurrentUser();
     }
 
     public String login() throws IOException {

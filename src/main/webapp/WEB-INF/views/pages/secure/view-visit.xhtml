@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:com="http://java.sun.com/jsf/composite/components">
+
+<ui:composition template="/WEB-INF/views/templates/main-template.xhtml">
+	
+	<ui:param name="pageTitle" value="#{msg['view-visit']}" />
+	<ui:define name="content">
+		<h:form id="mainForm">
+			<dl class="dl-horizontal">
+				<dt><h:outputText value="#{msg['patient']}:"/></dt>
+				<dd><h:outputText value="#{viewVisitBean.visit.customer.surname} #{viewVisitBean.visit.customer.name}" /></dd>
+	
+				<dt><h:outputText value="#{msg['dentist']}:"/> #{msg['dentist']}:</dt>
+				<dd><h:outputText value="#{viewVisitBean.visit.dentist.surname} #{viewVisitBean.visit.dentist.name}" /></dd>
+	
+				<dt><h:outputText value="#{msg['visit-date']}:"/></dt>
+				<dd><h:outputText value="#{viewVisitBean.visit.visitDate}" >
+				    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+				</h:outputText></dd>
+	
+				<dt><h:outputText value="#{msg['additional-info']}:"/></dt>
+				<dd><h:outputText value="#{viewVisitBean.visit.additionalInfo}" /></dd>
+	
+				<dt><h:outputText value="#{msg['price']}:"/></dt>
+				<dd><h:outputText value="#{viewVisitBean.visit.price}"><f:convertNumber pattern="#0.00" /></h:outputText></dd>
+				
+				<dt><h:outputText value="#{msg['paid']}:"/></dt>
+				<dd><h:outputText value="#{viewVisitBean.visit.paid}"><f:convertNumber pattern="#0.00" /></h:outputText></dd>
+				
+				<dt></dt>
+				<dd>
+					<p:commandButton title="#{msg['edit']}" icon="fa fa-edit" immediate="true" ajax="false" action="pretty:edit-visit">
+						<f:setPropertyActionListener target="#{editVisitBean.customerId}" value="#{viewVisitBean.visit.customer.id}"/>
+	    	        	<f:setPropertyActionListener target="#{editVisitBean.visitId}" value="#{viewVisitBean.visit.id}"/>
+					</p:commandButton>
+				</dd>
+			</dl>
+			<com:teethFormula visit="#{editVisitBean.visit}" editVisitBean="#{editVisitBean}" id="teethFormula"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
+
